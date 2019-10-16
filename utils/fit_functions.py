@@ -15,23 +15,23 @@ def _import(wsp, obj):
 
 def singleG(mean, sigma_, tagged_mass, w, fn):
 
-#     mean         = RooRealVar ("mass_%s"%fn    , "massSG"         ,   mean_    ,     5,    6, "GeV")
-    sigma        = RooRealVar ("#sigma_%s"%fn  , "sigmaSG"        ,  sigma_    ,     0,    1, "GeV")
+#     mean         = RooRealVar ("mass^{%s}"%fn    , "massSG"         ,   mean_    ,     5,    6, "GeV")
+    sigma        = RooRealVar ("#sigma^{%s}"%fn  , "sigmaSG"        ,  sigma_    ,     0,    1, "GeV")
     singlegaus   = RooGaussian("gaus_%s"%fn    , "singlegaus"     , tagged_mass,  mean, sigma)
     _import(w,singlegaus)
 
 
 def doubleG(mean_, sigma1_, sigma2_, f1_, tagged_mass, w, fn):
 
-    mean         = RooRealVar ("mass_%s"%fn          , "massDG"         ,  mean_      ,      5,    6, "GeV")
-    sigma1       = RooRealVar ("#sigma1_%s"%fn       , "sigmaDG1"       ,  sigma1_    ,      0,    1, "GeV")
-    signalGauss1 = RooGaussian("dg_firstGauss_%s"%fn , "firstGauss"     ,  tagged_mass,   mean, sigma1)
+    mean         = RooRealVar ("mean^{%s}"%fn          , "massDG"         ,  mean_      ,      5,    6, "GeV")
+    sigma1       = RooRealVar ("#sigma_{1}^{%s}"%fn    , "sigmaDG1"       ,  sigma1_    ,      0,    1, "GeV")
+    signalGauss1 = RooGaussian("dg_firstGauss_%s"%fn   , "firstGauss"     ,  tagged_mass,   mean, sigma1)
 
-    sigma2       = RooRealVar ("#sigma2_%s"%fn       , "sigmaDG2"       ,  sigma2_    ,      0,   0.12, "GeV")
-    signalGauss2 = RooGaussian("dg_secondGauss_%s"%fn, "secondGauss"    ,  tagged_mass,   mean, sigma2)
+    sigma2       = RooRealVar ("#sigma_{2}^{%s}"%fn    , "sigmaDG2"       ,  sigma2_    ,      0,   0.12, "GeV")
+    signalGauss2 = RooGaussian("dg_secondGauss_%s"%fn  , "secondGauss"    ,  tagged_mass,   mean, sigma2)
 
-    f1           = RooRealVar ("f1_%s"%fn            , "f1"             ,  f1_        ,     0.,    1. )
-    doublegaus   = RooAddPdf  ("doublegaus_%s"%fn    , "gaus1+gaus2"    ,  RooArgList(signalGauss1,signalGauss2), RooArgList(f1))
+    f1           = RooRealVar ("f^{%s}"%fn             , "f1"             ,  f1_        ,     0.,    1. )
+    doublegaus   = RooAddPdf  ("doublegaus_%s"%fn      , "gaus1+gaus2"    ,  RooArgList(signalGauss1,signalGauss2), RooArgList(f1))
     _import(w,doublegaus)
 
 
@@ -44,25 +44,25 @@ def tripleG(doublegaus, mean, sigma3_, f2_, tagged_mass, w):
     _import(w,triplegaus)
 
 
-def crystalBall(mean, sigma_, alpha_, n_, tagged_mass, w, fn, rangeAlpha):
+def crystalBall(mean, sigma_, alpha_, n_, tagged_mass, w, fn, bin, rangeAlpha):
 
-    sigmaCB      = RooRealVar ("#sigmaCB_%s"%fn   , "sigmaCB_%s"%fn        ,  sigma_  ,     0,   1  )
-    alpha        = RooRealVar ("#alpha_%s"%fn     , "alpha_%s"%fn          ,  alpha_  ,    rangeAlpha[0],  rangeAlpha[1] ) # was 0 - 5
-    n            = RooRealVar ("n_%s"%fn          , "n_%s"%fn              ,  n_      ,      0,   15	 )
-    cbshape      = RooCBShape ("cbshape_%s"%fn    , "cbshape_%s"%fn        ,  tagged_mass, mean, sigmaCB, alpha, n)
+    sigmaCB      = RooRealVar ("#sigma_{CB%s}^{%s}"%(fn, bin) , "sigmaCB_%s"%fn        ,  sigma_  ,     0,   1  )
+    alpha        = RooRealVar ("#alpha_{%s}^{%s}"%(fn, bin)   , "#alpha_{%s}^{%s}"%(fn, bin) ,  alpha_  ,    rangeAlpha[0],  rangeAlpha[1] ) # was 0 - 5
+    n            = RooRealVar ("n_{%s}^{%s}"%(fn, bin)        , "n_%s"%fn              ,  n_      ,      0,   15	 )
+    cbshape      = RooCBShape ("cbshape_%s_%s"%(fn,bin)       , "cbshape_%s_%s"%(fn, bin)        ,  tagged_mass, mean, sigmaCB, alpha, n)
     _import(w,cbshape)
 
 
 def doubleCB(cbshape1, cbshape2, f3_, tagged_mass, w, fn):
 
-    f3           = RooRealVar ("f3_%s"%fn      , "f3"      ,  f3_  ,     0.,   1.)
+    f3           = RooRealVar ("f^{WT%s}"%fn      , "f3"      ,  f3_  ,     0.,   1.)
     doublecb     = RooAddPdf  ("doublecb_%s"%fn, "doublecb"  ,  RooArgList(cbshape1,cbshape2), RooArgList(f3))
     _import(w,doublecb)
 
 
 def gausCB(cbshape, gaus, f3_, tagged_mass, w, fn):
 
-    f3           = RooRealVar ("f3_%s"%fn      , "f3"      ,  f3_  ,     0.,   1.)
+    f3           = RooRealVar ("f^{WT%s}"%fn   , "f3"      ,  f3_  ,     0.,   1.)
     gauscb       = RooAddPdf  ("gauscb_%s"%fn  , "gauscb"  ,  RooArgList(gaus,cbshape), RooArgList(f3))
     _import(w,gauscb)
 
@@ -126,13 +126,17 @@ def calculateTotSigma(sigma_vec, f_vec):
 
 
 
-def drawPdfComponents(fitFunction, frame, base_color, normrange, range):
+def drawPdfComponents(fitFunction, frame, base_color, normrange, range, isData = False):
 
     pdf_components = fitFunction.getComponents()
     iter = pdf_components.createIterator()
     var = iter.Next();  color = 0
+    list_to_plot = ['fitfunction', 'c_signalFunction', 'c_RTgauss', 'c_WTgauss', 'bkg_exp']
     while var :
         ### https://root-forum.cern.ch/t/roofit-normalization/23644/5
+        if isData and var.GetName() not in list_to_plot:  
+            var = iter.Next()
+            continue
         fitFunction.plotOn(frame, RooFit.Components(var.GetName()), RooFit.LineStyle(ROOT.kDashed), RooFit.LineColor(base_color+color), normrange, range)
         var = iter.Next()
         color += 1
