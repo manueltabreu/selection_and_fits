@@ -3,14 +3,12 @@ parser = argparse.ArgumentParser(description="")
 # parser.add_argument("inputfile" , help = "Path to the input ROOT file")
 parser.add_argument("dimusel"   , help = "Define if keep or remove dimuon resonances. You can choose: keepPsiP, keepJpsi, rejectPsi, keepPsi")
 parser.add_argument("year"      , help = "choose among:2016,2017,2018", default = '2018')
-parser.add_argument("-d", "--doubleg"  , dest = "doubleg", help = "Define if use 1 or 2 gaussian for the signal model", default = '0')
 args = parser.parse_args()
 
 
 '''
 code to fit the B0 mass distribution:
 - unbinned fit
-- properly take into account the CP state assignment when plotting the mass variable
 - possibility to apply cuts on the dimuon mass [B0&Psi cut in RunI analysis] (e.g. to exclude the Jpsi mass region, or the psi) via the parameter dimusel
 '''
 
@@ -66,7 +64,6 @@ def _constrainVar(var):
     return gauss_constr                        
 
 
-sys.path.append( path.dirname( path.dirname( path.abspath('../utils/utils.py') ) ) )
 from utils.utils import *
 from utils.fit_functions import *
 
