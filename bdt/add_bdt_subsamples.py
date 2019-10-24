@@ -1,3 +1,9 @@
+import argparse
+parser = argparse.ArgumentParser(description="")
+parser.add_argument("year"      , help = "choose among:2016,2017,2018", default = '2018')
+args = parser.parse_args()
+year = args.year
+
 import os, sys
 import numpy as np
 
@@ -14,24 +20,30 @@ from sklearn.externals import joblib
 import ROOT
 import root_pandas
 
+# if year == '2016':
+#     folder = '/gwpool/users/fiorendi/p5prime/CMSSW_8_0_24/src/B0KstarMM/B0KstMuMu/bdt/feb5_ntuples_fixPUW/'
+# if year == '2017':
+#     folder = '/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_9_4_0_patch1/src/miniB0KstarMuMu/miniKstarMuMu/bdt/'
+# if year == '2018':
+#     folder = '/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_10_2_14/src/miniB0KstarMuMu/miniKstarMuMu/bdt/'
+
+
 samples = [
-           'data_LMNR',
-           'data_Charmonium',
+#            'data_LMNR',
+#            'data_Charmonium',
            'MC_LMNR', 
-           'MC_JPSI', 
-           'MC_PSIPRIME', 
+#            'MC_JPSI', 
+#            'MC_PSIPRIME', 
           ]
 
 for str_file in samples:
     for i in range(0,11):  
       
-        tag = '__preliminary_Iso_firstOptimization_conda_'+ str(i)
-         
-        ifile = 'sub_samples/sample_%s_%s.root'%(str_file, str(i))  
-      
-        print 'adding bdt score from classifier%s.pkl' %tag
-        classifier = joblib.load('results/classifier%s.pkl' %tag)
-      
+        ifile = 'sub_samples/sample_%s_%s_%s.root'%(args.year, str_file, str(i))  
+
+        print 'adding bdt score from classifier.pkl'
+        classifier = joblib.load('results/classifier_%s_final_%s.pkl' %(args.year,i))
+        
         feat_names = [
             'bCosAlphaBS',
             'bLBS/bLBSE',
@@ -39,8 +51,8 @@ for str_file in samples:
             'kstTrkpDCABS/kstTrkpDCABSE',
             'bVtxCL',
             'bDCABS/bDCABSE',
-            'kstTrkmMinIP2D', ## min impact parameter of the track from any PV (in 2D)
-            'kstTrkpMinIP2D', ## min impact parameter of the track from any PV (in 2D)
+            'kstTrkmMinIP2D', 
+            'kstTrkpMinIP2D', 
         ]
     
         additional = [
@@ -52,10 +64,6 @@ for str_file in samples:
             'mupNTrkLayers',
             'mumNPixLayers',
             'mupNPixLayers',
-    #         'mupdxyVtx',
-    #         'mumdxyVtx',
-    #         'mumdzVtx',
-    #         'mupdzVtx',
             'mupHighPurity',
             'mumHighPurity',
             'mumTMOneStationTight',
@@ -65,8 +73,6 @@ for str_file in samples:
             'bPt',
             'kstPt',
             'mumuPt',
-#             'mumuVtxCL',
-#             'kstVtxCL',
             'kstTrkpTrackerMuonArbitrated',
             'kstTrkmTrackerMuonArbitrated',
             'kstTrkpHighPurity',
@@ -88,16 +94,16 @@ for str_file in samples:
             'kstTrkpGlobalMuon',
             'kstTrkpNTrkLayers',
             'kstTrkpNPixHits',
-#             'kstTrkmCL',
-#             'kstTrkpCL',
             'eventN',
             'mumuMass',
             'mumIsoPt_dr04',
             'mupIsoPt_dr04',
             'kstTrkmIsoPt_dr04',
             'kstTrkpIsoPt_dr04',
-            'charge_trig_matched'
         ]
+
+        if args.year != '2016':
+            additional.append('charge_trig_matched')
         
         print 'loading support dataset...'
         dataset_support = pandas.DataFrame(
@@ -109,7 +115,6 @@ for str_file in samples:
         )
         print '\t...done'
         
-        
         print 'loading dataset...'
         dataset = pandas.DataFrame(
             root_numpy.root2array(
@@ -119,13 +124,7 @@ for str_file in samples:
         )
         print '\t...done'
         
-      
-        dataset['trkpDCASign']  = abs(dataset.kstTrkpDCABS/dataset.kstTrkpDCABSE)
-        dataset['trkmDCASign']  = abs(dataset.kstTrkmDCABS/dataset.kstTrkmDCABSE)
 
-        dataset_support['trkpDCASign']  = abs(dataset_support.kstTrkpDCABS/dataset_support.kstTrkpDCABSE)
-        dataset_support['trkmDCASign']  = abs(dataset_support.kstTrkmDCABS/dataset_support.kstTrkmDCABSE)
-      
         ## define isolation: # tracks with pt in a cone
         dataset_support['isopt_mum_04']  = dataset_support.mumIsoPt_dr04    /dataset_support.mumPt
         dataset_support['isopt_mup_04']  = dataset_support.mupIsoPt_dr04    /dataset_support.mupPt
@@ -138,20 +137,43 @@ for str_file in samples:
         dataset['isopt_trkm_04'] = dataset.kstTrkmIsoPt_dr04/dataset.kstTrkmPt
         dataset['isopt_trkp_04'] = dataset.kstTrkpIsoPt_dr04/dataset.kstTrkpPt
         dataset['sum_isopt_04']  = dataset.isopt_mum_04 + dataset.isopt_mup_04 + dataset.isopt_trkm_04 + dataset.isopt_trkp_04
-        
         feat_names.append('sum_isopt_04')
-        
+
+        ## define tagged kstar mass
         dataset_support['kstarmass']  = dataset_support.tagB0*dataset_support.kstMass +(1- dataset_support.tagB0)*dataset_support.kstBarMass
         dataset['kstarmass']          = dataset.tagB0*dataset.kstMass +(1- dataset.tagB0)*dataset.kstBarMass
         feat_names.append('kstarmass')
+
+        ## for 2017 and 2018, adding significance of the track wrt BS (required at trigger level)
+        if args.year != '2016':
+            dataset['trkpDCASign']  = abs(dataset.kstTrkpDCABS/dataset.kstTrkpDCABSE)
+            dataset['trkmDCASign']  = abs(dataset.kstTrkmDCABS/dataset.kstTrkmDCABSE)
+
+            dataset_support['trkpDCASign']  = abs(dataset_support.kstTrkpDCABS/dataset_support.kstTrkpDCABSE)
+            dataset_support['trkmDCASign']  = abs(dataset_support.kstTrkmDCABS/dataset_support.kstTrkmDCABSE)
+      
         
-        dataset['pass_preselection'] = ( dataset.mumTMOneStationTight == 1 ) & ( dataset.mupTMOneStationTight == 1 ) & \
-                                        ( dataset.kkMass > 1.035 ) & \
-                                        (~((dataset.kstTrkmGlobalMuon == 1) & ( dataset.kstTrkmNTrkLayers > 5 ) & ( dataset.kstTrkmNPixHits > 0))) & \
-                                        (~((dataset.kstTrkpGlobalMuon == 1) & ( dataset.kstTrkpNTrkLayers > 5 ) & ( dataset.kstTrkpNPixHits > 0))) & \
-                                        (( (dataset.charge_trig_matched ==  1) & (dataset.kstTrkpPt > 1.2) & (dataset.trkpDCASign > 2) ) | \
-                                         ( (dataset.charge_trig_matched == -1) & (dataset.kstTrkmPt > 1.2) & (dataset.trkmDCASign > 2) ) )
-            
+        if args.year == '2016':
+            dataset['pass_preselection'] =  ( dataset.mumNTrkLayers >= 6)  & ( dataset.mupNTrkLayers >= 6 ) & \
+                                            ( dataset.mumNPixLayers >= 1)  & ( dataset.mupNPixLayers >= 1 ) & \
+                                            ( dataset.mumdxyVtx < 0.3)     & ( dataset.mupdxyVtx < 0.3    ) & \
+                                            ( dataset.mumdzVtx < 20 )      & ( dataset.mupdzVtx  < 20     ) & \
+                                            ( dataset.mumHighPurity == 1 ) & ( dataset.mupHighPurity == 1 ) & \
+                                            ( dataset.mumTMOneStationTight == 1 ) & ( dataset.mupTMOneStationTight == 1 ) & \
+                                            ( dataset.kstTrkmHighPurity == 1 )    & ( dataset.kstTrkpHighPurity == 1    ) & \
+                                            ( dataset.kkMass > 1.035 ) & \
+                                            (~((dataset.kstTrkmGlobalMuon == 1) & ( dataset.kstTrkmNTrkLayers > 5 ) & ( dataset.kstTrkmNPixHits > 0))) & \
+                                            (~((dataset.kstTrkpGlobalMuon == 1) & ( dataset.kstTrkpNTrkLayers > 5 ) & ( dataset.kstTrkpNPixHits > 0))) 
+        
+        
+        else:
+            dataset['pass_preselection'] = ( dataset.mumTMOneStationTight == 1 ) & ( dataset.mupTMOneStationTight == 1 ) & \
+                                            ( dataset.kkMass > 1.035 ) & \
+                                            (~((dataset.kstTrkmGlobalMuon == 1) & ( dataset.kstTrkmNTrkLayers > 5 ) & ( dataset.kstTrkmNPixHits > 0))) & \
+                                            (~((dataset.kstTrkpGlobalMuon == 1) & ( dataset.kstTrkpNTrkLayers > 5 ) & ( dataset.kstTrkpNPixHits > 0))) & \
+                                            (( (dataset.charge_trig_matched ==  1) & (dataset.kstTrkpPt > 1.2) & (dataset.trkpDCASign > 2) ) | \
+                                             ( (dataset.charge_trig_matched == -1) & (dataset.kstTrkmPt > 1.2) & (dataset.trkmDCASign > 2) ) )
+                
         
         
         ## add branch for BDT 
@@ -164,5 +186,5 @@ for str_file in samples:
         print '\t...done'	
         
         # https://github.com/scikit-hep/root_pandas
-        dataset.to_root(ifile.replace('.root', '_addBDT.root'), key='ntuple', store_index=False)
+        dataset.to_root( ifile.replace('.root', '_addBDT.root'), key='ntuple', store_index=False)
     
