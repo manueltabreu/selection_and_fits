@@ -42,8 +42,8 @@ def applyB0PsiCut(dimusel, nSigma_psiRej):
     elif dimusel == 'rejectPsi':
       cut_base = '( abs(mumuMass - {JPSIM}) > {CUT}*mumuMassE && abs(mumuMass - {PSIM}) > {CUT}*mumuMassE &&  \
                (( mumuMass < {JPSIM} && !( abs(deltaB0M - deltaJpsiM) < 0.18 || abs(deltaB0M - deltaPsiPM) < 0.0) ) || \
-                ( mumuMass > {PSIM}  && !( abs(deltaB0M - deltaJpsiM) < 0.0  || abs(deltaB0M - deltaPsiPM) < 0.09) ) || \
-                ( mumuMass > {JPSIM} && mumuMass < {PSIM} && !( abs(deltaB0M - deltaJpsiM) < 0.08 || abs(deltaB0M - deltaPsiPM) < 0.08 ))))'.format(JPSIM=JPsiMass_, PSIM=PsiPMass_,  CUT=nSigma_psiRej)  
+                ( mumuMass > {PSIM}  && !( abs(deltaB0M - deltaJpsiM) < 0.0  || abs(deltaB0M - deltaPsiPM) < 0.08) ) || \
+                ( mumuMass > {JPSIM} && mumuMass < {PSIM} && !( abs(deltaB0M - deltaJpsiM) < 0.08 || abs(deltaB0M - deltaPsiPM) < 0.09 ))))'.format(JPSIM=JPsiMass_, PSIM=PsiPMass_,  CUT=nSigma_psiRej)  
     elif dimusel == 'keepPsi':
       cut_base = '(abs(mumuMass - {JPSIM}) < {CUT}*mumuMassE || abs(mumuMass - {PSIM}) < {CUT}*mumuMassE)'.format( JPSIM=JPsiMass_, PSIM=PsiPMass_, CUT=nSigma_psiRej)
     elif dimusel == 'nocut':
