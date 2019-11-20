@@ -69,7 +69,7 @@ def writeCMS(frame, year, ibin = [-1,-1]):
     frame. addObject(txt2) ;
     
     if ibin[0] > -1:
-        txtq = ROOT.TLatex(.16,.5, "%s GeV^{2} < q^{2} < %s GeV^{2}" %(ibin[0],ibin[1])) 
+        txtq = ROOT.TLatex(.16,.6, "%s GeV^{2} < q^{2} < %s GeV^{2}" %(ibin[0],ibin[1])) 
         txtq . SetNDC() ;
         txtq . SetTextSize(0.033) ;
         txtq . SetTextFont(42) 
