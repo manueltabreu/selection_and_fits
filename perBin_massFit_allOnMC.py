@@ -24,7 +24,7 @@ gSystem.Load('libRooFit')
 gSystem.Load('utils/func_roofit/libRooDoubleCBFast')
 from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooTreeData, RooArgSet, RooAddPdf, RooFormulaVar
 from ROOT import RooGaussian, RooExponential, RooChebychev, RooProdPdf, RooCBShape, TFile, RooPolynomial
-import sys, math
+import sys, math, pdb
 from uncertainties import ufloat
 import random
 
@@ -53,7 +53,7 @@ def _writeFitStatus(r):
     return txt
 
 def _writeChi2(chi2):
-    txt = ROOT.TLatex(.16,.6, "fit #chi^{2}: %.1f "%chi2 )
+    txt = ROOT.TLatex(.16,.8, "fit #chi^{2}: %.1f "%chi2 )
     txt . SetNDC() ;
     txt . SetTextSize(0.033) ;
     txt . SetTextFont(42)
@@ -70,6 +70,18 @@ def _constrainVar(var, nsigma):
                                 ) 
     print 'constraining var',   var.GetName(), ': ',     constr.n , ' with uncertainty ' , nsigma*constr.s                          
     return gauss_constr                        
+
+def _createCanvas():
+    c1 = ROOT.TCanvas() 
+    upperPad = ROOT.TPad('upperPad' , 'upperPad' , 0., 0.35 , 1.,  1.    )  
+    lowerPad = ROOT.TPad('lowerPad' , 'lowerPad' , 0., 0.0  , 1.,  0.345 )  
+    upperPad.SetBottomMargin(0.012)
+    lowerPad.SetTopMargin(0)
+    lowerPad.SetBottomMargin(0.2)
+    upperPad.Draw()
+    lowerPad.Draw()
+
+
 
 from utils.utils import *
 from utils.fit_functions import *
@@ -93,9 +105,12 @@ q2binning = [
 #                 19,
 ]
 
+from collections import OrderedDict
+fitStats = OrderedDict()
+covStats = OrderedDict()
+chi2s    = OrderedDict()
 
-
-
+  
 def fitMC(fulldata, correctTag, ibin):
 
     print 'now fitting: ', ibin, ' for ', correctTag*'correctTag ', (1-correctTag)*'wrongTag'  
@@ -104,7 +119,7 @@ def fitMC(fulldata, correctTag, ibin):
 
     pol_c1      = RooRealVar ("p1"           , "coeff x^0 term" ,  -0.5,   -10, 10);
     pol_c2      = RooRealVar ("p2"           , "coeff x^0 term" ,  0.5,   -10, 10);
-    bkg_pol     = RooChebychev("bkg_pol"     , "bkg_pol" ,  tagged_mass, RooArgList(pol_c1, pol_c2));
+    bkg_pol     = RooChebychev("bkg_pol"     , "bkg_pol" ,  tagged_mass, RooArgList(pol_c1));
     signalFunction = bkg_pol ### just a placeholder
 
     nsig        = RooRealVar("Yield"         , "nsig"   ,   500000,     0,    1E7)
@@ -112,15 +127,32 @@ def fitMC(fulldata, correctTag, ibin):
     
     doextended = False
     fitrange   = "mcrange"
-    nbins = 70
+    tag        = 'RT' if correctTag else 'WT'
 
     if correctTag:
-        doubleG( B0Mass_ , initial_sigma1 , initial_sigma2,  0.8, tagged_mass, w, "RT%s"%ibin)    ## (mean_   , sigma1_, sigma2_, f1_)
-        signalFunction = w.pdf("doublegaus_RT%s"%ibin)   
-        fitFunction    = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(signalFunction, bkg_pol), RooArgList(nsig, nbkg))
-        doextended = True
-        fitrange   = "full"
-        nbins = 60
+#         mean = RooRealVar ("mean^{RT}", "massRT" ,  B0Mass_ , 5, 6, "GeV")
+#         singleG    ( mean  , initial_sigma1 , tagged_mass, w, "RT%s"%ibin)
+#         crystalBall( mean  , initial_sigma2,  0.5, 1, tagged_mass, w, 0, ibin, [0, 10])
+#         gausCB     ( w.pdf("cbshape_0_%s"%(ibin)), w.pdf("gaus_RT%s"%ibin), 0.8  , tagged_mass, w, "RT%s"%ibin)
+#         signalFunction = w.pdf("gauscb_RT%s"%ibin)   
+#         fitFunction    = signalFunction
+# #         doubleG( B0Mass_ , initial_sigma1 , initial_sigma2,  0.8, tagged_mass, w, "RT%s"%ibin)    ## (mean_   , sigma1_, sigma2_, f1_)
+# #         signalFunction = w.pdf("doublegaus_RT%s"%ibin)   
+#         fitFunction    = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(signalFunction, bkg_pol), RooArgList(nsig, nbkg))
+#         doextended = True
+# #         fitFunction    = signalFunction
+# #         doextended = False
+#         fitrange   = "full"
+
+        mean        = RooRealVar ("mean^{RT%s}"%ibin,        "massRT"         , B0Mass_,     5,    6, "GeV")
+        sigmaCB     = RooRealVar ("#sigma_{CB}^{RT%s}"%ibin, "sigmaCB"        ,  0.03  ,    0,   1  )
+        alpha1      = RooRealVar ("#alpha_{1}^{RT%s}"%ibin,  "#alpha_{1}"     ,  0.5   ,    0,  10  )
+        alpha2      = RooRealVar ("#alpha_{2}^{RT%s}"%ibin,  "#alpha_{2}"     ,  2.5   ,    0,  10  )
+        n1          = RooRealVar ("n_{1}^{RT%s}"%ibin,       "n_1"            ,  1     ,    0,  20  )
+        n2          = RooRealVar ("n_{2}^{RT%s}"%ibin,       "n_2"            ,  1     ,    0,  30  )
+        doublecb = ROOT.RooDoubleCBFast("doublecb_RT%s"%ibin, "doublecb", tagged_mass, mean, sigmaCB, alpha1, n1, alpha2, n2)	
+        signalFunction = doublecb
+        fitFunction    = doublecb
 
     else:
         mean        = RooRealVar ("mean^{WT%s}"%ibin,        "massWT"         , B0Mass_,     5,    6, "GeV")
@@ -130,8 +162,6 @@ def fitMC(fulldata, correctTag, ibin):
         n1          = RooRealVar ("n_{1}^{WT%s}"%ibin,       "n_1"            ,  1     ,    0,  20  )
         n2          = RooRealVar ("n_{2}^{WT%s}"%ibin,       "n_2"            ,  1     ,    0,  20  )
         doublecb = ROOT.RooDoubleCBFast("doublecb_%s"%ibin, "doublecb", tagged_mass, mean, sigmaCB, alpha1, n1, alpha2, n2)	
-#         doublecb      = RooCBShape ("doublecb_%s"%(bin)       , "cbshape_%s"%(bin) ,  tagged_mass, mean, sigmaCB, alpha1, n1)
-#         getattr(w, 'import')(doublecb)
         signalFunction = doublecb
         fitFunction    = doublecb
         
@@ -140,20 +170,10 @@ def fitMC(fulldata, correctTag, ibin):
     r = fitFunction.fitTo(data, RooFit.Extended(doextended), RooFit.Save(), RooFit.Range(fitrange))
     print 'fit status: ', r.status(), r.covQual() 
     
-    
-    if not _goodFit(r):
-        r = fitFunction.fitTo(data, RooFit.Extended(doextended), RooFit.Save(), RooFit.Range(fitrange))
-        print 'fit status (redo): ', r.status(), r.covQual() 
-
-    if not _goodFit(r) and correctTag:
-        r = fitFunction.fitTo(data, RooFit.Extended(doextended), RooFit.Save(), RooFit.Range(fitrange))
-        print 'fit status (redo2): ', r.status(), r.covQual() 
-
-         
+    ## draw everything 
     params = signalFunction.getParameters(RooArgSet(tagged_mass)) 
-    w.saveSnapshot("reference_fit_%s_%s"%('RT'*correctTag + 'WT'*(1-correctTag), ibin),params,ROOT.kTRUE) 
-    frame = tagged_mass.frame(RooFit.Range(fitrange))
-    print 'n bins now is ', nbins, '(',correctTag, ')' 
+    w.saveSnapshot("reference_fit_%s_%s"%(tag, ibin),params,ROOT.kTRUE) 
+    frame = tagged_mass.frame(RooFit.Range(fitrange))#, RooFit.Title('correctly'*correctTag + 'wrongly'*(1-correctTag) + ' tagged events'))
     data.plotOn(frame, RooFit.Binning(nbins), RooFit.MarkerSize(.7))
     
     drawPdfComponents(fitFunction, frame, ROOT.kGreen if correctTag else ROOT.kViolet, RooFit.NormRange(fitrange), RooFit.Range(fitrange), isData=False)
@@ -161,80 +181,118 @@ def fitMC(fulldata, correctTag, ibin):
     fitFunction.paramOn(frame,  RooFit.Layout(0.62,0.86,0.88))
 
     frame.Draw()
-    niceFrame(frame, '')
+    niceFrame(frame, 'correctly'*correctTag + 'wrongly'*(1-correctTag) + ' tagged events')
     frame. addObject(_writeFitStatus(r))
     
     ## evaluate sort of chi2 and save number of RT/WT events
     observables = RooArgSet(tagged_mass)
-    flparams = fitFunction.getParameters(observables)
-    nparam = int(flparams.selectByAttrib("Constant",ROOT.kFALSE).getSize())
+    flparams    = fitFunction.getParameters(observables)
+    nparam      = int(flparams.selectByAttrib("Constant",ROOT.kFALSE).getSize())
+    pdfstring = ''
     if correctTag:
-        frame. addObject(_writeChi2( frame.chiSquare("fitfunction_Norm[tagged_mass]_Range[full]_NormRange[full]", "h_fullmc",  nparam) ))
-        dict_s_rt[ibin]   = _getFittedVar(nsig)
+#         frame. addObject(_writeChi2( frame.chiSquare("fitfunction_Norm[tagged_mass]_Range[full]_NormRange[full]", "h_fullmc",  nparam) ))
+        pdfstring = "doublecb_RT%s_Norm[tagged_mass]_Comp[doublecb_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
+#         pdfstring = "gauscb_RT%s_Norm[tagged_mass]_Comp[gauscb_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
+        if doextended:
+            dict_s_rt[ibin]   = _getFittedVar(nsig)
+        else:
+            dict_s_rt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
         nRT = RooRealVar ("nRT_%s"%ibin, "yield of RT signal",0,1.E6)
         nRT.setVal(  dict_s_rt[ibin].n)
         nRT.setError(dict_s_rt[ibin].s)
         print 'setting nRT to ', dict_s_rt[ibin].n
-        nRT_forLater = dict_s_rt[ibin].n
         getattr(w,"import")(nRT)
     else:
-        frame. addObject(_writeChi2( frame.chiSquare("doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin), "h_fullmc",  nparam) ))
+        pdfstring = "doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
         dict_s_wt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
         nWT = RooRealVar ("nWT_%s"%ibin, "yield of WT signal",0,1.E6)
         nWT.setVal(  dict_s_wt[ibin].n)
         nWT.setError(dict_s_wt[ibin].s)
-        nWT_forLater = dict_s_wt[ibin].n
         print 'setting nWT to ', dict_s_wt[ibin].n
-        print 'nWT events in data: ', data.sumEntries()
         getattr(w,"import")(nWT)
 
-#         chi2 = frame.chiSquare("doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin), "h_fullmc",  nparam)
-#         if chi2 == -1:
-#             chi2 = frame.chiSquare("gauscb_%s_Norm[tagged_mass]_Comp[gauscb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin), "h_fullmc",  nparam) 
-#         frame. addObject(_writeChi2( chi2 ) )
-            
+    ## eval and save goodness of fit indicators
+    chi2s['%s%s'%(tag,ibin)] = frame.chiSquare(pdfstring, "h_fullmc",  nparam)
+    frame. addObject(_writeChi2( chi2s['%s%s'%(tag,ibin)] ))
+    fitStats['%s%s'%(tag,ibin)] = r.status()
+    covStats['%s%s'%(tag,ibin)] = r.covQual()
+
+#     _createCanvas()
+#     pdb.set_trace()
+    c1 = ROOT.TCanvas() 
+    upperPad = ROOT.TPad('upperPad' , 'upperPad' , 0., 0.35 , 1.,  1.    )  
+    lowerPad = ROOT.TPad('lowerPad' , 'lowerPad' , 0., 0.0  , 1.,  0.345 )  
+    upperPad.SetBottomMargin(0.012)
+    lowerPad.SetTopMargin(0)
+    lowerPad.SetBottomMargin(0.2)
+
+    upperPad.Draw()
+    lowerPad.Draw()
+
+    upperPad.cd()
     frame.Draw()
-    frame.SetTitle('correctly'*correctTag + 'wrongly'*(1-correctTag) + ' tagged events')
-    c1.SaveAs('fit_results_mass_checkOnMC/save_fit_mc_%s_%s_%sT_pol2.pdf'%(ibin, args.year, "R"*correctTag + "W"*(1-correctTag)))
-    c1.SetLogy()
-    c1.SaveAs('fit_results_mass_checkOnMC/save_fit_mc_%s_%s_%sT_pol2_log.pdf'%(ibin, args.year, "R"*correctTag + "W"*(1-correctTag)))
-    c1.SetLogy(False)
-    out_f.cd()
-    r.Write('results_%s_%s'%(correctTag*'RT' + (1-correctTag)*'WT', ibin))
     
-    if correctTag:
-      return nRT_forLater
-    else:
-      return nWT_forLater
+    ## add plot of pulls
+    lowerPad.cd()
+    hpull  = frame.pullHist("h_fullmc", pdfstring)
+    frame2 = tagged_mass.frame(RooFit.Range(fitrange), RooFit.Title(''))
+    frame2.addPlotable(hpull,"P") 
+    niceFrameLowerPad(frame2, 'pull')
+    frame2.Draw()
+    line = ROOT.TLine(5.0,1,5.6,1)
+    line.SetLineColor(ROOT.kGreen+3)
+    line.Draw()
+   
+    ## save to pdf and root files
+    for ilog in [True,False]:
+        upperPad.SetLogy(ilog)
+        c1.SaveAs('fit_results_mass_checkOnMC/save_fit_mc_%s_%s_%s_2CB%s_new.pdf'%(ibin, args.year, tag, '_logScale'*ilog))
+    out_f.cd()
+    r.Write('results_%s_%s'%(tag, ibin))
+    
+    return dict_s_rt[ibin].n if correctTag else dict_s_wt[ibin].n
    
    
-def fitData(fulldata, ibin, nRT_forLater, nWT_forLater):
+   
+def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     cut  = cut_base + '&& (mumuMass*mumuMass > %s && mumuMass*mumuMass < %s)'%(q2binning[ibin], q2binning[ibin+1])
     fulldata_v2 = fulldata.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE, randVar), cut)
 
-#     import pdb; pdb.set_trace()
+    ## reduce to data-like statistics
     nDataEntries = fulldata_v2.sumEntries()
     nDesired = n_bin[ibin]/nDataEntries
     cut = 'rand < %f'%nDesired
     data = fulldata_v2.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE), cut)
-
 
     fraction = dict_s_rt[ibin] / (dict_s_rt[ibin] + dict_s_wt[ibin])
     print 'mistag fraction on MC for bin ', ibin , ' : ' , fraction.n , '+/-', fraction.s 
     
     ### creating RT component
     w.loadSnapshot("reference_fit_RT_%s"%ibin)
-    sigmart1    = w.var("#sigma_{1}^{RT%s}"%ibin  )
-    sigmart2    = w.var("#sigma_{2}^{RT%s}"%ibin  )
-    massrt      = w.var("mean^{RT%s}"%ibin  )
-    f1rt        = w.var("f^{RT%s}"%ibin)
+#     sigmart1    = w.var("#sigma_{1}^{RT%s}"%ibin  )
+#     sigmart2    = w.var("#sigma_{2}^{RT%s}"%ibin  )
+#     massrt      = w.var("mean^{RT%s}"%ibin  )
+#     f1rt        = w.var("f^{RT%s}"%ibin)
+    meanrt      = w.var("mean^{RT%s}"%ibin)
+    sigmart     = w.var("#sigma_{CB}^{RT%s}"%ibin)
+    alphart1    = w.var("#alpha_{1}^{RT%s}"%ibin)
+    alphart2    = w.var("#alpha_{2}^{RT%s}"%ibin)
+    nrt1        = w.var("n_{1}^{RT%s}"%ibin)
+    nrt2        = w.var("n_{2}^{RT%s}"%ibin)
 
-    theRTgauss  = w.pdf("doublegaus_RT%s"%ibin)   
-    c_sigma_rt1 = _constrainVar(sigmart1, 5)
-    c_sigma_rt2 = _constrainVar(sigmart2, 5)
-    c_mean_rt   = _constrainVar(massrt, 3)
-    c_f1rt      = _constrainVar(f1rt, 3)
+#     theRTgauss  = w.pdf("doublegaus_RT%s"%ibin)   
+#     c_sigma_rt1 = _constrainVar(sigmart1, 5)
+#     c_sigma_rt2 = _constrainVar(sigmart2, 5)
+#     c_mean_rt   = _constrainVar(massrt, 3)
+#     c_f1rt      = _constrainVar(f1rt, 3)
+    theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
+    c_mean_rt     = _constrainVar(meanrt, 3)
+    c_sigma_rt    = _constrainVar(sigmart, 3)
+    c_alpha_rt1   = _constrainVar(alphart1, 3)
+    c_alpha_rt2   = _constrainVar(alphart2, 3)
+    c_n_rt1       = _constrainVar(nrt1, 3)
+    c_n_rt2       = _constrainVar(nrt2, 3)
 
     ### creating WT component
     w.loadSnapshot("reference_fit_WT_%s"%ibin)
@@ -256,10 +314,11 @@ def fitData(fulldata, ibin, nRT_forLater, nWT_forLater):
 
     ### creating constraints for the RT component
 #     c_RTgauss   = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_mean_rt  ) )     
-    c_RTgauss   = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_sigma_rt1, c_sigma_rt2, c_mean_rt, c_f1rt  ) )     
+#     c_RTgauss   = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_sigma_rt1, c_sigma_rt2, c_mean_rt, c_f1rt  ) )     
+    c_RTgauss  = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt, c_mean_rt, c_alpha_rt2, c_n_rt2  ) )     
 
-#     c_vars = RooArgSet(c_mean_rt)
-    c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_f1rt, c_mean_rt)
+#     c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_f1rt, c_mean_rt)
+    c_vars = RooArgSet(c_sigma_rt, c_mean_rt, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
     c_vars.add(c_sigma_wt)
     c_vars.add(c_mean_wt)
     c_vars.add(c_alpha_wt1)
@@ -268,8 +327,6 @@ def fitData(fulldata, ibin, nRT_forLater, nWT_forLater):
     c_vars.add(c_n_wt2)
 
     ### creating constraints for the WT component
-#     c_WTgauss  = RooProdPdf  ("c_WTgauss" , "c_WTgauss" , RooArgList(theWTgauss, c_mean_wt  ) )     
-#     import pdb; pdb.set_trace()
     c_WTgauss  = RooProdPdf  ("c_WTgauss" , "c_WTgauss" , RooArgList(theWTgauss, c_alpha_wt1, c_n_wt1, c_sigma_wt, c_mean_wt, c_alpha_wt2, c_n_wt2  ) )     
 
     frt              = RooRealVar ("F_{RT}"          , "frt"             , fraction.n , 0, 1)
@@ -285,111 +342,95 @@ def fitData(fulldata, ibin, nRT_forLater, nWT_forLater):
     pol_c2        = RooRealVar    ("p2"         , "coeff x^1 term"  ,    0.5,   -10, 10);
     bkg_pol       = RooChebychev  ("bkg_pol"    , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1));
    
-    nsig          = RooRealVar("Yield"         , "signal frac"    ,     nRT_forLater + nWT_forLater,     0,   1000000);
+    nsig          = RooRealVar("Yield"         , "signal frac"    ,     nRT_fromMC + nWT_fromMC,     0,   1000000);
     nbkg          = RooRealVar("nbkg"          , "bkg fraction"   ,     1000,     0,   550000);
-#     nsig.setConstant(True)
 
     print nsig.getVal()
     fitFunction = c_signalFunction
 #     fitFunction = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(c_signalFunction, bkg_pol), RooArgList(nsig, nbkg))
 #     fitFunction = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(c_signalFunction, bkg_exp), RooArgList(nsig, nbkg))
     
-#     meanwt  .setConstant(True)
-#     sigmawt .setConstant(True)
-#     alphawt1.setConstant(True)
-#     alphawt2.setConstant(True)
-#     nwt1    .setConstant(True)
-#     nwt2    .setConstant(True)
-#     fitFunction.fitTo(data, 
-#                               RooFit.Extended(True), 
-#                               RooFit.Range("full"), 
-#                               RooFit.Verbose(False),
-#                               ROOT.RooFit.Constrain(c_vars)
-#                          )     
-#     meanwt  .setConstant(False)
-#     sigmawt .setConstant(False)
-#     alphawt1.setConstant(False)
-#     alphawt2.setConstant(False)
-#     nwt1    .setConstant(False)
-#     nwt2    .setConstant(False)
-#     sigmart1.setConstant(True)
-#     sigmart2.setConstant(True) 
-#     massrt  .setConstant(True)    
-#     f1rt    .setConstant(True)   
-#     fitFunction.fitTo(data, 
-#                               RooFit.Extended(True), 
-#                               RooFit.Range("full"), 
-#                               RooFit.Verbose(False),
-#                               ROOT.RooFit.Constrain(c_vars)
-#                          )     
-#     sigmart1.setConstant(False)
-#     sigmart2.setConstant(False) 
-#     massrt  .setConstant(False)    
-#     f1rt    .setConstant(False)   
 
     r = fitFunction.fitTo(data, 
 #                           RooFit.Extended(True), 
                           RooFit.Range("full"), 
-                          RooFit.Verbose(False),
-                          ROOT.RooFit.Constrain(c_vars),
-                          ROOT.RooFit.Minimizer("Minuit2","migrad"),
-                          ROOT.RooFit.Hesse(True),
-                          ROOT.RooFit.Strategy(0),
-                          ROOT.RooFit.Minos(False),
-#                           ROOT.RooFit.Offset(True)
-                         )
-    print 'fit with strategy 0 done, now strategy 2'    
-    r = fitFunction.fitTo(data, 
-#                           RooFit.Extended(True), 
-                          RooFit.Range("full"), 
-                          RooFit.Verbose(False),
                           ROOT.RooFit.Constrain(c_vars),
                           ROOT.RooFit.Minimizer("Minuit2","migrad"),
                           ROOT.RooFit.Hesse(True),
                           ROOT.RooFit.Strategy(2),
                           ROOT.RooFit.Minos(False),
-#                           ROOT.RooFit.Offset(True)
                          )
     print 'fit with Hesse strategy 2 done, now Minos'    
     r = fitFunction.fitTo(data, 
 #                           RooFit.Extended(True), 
                           RooFit.Save(), 
                           RooFit.Range("full"), 
-#                           RooFit.Verbose(False),
+                          RooFit.Verbose(False),
                           ROOT.RooFit.Constrain(c_vars),
-                          ROOT.RooFit.Minimizer("Minuit2","migrad"),
+#                           ROOT.RooFit.Minimizer("Minuit2","migrad"),
 #                           ROOT.RooFit.Hesse(True),
                           ROOT.RooFit.Strategy(2),
                           ROOT.RooFit.Minos(True),
-#                           ROOT.RooFit.Offset(True)
                          )
                         
     r.Print()
-    r.covarianceMatrix().Print()
     r.correlationMatrix().Print()
+    fitStats['data%s'%(ibin)] = r.status()
+    covStats['data%s'%(ibin)] = r.covQual()
     frame = tagged_mass.frame( RooFit.Range("full") )
     data.plotOn(frame, RooFit.Binning(nbins), RooFit.MarkerSize(.7))
     fitFunction.plotOn(frame, RooFit.NormRange("full"), RooFit.Range("full"))
+
+    ## evaluate sort of chi2 and save number of RT/WT events
+    observables = RooArgSet(tagged_mass)
+    flparams = fitFunction.getParameters(observables)
+    nparam = int(flparams.selectByAttrib("Constant",ROOT.kFALSE).getSize())
+    pdfstring = "c_signalFunction_Norm[tagged_mass]_Range[full]_NormRange[full]"
+    chi2s['data%s'%ibin] = frame.chiSquare(pdfstring, "h_fulldata",  nparam)
+    frame. addObject(_writeChi2( chi2s['data%s'%ibin] ))
+
     drawPdfComponents(fitFunction, frame, ROOT.kAzure, RooFit.NormRange("full"), RooFit.Range("full"), isData = True)
 
-    parList = RooArgSet (nsig, massrt, sigmart1, sigmart2, f1rt, meanwt, sigmawt, alphawt1)
+    parList = RooArgSet (nsig, meanwt, sigmart, alphart1, alphart2, meanwt, sigmawt, alphawt1)
+#     parList = RooArgSet (nsig, massrt, sigmart1, sigmart2, f1rt, meanwt, sigmawt, alphawt1)
     parList.add(alphawt2)
     parList.add(nwt1)
     parList.add(nwt2)
     parList.add(frt)
     fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.62,0.86,0.89))
+
     frame.Draw()
     niceFrame(frame, '')
     frame. addObject(_writeFitStatus(r))
 
+    c1 = ROOT.TCanvas() 
+    upperPad = ROOT.TPad('upperPad' , 'upperPad' , 0., 0.35 , 1.,  1.    )  
+    lowerPad = ROOT.TPad('lowerPad' , 'lowerPad' , 0., 0.0  , 1.,  0.345 )  
+    upperPad.SetBottomMargin(0.012)
+    lowerPad.SetTopMargin(0)
+    lowerPad.SetBottomMargin(0.2)
+
+    upperPad.Draw(); lowerPad.Draw()
+    upperPad.cd()
+    frame.Draw()
     if not args.year=='test':  writeCMS(frame, args.year, [ q2binning[ibin], q2binning[ibin+1] ], 1)
     frame.Draw()
-    c1.SaveAs('fit_results_mass_checkOnMC/save_fit_data_%s_%s_LMNR_pol2.pdf'%(ibin, args.year))
-    c1.SetLogy()
-    c1.SaveAs('fit_results_mass_checkOnMC/save_fit_data_%s_%s_LMNR_pol2_logScale.pdf'%(ibin, args.year))
-    c1.SetLogy(False)
 
-#     c1.SaveAs('fit_results_mass_checkOnMC/save_fit_data_%s_%s_LMNR_newBDT_inclusiveQ.pdf'%(ibin, args.year))
+    ## add plot of pulls
+    lowerPad.cd()
+    hpull = frame.pullHist("h_fulldata", pdfstring)
+    frame2 =  tagged_mass.frame(RooFit.Range("full"), RooFit.Title(''))
+    frame2.addPlotable(hpull,"P") 
+    niceFrameLowerPad(frame2, 'pull')
+    frame2.Draw()
+    line = ROOT.TLine(5.0,1,5.6,1)
+    line.SetLineColor(ROOT.kGreen+3)
+    line.Draw()
+
+    for ilog in [True,False]:
+        upperPad.SetLogy(ilog)
+        c1.SaveAs('fit_results_mass_checkOnMC/save_fit_data_%s_%s_LMNR_2CB%s.pdf'%(ibin, args.year, '_logScale'*ilog))
+
 
 
 
@@ -412,7 +453,7 @@ else:
 #     tMC.Add('/gwpool/users/fiorendi/p5prime/CMSSW_8_0_24/src/B0KstarMM/B0KstMuMu/bdt/feb5_ntuples_fixPUW/final_ntuples/%sMC_LMNR_NoL1Selection.root'%args.year)
 
 
-tagged_mass     = RooRealVar("tagged_mass" , "#mu^{+}#mu^{-}K#pi mass", 4.9, 5.6, "GeV")
+tagged_mass     = RooRealVar("tagged_mass" , "#mu^{+}#mu^{-}K#pi mass", 5., 5.6, "GeV")
 mumuMass        = RooRealVar("mumuMass"    , "mumuMass" , 0, 6);
 mumuMassE       = RooRealVar("mumuMassE"   , "mumuMassE", 0, 10000);
 tagB0           = RooRealVar("tagB0"       , "tagB0"    , 0, 2);
@@ -427,11 +468,10 @@ thevars.add(tagB0)
 
 fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
 
-# import pdb; pdb.set_trace()
 ## add to the data dataset a random variable, in order to scale it to desired stat
 nDataEntries = fulldata.sumEntries()
-randVar = RooRealVar("rand","rand",0,1) 
-p0      = RooPolynomial("px","px",randVar) ;
+randVar  = RooRealVar("rand","rand",0,1) 
+p0       = RooPolynomial("px","px",randVar) ;
 rDataset = p0.generate(RooArgSet(randVar),int(nDataEntries))
 fulldata.merge(rDataset) 
 
@@ -463,13 +503,10 @@ thevarsMC.add(deltaPsiPM)
 rt_mc       = fullmc.reduce(RooArgSet(thevarsMC), '((tagB0==1 && genSignal==1) || (tagB0==0 && genSignal==2))')
 wt_mc       = fullmc.reduce(RooArgSet(thevarsMC), '((tagB0==0 && genSignal==1) || (tagB0==1 && genSignal==2))')
 
-c1 = ROOT.TCanvas() 
 dict_s_rt  = {}
 dict_s_wt  = {}
 
 out_f = TFile ("fit_results_mass_checkOnMC/results_fits_%s_newCB_newBDT.root"%args.year,"RECREATE") 
-# out_f = TFile ("fit_results_mass_checkOnMC/results_fits_%s_newCB_newBDT_inclusiveQ.root"%args.year,"RECREATE") 
-
 w = ROOT.RooWorkspace("w")
 initial_n_1 =  3.
 initial_n_2 =  1.
@@ -478,8 +515,8 @@ initial_a_2 = -1.
 initial_sigma1 = 0.028
 initial_sigma2 = 0.048
 initial_sigmaCB = 0.048
-nRT_forLater = 10
-nWT_forLater = 10
+nRT_fromMC = 10
+nWT_fromMC = 10
 
 
 for ibin in range(len(q2binning)-1):
@@ -488,13 +525,18 @@ for ibin in range(len(q2binning)-1):
     if args.dimusel == 'rejectPsi' and \
        (q2binning[ibin] == 8.68 or q2binning[ibin] == 12.86): 
            continue
-           
-    nRT_forLater = fitMC(rt_mc, True, ibin)
-    nWT_forLater = fitMC(wt_mc, False, ibin)
-
-    fitData(fulldata, ibin, nRT_forLater, nWT_forLater)
+    if q2binning[ibin] < 10:  continue       
+    nRT_fromMC = fitMC(rt_mc, True, ibin)
+    nWT_fromMC = fitMC(wt_mc, False, ibin)
+    fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
     print ' --------------------------------------------------------------------------------------------------- '
 
+
+print '--------------------------------------------------------------------------------------------------- '
+print 'bin\t\t fit status \t cov. matrix \t\t chi2'
+for i,k in enumerate(fitStats.keys()):    
+    if i%3==0:  print '------------------------------------------------------'
+    print k , '\t\t', fitStats[k], '\t\t', covStats[k], '\t\t', chi2s[k]
 
 out_f.Close()
 w.writeToFile(out_f.GetName(), False)
