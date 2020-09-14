@@ -328,7 +328,6 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 #     theRTgauss  = w.pdf("doublegaus_RT%s"%ibin)   
 #     c_f1rt      = _constrainVar(f1rt, 3)
     theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
-    c_mean_rt     = _constrainVar(meanrt, 3)
     if ibin < 5:
         c_sigma_rt   = _constrainVar(sigmart, 3)
     else:
@@ -350,7 +349,6 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     nwt2        = w.var("n_{2}^{WT%s}"%ibin)
 
     theWTgauss  = w.pdf("doublecb_%s"%ibin)   
-    c_mean_wt     = _constrainVar(meanwt, 3)
     c_sigma_wt    = _constrainVar(sigmawt, 3)
     c_alpha_wt1   = _constrainVar(alphawt1, 3)
     c_alpha_wt2   = _constrainVar(alphawt2, 3)
@@ -359,35 +357,38 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
 
     ### creating constraints for the RT component
-#     c_RTgauss   = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_mean_rt  ) )     
-#     c_RTgauss   = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_sigma_rt1, c_sigma_rt2, c_mean_rt, c_f1rt  ) )     
-#     c_RTgauss  = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt, c_mean_rt, c_alpha_rt2, c_n_rt2  ) )     
     c_vars = RooArgSet()
     if ibin < 5 :
-        c_RTgauss  = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt, c_mean_rt, c_alpha_rt2, c_n_rt2  ) )     
-        c_vars = RooArgSet(c_sigma_rt, c_mean_rt, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
+        c_RTgauss  = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt, c_alpha_rt2, c_n_rt2  ) )     
+        c_vars = RooArgSet(c_sigma_rt, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
     else:
-        c_RTgauss  = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt1, c_sigma_rt2, c_mean_rt, c_alpha_rt2, c_n_rt2  ) )     
-        c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_mean_rt, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
+        c_RTgauss  = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt1, c_sigma_rt2, c_alpha_rt2, c_n_rt2  ) )     
+        c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
 
-#     c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_f1rt, c_mean_rt)
-#     c_vars = RooArgSet(c_sigma_rt, c_mean_rt, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
-#     c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_mean_rt, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
     c_vars.add(c_sigma_wt)
-    c_vars.add(c_mean_wt)
     c_vars.add(c_alpha_wt1)
     c_vars.add(c_alpha_wt2)
     c_vars.add(c_n_wt1)
     c_vars.add(c_n_wt2)
 
     ### creating constraints for the WT component
-    c_WTgauss  = RooProdPdf  ("c_WTgauss" , "c_WTgauss" , RooArgList(theWTgauss, c_alpha_wt1, c_n_wt1, c_sigma_wt, c_mean_wt, c_alpha_wt2, c_n_wt2  ) )     
+    c_WTgauss  = RooProdPdf  ("c_WTgauss" , "c_WTgauss" , RooArgList(theWTgauss, c_alpha_wt1, c_n_wt1, c_sigma_wt, c_alpha_wt2, c_n_wt2  ) )     
 
     frt              = RooRealVar ("F_{RT}"          , "frt"             , fraction.n , 0, 1)
     signalFunction   = RooAddPdf  ("sumgaus"         , "rt+wt"           , RooArgList(c_RTgauss,c_WTgauss), RooArgList(frt))
     c_frt            = RooGaussian("c_frt"           , "c_frt"           , frt,  ROOT.RooFit.RooConst(fraction.n) , ROOT.RooFit.RooConst(fraction.s) )
-    c_signalFunction = RooProdPdf ("c_signalFunction", "c_signalFunction", RooArgList(signalFunction, c_frt))     
+
+    ### creating constraints for the difference between the two peaks
+    deltaPeaks = RooFormulaVar("deltaPeaks", "@0 - @1", RooArgList(meanrt, meanwt))  
+    c_deltaPeaks = RooGaussian(  "c_deltaPeaks" , "c_deltaPeaks", deltaPeaks, ROOT.RooFit.RooConst( deltaPeaks.getVal() ), 
+                                ROOT.RooFit.RooConst( 0.0005 )
+                                ) 
+
+    c_signalFunction = RooProdPdf ("c_signalFunction", "c_signalFunction", RooArgList(signalFunction, c_frt, c_deltaPeaks))     
     c_vars.add(frt)
+    c_vars.add(deltaPeaks)
+
+
 
     ### now create background parametrization
     slope         = RooRealVar    ("slope"      , "slope"           ,    0.5,   -10, 10);
@@ -402,7 +403,6 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     print nsig.getVal()
     fitFunction = c_signalFunction
 #     fitFunction = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(c_signalFunction, bkg_pol), RooArgList(nsig, nbkg))
-#     fitFunction = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(c_signalFunction, bkg_exp), RooArgList(nsig, nbkg))
     
 
     r = fitFunction.fitTo(data, 
@@ -445,9 +445,8 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     drawPdfComponents(fitFunction, frame, ROOT.kAzure, RooFit.NormRange("full"), RooFit.Range("full"), isData = True)
 
-#     parList = RooArgSet (nsig, meanwt, sigmart, alphart1, alphart2, meanwt, sigmawt, alphawt1)
-    parList = RooArgSet (nsig, meanwt, sigmart1, sigmart2, alphart1, alphart2, meanwt, sigmawt, alphawt1)
-#     parList = RooArgSet (nsig, massrt, sigmart1, sigmart2, f1rt, meanwt, sigmawt, alphawt1)
+    parList = RooArgSet (nsig, meanrt, meanwt, sigmart1, sigmart2, alphart1, alphart2, meanwt, sigmawt)
+    parList.add(alphawt1)
     parList.add(alphawt2)
     parList.add(nwt1)
     parList.add(nwt2)
@@ -486,6 +485,8 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
         upperPad.SetLogy(ilog)
         c1.SaveAs('fit_results_mass_checkOnMC/save_fit_data_%s_%s_LMNR_Final%s.pdf'%(ibin, args.year, '_logScale'*ilog))
 
+    out_f.cd()
+    r.Write('results_data_%s'%(ibin))
 
 
 
