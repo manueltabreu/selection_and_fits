@@ -120,7 +120,7 @@ def generateBkg(tagged_mass, ibin, n_bkg):
 
    
    
-def fitData(fulldata, ibin, n_bkg, nRT_fromMC, nWT_fromMC, w):
+def fitData(fulldata, ibin, n_bkg, w):
 
     cut  = cut_base + '&& (mumuMass*mumuMass > %s && mumuMass*mumuMass < %s)'%(q2binning[ibin], q2binning[ibin+1])
     fulldata_v2 = fulldata.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE, randVar), cut)
@@ -234,7 +234,7 @@ def fitData(fulldata, ibin, n_bkg, nRT_fromMC, nWT_fromMC, w):
     pol_c2        = RooRealVar    ("p2"         , "coeff x^1 term"  ,    0.5,   -10, 10);
     bkg_pol       = RooChebychev  ("bkg_pol"    , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1));
    
-    nsig          = RooRealVar("Yield"         , "signal frac"    ,     nRT_fromMC + nWT_fromMC,     0,   1000000);
+    nsig          = RooRealVar("Yield"         , "signal frac"    ,     nrt_mc.n + nwt_mc.n,     0,   1000000);
     nbkg          = RooRealVar("nbkg"          , "bkg fraction"   ,     1000,     0,   550000);
 
     print nsig.getVal()
@@ -393,15 +393,6 @@ thevars.add(deltaPsiPM)
 
 out_f = TFile ("fit_results_mass_checkOnMC/toybkg/results_fits_toybkg_nbkg%s_%s_Final.root"%(n_bkg_bin[0], args.year),"RECREATE") 
 out_w = ROOT.RooWorkspace("toy_w")
-initial_n_1 =  3.
-initial_n_2 =  1.
-initial_a_1 =  1.
-initial_a_2 = -1.
-initial_sigma1 = 0.028
-initial_sigma2 = 0.048
-initial_sigmaCB = 0.048
-nRT_fromMC = 10
-nWT_fromMC = 10
 
 fname_mcresults = 'fit_results_mass_checkOnMC/results_fits_2018_Final.root'
 fo = ROOT.TFile()
@@ -423,7 +414,7 @@ for i in product(range(len(q2binning)-1), n_bkg_bin):
 #     if q2binning[ibin] < 10:  continue       
 
     print ibin, ibkg
-    fitData(fulldata, ibin, ibkg, nRT_fromMC, nWT_fromMC, w)
+    fitData(fulldata, ibin, ibkg, w)
     print ' --------------------------------------------------------------------------------------------------- '
 
 
@@ -444,9 +435,7 @@ for i in product(range(len(q2binning)-1), n_bkg_bin):
 print '--------------------------------------------------------------------------------------------------- '
 print 'bin\t\t fit status \t cov. matrix \t\t chi2 \t\t deltaNbkgs \t\t deltaNsigs'
 for i,k in enumerate(fitStats.keys()):    
-#     if i%3==0:  print '------------------------------------------------------'
     print k , '\t\t', fitStats[k], '\t\t', covStats[k], '\t\t', chi2s[k] ,'\t\t', nbkgs[k], '\t\t', nsigs[k] 
-#     print toy_bkg.sumEntries() - nbkg.getVal()
 
     
 
