@@ -271,7 +271,7 @@ def fitMC(fulldata, correctTag, ibin):
     ## save to pdf and root files
     for ilog in [True,False]:
         upperPad.SetLogy(ilog)
-        c1.SaveAs('fit_results_mass_checkOnMC/save_fit_mc_%s_%s_%s_Final%s.pdf'%(ibin, args.year, tag, '_logScale'*ilog))
+        c1.SaveAs('fit_results_mass_checkOnMC/save_fit_mc_%s_%s_%s_1sigmac_Final%s.pdf'%(ibin, args.year, tag, '_logScale'*ilog))
     out_f.cd()
     r.Write('results_%s_%s'%(tag, ibin))
     
@@ -329,15 +329,15 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 #     c_f1rt      = _constrainVar(f1rt, 3)
     theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
     if ibin < 5:
-        c_sigma_rt   = _constrainVar(sigmart, 3)
+        c_sigma_rt   = _constrainVar(sigmart, 1)
     else:
-        c_sigma_rt1   = _constrainVar(sigmart1, 3)
-        c_sigma_rt2   = _constrainVar(sigmart2, 3)
+        c_sigma_rt1   = _constrainVar(sigmart1, 1)
+        c_sigma_rt2   = _constrainVar(sigmart2, 1)
     
-    c_alpha_rt1   = _constrainVar(alphart1, 3)
-    c_alpha_rt2   = _constrainVar(alphart2, 3)
-    c_n_rt1       = _constrainVar(nrt1, 3)
-    c_n_rt2       = _constrainVar(nrt2, 3)
+    c_alpha_rt1   = _constrainVar(alphart1, 1)
+    c_alpha_rt2   = _constrainVar(alphart2, 1)
+    c_n_rt1       = _constrainVar(nrt1, 1)
+    c_n_rt2       = _constrainVar(nrt2, 1)
 
     ### creating WT component
     w.loadSnapshot("reference_fit_WT_%s"%ibin)
@@ -349,11 +349,11 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     nwt2        = w.var("n_{2}^{WT%s}"%ibin)
 
     theWTgauss  = w.pdf("doublecb_%s"%ibin)   
-    c_sigma_wt    = _constrainVar(sigmawt, 3)
-    c_alpha_wt1   = _constrainVar(alphawt1, 3)
-    c_alpha_wt2   = _constrainVar(alphawt2, 3)
-    c_n_wt1       = _constrainVar(nwt1, 3)
-    c_n_wt2       = _constrainVar(nwt2, 3)
+    c_sigma_wt    = _constrainVar(sigmawt,  1)
+    c_alpha_wt1   = _constrainVar(alphawt1, 1)
+    c_alpha_wt2   = _constrainVar(alphawt2, 1)
+    c_n_wt1       = _constrainVar(nwt1, 1)
+    c_n_wt2       = _constrainVar(nwt2, 1)
 
 
     ### creating constraints for the RT component
@@ -380,8 +380,8 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     ### creating constraints for the difference between the two peaks
     deltaPeaks = RooFormulaVar("deltaPeaks", "@0 - @1", RooArgList(meanrt, meanwt))  
-    c_deltaPeaks = RooGaussian(  "c_deltaPeaks" , "c_deltaPeaks", deltaPeaks, ROOT.RooFit.RooConst( deltaPeaks.getVal() ), 
-                                ROOT.RooFit.RooConst( 0.0005 )
+    c_deltaPeaks = RooGaussian("c_deltaPeaks" , "c_deltaPeaks", deltaPeaks, ROOT.RooFit.RooConst( deltaPeaks.getVal() ), 
+                                ROOT.RooFit.RooConst( 0.0005 )  ## value to be checked
                                 ) 
 
     c_signalFunction = RooProdPdf ("c_signalFunction", "c_signalFunction", RooArgList(signalFunction, c_frt, c_deltaPeaks))     
@@ -483,7 +483,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     for ilog in [True,False]:
         upperPad.SetLogy(ilog)
-        c1.SaveAs('fit_results_mass_checkOnMC/save_fit_data_%s_%s_LMNR_Final%s.pdf'%(ibin, args.year, '_logScale'*ilog))
+        c1.SaveAs('fit_results_mass_checkOnMC/save_fit_data_%s_%s_LMNR_1sigmac_Final%s.pdf'%(ibin, args.year, '_logScale'*ilog))
 
     out_f.cd()
     r.Write('results_data_%s'%(ibin))
