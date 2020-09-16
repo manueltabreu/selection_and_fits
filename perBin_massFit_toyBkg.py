@@ -64,7 +64,7 @@ def _writeChi2(chi2):
     txt . SetTextFont(42)
     return txt
     
-def _constrainVar(var, nsigma):
+def _constrainVar(var, nsigma, pars_init_vals):
     
     constr = _getFittedVar(var.GetName(), w)
     gauss_constr = RooGaussian(  "c_%s" %var.GetName() , 
@@ -73,7 +73,10 @@ def _constrainVar(var, nsigma):
                                 ROOT.RooFit.RooConst( constr.n ), 
                                 ROOT.RooFit.RooConst( nsigma*constr.s )
                                 ) 
-    print 'constraining var',   var.GetName(), ': ',     constr.n , ' with uncertainty ' , nsigma*constr.s                          
+    ## save initial value (for toys)          
+#     pdb.set_trace()                      
+    pars_init_vals[var.GetName()] = constr.n                                
+#     print 'constraining var',   var.GetName(), ': ',     constr.n , ' with uncertainty ' , nsigma*constr.s                          
     return gauss_constr                        
 
 
@@ -109,12 +112,13 @@ chi2s    = OrderedDict()
 nbkgs    = OrderedDict()
 nsigs    = OrderedDict()
 
+## pars_init_vals = {}
      
 def generateBkg(tagged_mass, ibin, n_bkg): 
 
     slope         = RooRealVar    ("slope"      , "slope"           ,    -4.2)
     bkg_exp       = RooExponential("bkg_exp"    , "exponential"     ,  slope,   tagged_mass  )
-    n_togen = np.random.poisson(n_bin[ibin]*n_bkg, 1)
+    n_togen       = np.random.poisson(n_bin[ibin]*n_bkg, 1)
     toybkg        = bkg_exp.generate(RooArgSet(tagged_mass), n_togen[0]) 
     return toybkg
 
@@ -164,17 +168,18 @@ def fitData(fulldata, ibin, n_bkg, w):
         nrt1        = w.var("n_{RT0}^{%s}"%ibin)
         nrt2        = w.var("n_{RT1}^{%s}"%ibin)
 
+    pars_init_vals = {}
     theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
     if ibin < 5:
-        c_sigma_rt   = _constrainVar(sigmart, 1)
+        c_sigma_rt   = _constrainVar(sigmart, 1, pars_init_vals)
     else:
-        c_sigma_rt1   = _constrainVar(sigmart1, 1)
-        c_sigma_rt2   = _constrainVar(sigmart2, 1)
+        c_sigma_rt1   = _constrainVar(sigmart1, 1, pars_init_vals)
+        c_sigma_rt2   = _constrainVar(sigmart2, 1, pars_init_vals)
     
-    c_alpha_rt1   = _constrainVar(alphart1, 1)
-    c_alpha_rt2   = _constrainVar(alphart2, 1)
-    c_n_rt1       = _constrainVar(nrt1, 1)
-    c_n_rt2       = _constrainVar(nrt2, 1)
+    c_alpha_rt1   = _constrainVar(alphart1, 1, pars_init_vals)
+    c_alpha_rt2   = _constrainVar(alphart2, 1, pars_init_vals)
+    c_n_rt1       = _constrainVar(nrt1, 1, pars_init_vals)
+    c_n_rt2       = _constrainVar(nrt2, 1, pars_init_vals)
 
     ### creating WT component
     w.loadSnapshot("reference_fit_WT_%s"%ibin)
@@ -186,11 +191,11 @@ def fitData(fulldata, ibin, n_bkg, w):
     nwt2        = w.var("n_{2}^{WT%s}"%ibin)
 
     theWTgauss  = w.pdf("doublecb_%s"%ibin)   
-    c_sigma_wt    = _constrainVar(sigmawt, 1)
-    c_alpha_wt1   = _constrainVar(alphawt1, 1)
-    c_alpha_wt2   = _constrainVar(alphawt2, 1)
-    c_n_wt1       = _constrainVar(nwt1, 1)
-    c_n_wt2       = _constrainVar(nwt2, 1)
+    c_sigma_wt    = _constrainVar(sigmawt,  1, pars_init_vals)
+    c_alpha_wt1   = _constrainVar(alphawt1, 1, pars_init_vals)
+    c_alpha_wt2   = _constrainVar(alphawt2, 1, pars_init_vals)
+    c_n_wt1       = _constrainVar(nwt1, 1, pars_init_vals)
+    c_n_wt2       = _constrainVar(nwt2, 1, pars_init_vals)
 
 
     ### creating constraints for the RT component
@@ -239,24 +244,34 @@ def fitData(fulldata, ibin, n_bkg, w):
 
     print nsig.getVal()
     fitFunction = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(c_signalFunction, bkg_exp), RooArgList(nsig, nbkg))
-    
+
+    pars_to_tune   = [sigmawt, alphawt1, alphawt2, nwt1, nwt2, alphart1, alphart2, nrt1, nrt2]
+    if ibin < 5:
+        pars_to_tune.append(sigmart) 
+    else:
+        pars_to_tune.append(sigmart1) 
+        pars_to_tune.append(sigmart2) 
 
     ## add toy bkg
     for itoy in range(args.ntoys):
         data = deepcopy(signaldata )
         toy_bkg = generateBkg(tagged_mass, ibin, n_bkg)
         data.append(toy_bkg)
+        print 'toy number', itoy
         
-        r = fitFunction.fitTo(data, 
-                              RooFit.Extended(True), 
-                              RooFit.Range("full"), 
-                              ROOT.RooFit.Constrain(c_vars),
-#                               ROOT.RooFit.Minimizer("Minuit2","migrad"),
-                              ROOT.RooFit.Hesse(True),
-                              ROOT.RooFit.Strategy(2),
-                              ROOT.RooFit.Minos(False),
-                             )
-#         print 'fit with Hesse strategy 2 done, now Minos'    
+        for ipar in pars_to_tune:
+            ipar.setVal(pars_init_vals[ipar.GetName()])
+
+#         r = fitFunction.fitTo(data, 
+#                               RooFit.Extended(True), 
+#                               RooFit.Range("full"), 
+#                               ROOT.RooFit.Constrain(c_vars),
+# #                               ROOT.RooFit.Minimizer("Minuit2","migrad"),
+#                               ROOT.RooFit.Hesse(True),
+#                               ROOT.RooFit.Strategy(2),
+#                               ROOT.RooFit.Minos(False),
+#                              )
+# #         print 'fit with Hesse strategy 2 done, now Minos'    
         r = fitFunction.fitTo(data, 
                               RooFit.Extended(True), 
                               RooFit.Save(), 
@@ -268,9 +283,8 @@ def fitData(fulldata, ibin, n_bkg, w):
                               ROOT.RooFit.Strategy(2),
                               ROOT.RooFit.Minos(True),
                              )
-                            
-#         r.Print()
-#     r.correlationMatrix().Print()
+# #         r.Print()
+# #     r.correlationMatrix().Print()
         fitStats['data%s_itoy%s'%(ibin,itoy)] = r.status()
         covStats['data%s_itoy%s'%(ibin,itoy)] = r.covQual()
         frame = tagged_mass.frame( RooFit.Range("full") )
@@ -289,18 +303,19 @@ def fitData(fulldata, ibin, n_bkg, w):
         if args.ntoys == 1:
     
             drawPdfComponents(fitFunction, frame, ROOT.kAzure, RooFit.NormRange("full"), RooFit.Range("full"), isData = True)
-            parList = RooArgSet (nsig, nbkg, meanrt, meanwt, alphart1, alphart2, meanwt, sigmawt)
-            if ibin < 5 :
-                parList.add(sigmart)
-            else:
-                parList.add(sigmart1)
-                parList.add(sigmart2)
-            parList.add(alphawt1)
-            parList.add(alphawt2)
-            parList.add(nwt1)
-            parList.add(nwt2)
-            parList.add(frt)
-            fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.62,0.86,0.89))
+            fitFunction.paramOn(frame, RooFit.Layout(0.62,0.86,0.89))
+#             parList = RooArgSet (nsig, nbkg, meanrt, meanwt, alphart1, alphart2, meanwt, sigmawt)
+#             if ibin < 5 :
+#                 parList.add(sigmart)
+#             else:
+#                 parList.add(sigmart1)
+#                 parList.add(sigmart2)
+#             parList.add(alphawt1)
+#             parList.add(alphawt2)
+#             parList.add(nwt1)
+#             parList.add(nwt2)
+#             parList.add(frt)
+#             fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.62,0.86,0.89))
         
             frame.Draw()
             niceFrame(frame, '')
@@ -332,11 +347,11 @@ def fitData(fulldata, ibin, n_bkg, w):
         
             for ilog in [True,False]:
                 upperPad.SetLogy(ilog)
-                c1.SaveAs('fit_results_mass_checkOnMC/toybkg/save_fit_data_%s_%s_nbkg%s_LMNR_Final%s_%s.pdf'%(ibin, args.year, n_bkg, '_logScale'*ilog,itoy))
+                c1.SaveAs('fit_results_mass_checkOnMC/toybkg/save_fit_data_%s_%s_nbkg%s_LMNR_Final%s_%s_update.pdf'%(ibin, args.year, n_bkg, '_logScale'*ilog,itoy))
     
     
         out_f.cd()
-        r.Write('results_data_%s_ntoy%s'%(ibin,itoy))
+#         r.Write('results_data_%s_ntoy%s'%(ibin,itoy))
     
         ## compare nkbg fitted w/ original value
         nbkgs['data%s_itoy%s'%(ibin,itoy)] = (toy_bkg.sumEntries() - nbkg.getVal())/toy_bkg.sumEntries()
@@ -391,8 +406,6 @@ thevars.add(deltaB0M)
 thevars.add(deltaJpsiM)
 thevars.add(deltaPsiPM)
 
-out_f = TFile ("fit_results_mass_checkOnMC/toybkg/results_fits_toybkg_nbkg%s_%s_Final.root"%(n_bkg_bin[0], args.year),"RECREATE") 
-out_w = ROOT.RooWorkspace("toy_w")
 
 fname_mcresults = 'fit_results_mass_checkOnMC/results_fits_2018_Final.root'
 fo = ROOT.TFile()
@@ -402,33 +415,38 @@ except:
   print ('file %s or not found'%(fo))
 w = fo.Get('w')
 
+for istat in n_bkg_bin:
+    out_f = TFile ("fit_results_mass_checkOnMC/toybkg/results_fits_toybkg_nbkg%s_%s_Final.root"%(istat, args.year),"RECREATE") 
+    out_w = ROOT.RooWorkspace("toy_w")
 
-for i in product(range(len(q2binning)-1), n_bkg_bin):
+    for ibin in range(len(q2binning)-1):
 
-    ibin = i[0]
-    ibkg = i[1]
-    print 'dimuon selection: ', args.dimusel
-    if args.dimusel == 'rejectPsi' and \
-       (q2binning[ibin] == 8.68 or q2binning[ibin] == 12.86): 
-           continue
-#     if q2binning[ibin] < 10:  continue       
-
-    print ibin, ibkg
-    fitData(fulldata, ibin, ibkg, w)
-    print ' --------------------------------------------------------------------------------------------------- '
-
-
-    h_pull_sig = ROOT.TH1F('h_pull_sig_bin%s'%ibin, 'h_pull_sig_bin%s'%ibin, 100, -.5, .5)
-    h_pull_bkg = ROOT.TH1F('h_pull_bkg_bin%s'%ibin, 'h_pull_bkg_bin%s'%ibin, 100, -.5, .5)
-    for i,k in enumerate(nsigs.keys()):
-        if 'data%s'%ibin in k:
-            h_pull_sig.Fill(nsigs[k] )
-            h_pull_bkg.Fill(nbkgs[k] )
-    c2 = ROOT.TCanvas('c2','c2',400,800)
-    c2.Divide(1,2)            
-    c2.cd(1);  h_pull_sig.Draw()
-    c2.cd(2);  h_pull_bkg.Draw()
-    c2.SaveAs('fit_results_mass_checkOnMC/toybkg/pull_bin%s.pdf'%ibin)
+        print 'dimuon selection: ', args.dimusel
+        if args.dimusel == 'rejectPsi' and \
+           (q2binning[ibin] == 8.68 or q2binning[ibin] == 12.86): 
+               continue
+#         if q2binning[ibin] < 10:  continue       
+    
+        print ibin, istat
+        fitData(fulldata, ibin, istat, w)
+        print ' --------------------------------------------------------------------------------------------------- '
+    
+    
+        h_pull_sig = ROOT.TH1F('h_pull_sig_bin%s'%ibin, 'h_pull_sig_bin%s;n_{real}-n_{fit}; '%ibin, 100, -.25, .25)
+        h_pull_bkg = ROOT.TH1F('h_pull_bkg_bin%s'%ibin, 'h_pull_bkg_bin%s;n_{real}-n_{fit}; '%ibin, 100, -.25, .25)
+        for i,k in enumerate(nsigs.keys()):
+            if 'data%s'%ibin in k:
+                h_pull_sig.Fill(nsigs[k] )
+                h_pull_bkg.Fill(nbkgs[k] )
+        c2 = ROOT.TCanvas('c2','c2',400,800)
+        c2.Divide(1,2)            
+        c2.cd(1);  h_pull_sig.Draw()
+        c2.cd(2);  h_pull_bkg.Draw()
+        c2.SaveAs('fit_results_mass_checkOnMC/toybkg/pull_bin%s_nbkg%s_%s_update.pdf'%(ibin,istat,args.year))
+        out_f.cd()
+        h_pull_sig.Write()
+        h_pull_bkg.Write()
+    
     
             
     
