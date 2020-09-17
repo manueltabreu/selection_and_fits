@@ -118,8 +118,14 @@ def generateBkg(tagged_mass, ibin, n_bkg):
 
     slope         = RooRealVar    ("slope"      , "slope"           ,    -4.2)
     bkg_exp       = RooExponential("bkg_exp"    , "exponential"     ,  slope,   tagged_mass  )
+
+    pol_c1        = RooRealVar    ("p1"         , "coeff x^0 term"  ,    -1.2);
+    pol_c2        = RooRealVar    ("p2"         , "coeff x^1 term"  ,    0.3);
+    bkg_pol       = RooChebychev  ("bkg_pol"    , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1, pol_c2));
+
+
     n_togen       = np.random.poisson(n_bin[ibin]*n_bkg, 1)
-    toybkg        = bkg_exp.generate(RooArgSet(tagged_mass), n_togen[0]) 
+    toybkg        = bkg_pol.generate(RooArgSet(tagged_mass), n_togen[0]) 
     return toybkg
 
    
@@ -207,14 +213,14 @@ def fitData(fulldata, ibin, n_bkg, w):
         c_RTgauss  = RooProdPdf  ("c_RTgauss" , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt1, c_sigma_rt2, c_alpha_rt2, c_n_rt2  ) )     
         c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
 
+    ### creating constraints for the WT component
+    c_WTgauss  = RooProdPdf  ("c_WTgauss" , "c_WTgauss" , RooArgList(theWTgauss, c_alpha_wt1, c_n_wt1, c_sigma_wt, c_alpha_wt2, c_n_wt2  ) )     
     c_vars.add(c_sigma_wt)
     c_vars.add(c_alpha_wt1)
     c_vars.add(c_alpha_wt2)
     c_vars.add(c_n_wt1)
     c_vars.add(c_n_wt2)
 
-    ### creating constraints for the WT component
-    c_WTgauss  = RooProdPdf  ("c_WTgauss" , "c_WTgauss" , RooArgList(theWTgauss, c_alpha_wt1, c_n_wt1, c_sigma_wt, c_alpha_wt2, c_n_wt2  ) )     
 
     frt              = RooRealVar ("F_{RT}"          , "frt"             , fraction.n , 0, 1)
     signalFunction   = RooAddPdf  ("sumgaus"         , "rt+wt"           , RooArgList(c_RTgauss,c_WTgauss), RooArgList(frt))
@@ -237,13 +243,13 @@ def fitData(fulldata, ibin, n_bkg, w):
     bkg_exp       = RooExponential("bkg_exp"    , "exponential"     ,  slope,   tagged_mass  );
     pol_c1        = RooRealVar    ("p1"         , "coeff x^0 term"  ,    0.5,   -10, 10);
     pol_c2        = RooRealVar    ("p2"         , "coeff x^1 term"  ,    0.5,   -10, 10);
-    bkg_pol       = RooChebychev  ("bkg_pol"    , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1));
+    bkg_pol       = RooChebychev  ("bkg_pol"    , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1, pol_c2));
    
     nsig          = RooRealVar("Yield"         , "signal frac"    ,     nrt_mc.n + nwt_mc.n,     0,   1000000);
     nbkg          = RooRealVar("nbkg"          , "bkg fraction"   ,     1000,     0,   550000);
 
     print nsig.getVal()
-    fitFunction = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(c_signalFunction, bkg_exp), RooArgList(nsig, nbkg))
+    fitFunction = RooAddPdf ("fitfunction" , "fit function"  ,  RooArgList(c_signalFunction, bkg_pol), RooArgList(nsig, nbkg))
 
     pars_to_tune   = [sigmawt, alphawt1, alphawt2, nwt1, nwt2, alphart1, alphart2, nrt1, nrt2]
     if ibin < 5:
@@ -347,7 +353,7 @@ def fitData(fulldata, ibin, n_bkg, w):
         
             for ilog in [True,False]:
                 upperPad.SetLogy(ilog)
-                c1.SaveAs('fit_results_mass_checkOnMC/toybkg/save_fit_data_%s_%s_nbkg%s_LMNR_Final%s_%s_update.pdf'%(ibin, args.year, n_bkg, '_logScale'*ilog,itoy))
+                c1.SaveAs('fit_results_mass_checkOnMC/toybkg/save_fit_data_%s_%s_nbkg%s_LMNR_Final%s_%s_update_pol2bkg.pdf'%(ibin, args.year, n_bkg, '_logScale'*ilog,itoy))
     
     
         out_f.cd()
@@ -416,7 +422,7 @@ except:
 w = fo.Get('w')
 
 for istat in n_bkg_bin:
-    out_f = TFile ("fit_results_mass_checkOnMC/toybkg/results_fits_toybkg_nbkg%s_%s_Final.root"%(istat, args.year),"RECREATE") 
+    out_f = TFile ("fit_results_mass_checkOnMC/toybkg/results_fits_toybkg_nbkg%s_%s_Final_pol2bkg.root"%(istat, args.year),"RECREATE") 
     out_w = ROOT.RooWorkspace("toy_w")
 
     for ibin in range(len(q2binning)-1):
@@ -432,8 +438,8 @@ for istat in n_bkg_bin:
         print ' --------------------------------------------------------------------------------------------------- '
     
     
-        h_pull_sig = ROOT.TH1F('h_pull_sig_bin%s'%ibin, 'h_pull_sig_bin%s;n_{real}-n_{fit}; '%ibin, 100, -.25, .25)
-        h_pull_bkg = ROOT.TH1F('h_pull_bkg_bin%s'%ibin, 'h_pull_bkg_bin%s;n_{real}-n_{fit}; '%ibin, 100, -.25, .25)
+        h_pull_sig = ROOT.TH1F('h_pull_sig_bin%s'%ibin, 'h_pull_sig_bin%s;(n_{real}-n_{fit})/n_{real}; '%ibin, 100, -.25, .25)
+        h_pull_bkg = ROOT.TH1F('h_pull_bkg_bin%s'%ibin, 'h_pull_bkg_bin%s;(n_{real}-n_{fit})/n_{real}; '%ibin, 100, -.25, .25)
         for i,k in enumerate(nsigs.keys()):
             if 'data%s'%ibin in k:
                 h_pull_sig.Fill(nsigs[k] )
@@ -442,7 +448,7 @@ for istat in n_bkg_bin:
         c2.Divide(1,2)            
         c2.cd(1);  h_pull_sig.Draw()
         c2.cd(2);  h_pull_bkg.Draw()
-        c2.SaveAs('fit_results_mass_checkOnMC/toybkg/pull_bin%s_nbkg%s_%s_update.pdf'%(ibin,istat,args.year))
+        c2.SaveAs('fit_results_mass_checkOnMC/toybkg/pull_bin%s_nbkg%s_%s_pol2bkg.pdf'%(ibin,istat,args.year))
         out_f.cd()
         h_pull_sig.Write()
         h_pull_bkg.Write()
