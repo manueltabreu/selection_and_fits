@@ -15,8 +15,8 @@ def _import(wsp, obj):
 
 def singleG(mean, sigma_, tagged_mass, w, fn):
 
-#     mean         = RooRealVar ("mass^{%s}"%fn    , "massSG"         ,   mean_    ,     5,    6, "GeV")
-    sigma        = RooRealVar ("#sigma^{%s}"%fn  , "sigmaSG"        ,  sigma_    ,     0,    1, "GeV")
+#     mean         = RooRealVar ("mean^{%s}"%fn   , "massSG"        ,  mean_     ,      5,    6, "GeV")
+    sigma        = RooRealVar ("#sigma^{%s}"%fn , "sigmaSG"       ,  sigma_    ,     0,    1, "GeV")
     singlegaus   = RooGaussian("gaus_%s"%fn    , "singlegaus"     , tagged_mass,  mean, sigma)
     _import(w,singlegaus)
 
@@ -55,7 +55,7 @@ def crystalBall(mean, sigma_, alpha_, n_, tagged_mass, w, fn, bin, rangeAlpha):
 
 def doubleCB(cbshape1, cbshape2, f3_, tagged_mass, w, fn):
 
-    f3           = RooRealVar ("f^{WT%s}"%fn      , "f3"      ,  f3_  ,     0.,   1.)
+    f3           = RooRealVar ("f^{%s}"%fn      , "f3"      ,  f3_  ,     0.,   1.)
     doublecb     = RooAddPdf  ("doublecb_%s"%fn, "doublecb"  ,  RooArgList(cbshape1,cbshape2), RooArgList(f3))
     _import(w,doublecb)
 
@@ -99,48 +99,49 @@ def bwcb(mean_, width_, sigma_, alpha_, n_, fn, tagged_mass, w):
 
 
 
-def calculateTotSigma(sigma_vec, f_vec):
+# def calculateTotSigma(sigma_vec, f_vec):
+#     
+#     if len(sigma_vec) != len(f_vec) + 1:
+#         print 'calculateTotSigma: Warning! wrong vector lenghts'
+#         return 0
+#     totSigma = ufloat(0., 0.)
+#     sum_f    = ufloat(0., 0.)
+# 
+#     s1 = sigma_vec[0]
+#     s2 = sigma_vec[1]
+#     f1 = f_vec[0]
+#     totSigma = pow(s1, 2) * f1 + (1-f1)* pow(s2,2)
+#     for i in range(len(f_vec)-1):
+#         s1 = totSigma
+#         s2 = sigma_vec[i+2]
+#         f1 = f_vec[i+1]
+#         totSigma = pow(s1, 2) * f1 + (1-f1)* pow(s2,2)
+#     
+# #     print 'calculateTotSigma: totSigma = ', totSigma, ' sum_f = ',  sum_f
+# #     totSigma += (1-sum_f) *  pow(sigma_vec[-1],2)  
+#     print 'calculateTotSigma: ', umath.sqrt(totSigma)
+#     return umath.sqrt(totSigma) 
     
-    if len(sigma_vec) != len(f_vec) + 1:
-        print 'calculateTotSigma: Warning! wrong vector lenghts'
-        return 0
-    totSigma = ufloat(0., 0.)
-    sum_f    = ufloat(0., 0.)
-
-    s1 = sigma_vec[0]
-    s2 = sigma_vec[1]
-    f1 = f_vec[0]
-    totSigma = pow(s1, 2) * f1 + (1-f1)* pow(s2,2)
-    for i in range(len(f_vec)-1):
-        s1 = totSigma
-        s2 = sigma_vec[i+2]
-        f1 = f_vec[i+1]
-        totSigma = pow(s1, 2) * f1 + (1-f1)* pow(s2,2)
-    
-#     print 'calculateTotSigma: totSigma = ', totSigma, ' sum_f = ',  sum_f
-#     totSigma += (1-sum_f) *  pow(sigma_vec[-1],2)  
-    print 'calculateTotSigma: ', umath.sqrt(totSigma)
-    return umath.sqrt(totSigma) 
-    
 
 
 
-
+from itertools import product
 def drawPdfComponents(fitFunction, frame, base_color, normrange, range, isData = False):
 
     pdf_components = fitFunction.getComponents()
     iter = pdf_components.createIterator()
     var = iter.Next();  color = 0
-    list_to_plot = ['fitfunction', 'c_signalFunction', 'c_RTgauss', 'c_WTgauss', 'bkg_exp']
+    list_to_plot      = ['fitfunction', 'c_signalFunction', 'c_RTgauss', 'c_WTgauss', 'bkg_exp', 'bkg_pol']
+    list_to_plot_bins = ['%s%s'%(i,ibin) for i,ibin in product(list_to_plot,xrange(8))]
     while var :
         ### https://root-forum.cern.ch/t/roofit-normalization/23644/5
-        if isData and var.GetName() not in list_to_plot:  
+        if isData and var.GetName() not in list_to_plot and var.GetName() not in list_to_plot_bins:  
             var = iter.Next()
             continue
         fitFunction.plotOn(frame, RooFit.Components(var.GetName()), RooFit.LineStyle(ROOT.kDashed), RooFit.LineColor(base_color+color), normrange, range)
         var = iter.Next()
         color += 1
-#     w.pdf('model').plotOn(frame, RooFit.NormRange("full"),RooFit.Range("full"))
+
 
 
 

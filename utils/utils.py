@@ -6,6 +6,7 @@ from ROOT import RooFit, RooRealVar
 
 
 from eras_allYears import *
+# from utils.eras_allYears import *
 
 B0Mass_   = 5.27958
 JPsiMass_ = 3.096916
@@ -49,12 +50,12 @@ def applyB0PsiCut(dimusel, nSigma_psiRej):
     elif dimusel == 'nocut':
       cut_base = cut_base
     else:
-      print '\nYou should define which dimuon mass to consider. Please choose between following options: \nkeepPsiP, keepJpsi, rejectPsi, keepPsi'
+      print ('\nYou should define which dimuon mass to consider. Please choose between following options: \nkeepPsiP, keepJpsi, rejectPsi, keepPsi')
  
     return cut_base
 
 
-def writeCMS(frame, year, ibin = [-1,-1]):
+def writeCMS(frame, year, ibin = [-1,-1], toy=0):
 
     txt = ROOT.TLatex(.11,.91,"CMS") 
     txt. SetNDC() 
@@ -62,7 +63,8 @@ def writeCMS(frame, year, ibin = [-1,-1]):
     frame.addObject(txt) 
     
     lumiYear = lumi_eras[str(year)]
-    txt2 = ROOT.TLatex(.75,.91,"%.1f fb^{-1}, 13 TeV"%lumiYear) ;
+    if toy==0:  txt2 = ROOT.TLatex(.75,.91,"%.1f fb^{-1}, 13 TeV"%lumiYear) 
+    else:  txt2 = ROOT.TLatex(.55,.91,"simulation, equivalent of %.1f fb^{-1}, 13 TeV"%lumiYear) 
     txt2 . SetNDC() ;
     txt2 . SetTextSize(0.03) ;
     txt2 . SetTextFont(42) ;
@@ -78,8 +80,21 @@ def writeCMS(frame, year, ibin = [-1,-1]):
     
 def niceFrame(frame, title):
     frame.GetYaxis().SetTitleOffset(1.35)
-    frame.getAttText().SetTextSize(0.022) 
-    frame.getAttText().SetTextFont(42) 
-    frame.getAttLine().SetLineColor(0) 
     frame.SetTitle(title)
+    try:
+        frame.getAttText().SetTextSize(0.022) 
+        frame.getAttText().SetTextFont(42) 
+        frame.getAttLine().SetLineColor(0) 
+    except:
+        pass
+            
+def niceFrameLowerPad(frame, titleY):
+    frame.GetYaxis().SetTitle(titleY)
+    frame.GetYaxis().SetTitleOffset(0.9)
+    frame.GetYaxis().SetTitleSize(0.06)
+    frame.GetYaxis().SetLabelSize(0.06)
+    frame.GetXaxis().SetLabelSize(0.06)
+    frame.GetXaxis().SetTitleSize(0.07)
+    frame.SetTitle('')
+
     
