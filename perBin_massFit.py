@@ -91,6 +91,9 @@ q2binning = [
 #                 19,
 ]
 
+## 2018
+frt_sigmas = [0.0025, 0.0028, 0.0028, 0.0025, 0., 0.0026, 0., 0.0026]
+
 from collections import OrderedDict
 fitStats = OrderedDict()
 covStats = OrderedDict()
@@ -190,7 +193,7 @@ def fitData(fulldata, ibin, w):
 
     frt              = RooRealVar ("F_{RT}%s"%ibin   , "frt"             , fraction.n , 0, 1)
     signalFunction   = RooAddPdf  ("sumgaus%s"%ibin  , "rt+wt"           , RooArgList(c_RTgauss,c_WTgauss), RooArgList(frt))
-    c_frt            = RooGaussian("c_frt%s"%ibin    , "c_frt"           , frt,  ROOT.RooFit.RooConst(fraction.n) , ROOT.RooFit.RooConst(fraction.s) )
+    c_frt            = RooGaussian("c_frt%s"%ibin    , "c_frt"           , frt,  ROOT.RooFit.RooConst(fraction.n) , ROOT.RooFit.RooConst(frt_sigmas[ibin]) )
     
     
     ### creating constraints for the difference between the two peaks
@@ -208,7 +211,7 @@ def fitData(fulldata, ibin, w):
     bkg_exp       = RooExponential("bkg_exp_%s"%ibin , "exponential"     ,  slope,   tagged_mass  );
     pol_c1        = RooRealVar    ("p1_%s"%ibin      , "coeff x^0 term"  ,    0.5,   -10, 10);
     pol_c2        = RooRealVar    ("p2_%s"%ibin      , "coeff x^1 term"  ,    0.5,   -10, 10);
-    bkg_pol       = RooChebychev  ("bkg_pol%s"%ibin  , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1, pol_c2));
+    bkg_pol       = RooPolynomial  ("bkg_pol%s"%ibin  , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1, pol_c2));
    
     nsig          = RooRealVar("Yield%s"%ibin  , "signal frac"    ,     1000,     0,   10000);
     nbkg          = RooRealVar("nbkg%s"%ibin   , "bkg fraction"   ,     1000,     0,   55000);
@@ -256,13 +259,13 @@ def fitData(fulldata, ibin, w):
     drawPdfComponents(fitFunction, frame, ROOT.kAzure, RooFit.NormRange("full"), RooFit.Range("full"), isData = True)
 #     fitFunction.paramOn(frame, RooFit.Layout(0.62,0.86,0.89))
 
-#     parList = RooArgSet (nsig, meanrt, sigmart, alphart1, alphart2, nrt1, nrt2, meanwt, sigmawt)
+    parList = RooArgSet (nsig, meanrt, sigmart, alphart1, alphart2, nrt1, nrt2, meanwt, sigmawt)
 #     parList.add(alphawt1)
 #     parList.add(alphawt2)
 #     parList.add(nwt1)
 #     parList.add(nwt2)
-#     parList.add(frt)
-#     fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.62,0.86,0.89))
+    parList.add(frt)
+    fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.62,0.86,0.89))
 
     frame.Draw()
     niceFrame(frame, '')
@@ -294,7 +297,7 @@ def fitData(fulldata, ibin, w):
 
     for ilog in [True,False]:
         upperPad.SetLogy(ilog)
-        c1.SaveAs('fit_results_mass/save_fit_data_%s_%s_LMNR_Update%s_expbkg.pdf'%(ibin, args.year, '_logScale'*ilog))
+        c1.SaveAs('fit_results_mass/save_fit_data_%s_%s_LMNR_Update%s_newSigmaFRT_pars.pdf'%(ibin, args.year, '_logScale'*ilog))
 
 
     out_f.cd()
@@ -303,8 +306,8 @@ def fitData(fulldata, ibin, w):
     params = fitFunction.getParameters(RooArgSet(tagged_mass)) 
     out_w.saveSnapshot("reference_fit_data_%s"%(ibin),params,ROOT.kTRUE) 
     getattr(out_w, 'import')(fitFunction)
-    getattr(out_w, 'import')(signalFunction)
-    getattr(out_w, 'import')(bkg_pol)
+#     getattr(out_w, 'import')(signalFunction)
+#     getattr(out_w, 'import')(bkg_pol)
 
 
 
@@ -346,7 +349,7 @@ thevars.add(deltaJpsiM)
 thevars.add(deltaPsiPM)
 
 
-fname_mcresults = 'fit_results_mass_checkOnMC/results_fits_2018_Final.root'
+fname_mcresults = 'fit_results_mass_checkOnMC/results_fits_2018_newSigmaFRT.root'
 fo = ROOT.TFile()
 try:
   fo = ROOT.TFile(fname_mcresults,'open')
@@ -355,7 +358,7 @@ except:
 w = fo.Get('w')
 
 
-out_f = TFile ("results_data_fits_%s_expbkg.root"%args.year,"RECREATE") 
+out_f = TFile ("results_data_fits_%s_newSigmaFRT.root"%args.year,"RECREATE") 
 out_w = ROOT.RooWorkspace("data_w")
 
 for ibin in range(len(q2binning)-1):
