@@ -1,6 +1,8 @@
 import argparse
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("bin", help = "choose q2 bin range", default = -1, type = float)
+parser.add_argument("ns_min", help = "choose nsigma close to signal", default = 3, type = float)
+parser.add_argument("ns_max", help = "choose nsigma far from signal", default = 3, type = float)
 # # parser.add_argument("year", help = "choose year [format:2016, 20162017]", default = '2016')
 args = parser.parse_args()
 
@@ -26,8 +28,8 @@ ROOT.RooMsgService.instance().setGlobalKillBelow(4)
 gSystem.Load('libRooFit')
 gSystem.Load('utils/func_roofit/libRooDoubleCBFast')
 
-ns_min = 4
-ns_max = 7
+ns_min = args.ns_min
+ns_max = args.ns_max
 
 class fit_pars(object):
     '''
@@ -130,6 +132,7 @@ for ii, ibin in enumerate(bin_range):
     in_ws.loadSnapshot("reference_fit_data_%s"%ibin)
 #     fit_pdf = in_ws.pdf('fitfunction%s'%ibin)
     sig_pdf = in_ws.pdf('c_signalFunction%s'%ibin)
+    bkg_pdf = in_ws.pdf('bkg_exp_%s'%ibin)
     x = in_ws.var('tagged_mass')
     x.setRange('lSB', (pars_o.mean - ns_max*pars_o.totSigma).n, (pars_o.mean - ns_min*pars_o.totSigma).n )
     x.setRange('rSB', (pars_o.mean + ns_min*pars_o.totSigma).n, (pars_o.mean + ns_max*pars_o.totSigma).n )
@@ -146,6 +149,12 @@ for ii, ibin in enumerate(bin_range):
 
     n_sig_fit = in_ws.var('Yield%s'%ibin).getVal()
     n_bkg_fit = in_ws.var('nbkg%s'%ibin).getVal()
+
+    lIntb = bkg_pdf.createIntegral(RooArgSet(x), normSet, RooFit.Range('lSB')) 
+    rIntb = bkg_pdf.createIntegral(RooArgSet(x), normSet, RooFit.Range('rSB')) 
+    print 'remaining bkg events in the left SB: %.3f' %lIntb.getVal(), \
+          '\nremaining bkg events in the right SB: %.3f' %rIntb.getVal() 
+
     
     fit_pdf = in_ws.pdf('fitfunction%s'%ibin)
     lallInt = fit_pdf.createIntegral(RooArgSet(x), normSet, RooFit.Range('lSB')) 
