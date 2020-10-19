@@ -5,9 +5,12 @@ parser.add_argument("year"      , help = "choose among:2016,2017,2018", default 
 parser.add_argument('--ntoys', type=int, default = 1)
 args = parser.parse_args()
 
-import os, sys
+import os, sys, inspect
 from os import path
 sys.path.insert(0, os.environ['HOME'] + '/.local/lib/python2.7/site-packages')
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir)
 
 import ROOT
 from ROOT import gSystem, gStyle
@@ -19,14 +22,16 @@ from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooArgSet, RooAddPd
 import sys, math, pdb, random
 import numpy as np
 
+sys.path.append("../utils")
 from utils.utils import *
 nSigma_psiRej = 3.
 
 tData = ROOT.TChain('ntuple')
-tData.Add('/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_10_2_14/src/miniB0KstarMuMu/miniKstarMuMu/bdt/final_ntuples/2018MC_LMNR_100k.root')
+# tData.Add('/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_10_2_14/src/miniB0KstarMuMu/miniKstarMuMu/bdt/final_ntuples/2017MC_LMNR_100k.root')
+tData.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/%sMC_LMNR.root'%args.year)
 
 ## numbers for 2018, will be read from common function in the next iteration
-n_bin     = [520, 1000, 850, 1900, 0, 3166, 0, 1860]
+n_bin = n_data[args.year]
 q2binning = [
                 1,
                 2, 
@@ -88,7 +93,7 @@ thevars.add(deltaJpsiM)
 thevars.add(deltaPsiPM)
 
 
-out_f = TFile ("checkfrttodel.root","RECREATE") 
+out_f = TFile ("checkfrt%s.root"%args.year,"RECREATE") 
 out_w = ROOT.RooWorkspace("toy_w")
 
 for ibin in range(len(q2binning)-1):
@@ -104,7 +109,7 @@ for ibin in range(len(q2binning)-1):
     c2 = ROOT.TCanvas('c2','c2',400,400)
     h_truef.Draw()
     h_truef.Fit('gaus')
-#     c2.SaveAs('frt_toy_bin%s_%s.pdf' %(ibin,args.ntoys))
+    c2.SaveAs('frt_toy_bin%s_%s_%s.pdf' %(ibin,args.ntoys,args.year))
     out_f.cd()
     h_truef.Write()
 
