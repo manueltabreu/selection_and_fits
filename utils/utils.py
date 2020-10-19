@@ -18,6 +18,18 @@ JPsiMass   = RooRealVar("JPsiMass"  , "JPsiMass", JPsiMass_)
 PsiPMass   = RooRealVar("PsiPMass"  , "PsiPMass", PsiPMass_)
 KStMass    = RooRealVar("KStMass"   , "KStMass" , KStMass_ )
 
+n_data = {}
+n_data['2016'] = [217,  481, 418,  916, 100000, 1396, 10000, 899 ]
+n_data['2017'] = [329,  628, 525, 1188, 100000, 1524, 10000, 887 ]
+n_data['2018'] = [520, 1000, 850, 1900, 100000, 3166, 10000, 1860]
+n_data['test'] = [520, 1000, 850, 1900, 100000, 3166, 10000, 1860]
+
+frt_sigmas = {}
+frt_sigmas['2016'] = [0.0040, 0.0046, 0.0043, 0.0040, 0.0038, 0.0037, 0.0037, 0.0040]
+frt_sigmas['2017'] = [0.0039, 0.0039, 0.0042, 0.0035, 0.0035, 0.0038, 0.0042, 0.0042]
+frt_sigmas['2018'] = [0.0025, 0.0028, 0.0028, 0.0025, 0.0025, 0.0026, 0.0026, 0.0026]
+frt_sigmas['test'] = [0.0025, 0.0028, 0.0028, 0.0025, 0.0025, 0.0026, 0.0026, 0.0026]
+## check sigmas for Jpsi and Psi
 
 # q2binning_base = [
 #                 1,
