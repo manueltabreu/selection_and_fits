@@ -46,7 +46,7 @@ def tripleG(doublegaus, mean, sigma3_, f2_, tagged_mass, w):
 
 def crystalBall(mean, sigma_, alpha_, n_, tagged_mass, w, fn, bin, rangeAlpha):
 
-    sigmaCB      = RooRealVar ("#sigma_{CB%s}^{%s}"%(fn, bin) , "sigmaCB_%s"%fn        ,  sigma_  ,     0,   1  )
+    sigmaCB      = RooRealVar ("#sigma_{%s}^{%s}"%(fn, bin) , "sigmaCB_%s"%fn        ,  sigma_  ,     0,   1  )
     alpha        = RooRealVar ("#alpha_{%s}^{%s}"%(fn, bin)   , "#alpha_{%s}^{%s}"%(fn, bin) ,  alpha_  ,    rangeAlpha[0],  rangeAlpha[1] ) # was 0 - 5
     n            = RooRealVar ("n_{%s}^{%s}"%(fn, bin)        , "n_%s"%fn              ,  n_      ,      0,   15	 )
     cbshape      = RooCBShape ("cbshape_%s_%s"%(fn,bin)       , "cbshape_%s_%s"%(fn, bin)        ,  tagged_mass, mean, sigmaCB, alpha, n)

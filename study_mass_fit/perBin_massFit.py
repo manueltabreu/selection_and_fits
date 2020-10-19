@@ -12,16 +12,20 @@ code to fit the B0 mass distribution:
 - possibility to apply cuts on the dimuon mass [B0&Psi cut in RunI analysis] (e.g. to exclude the Jpsi mass region, or the psi) via the parameter dimusel
 '''
 
-import os, sys
+import os, sys, inspect
 from os import path
 sys.path.insert(0, os.environ['HOME'] + '/.local/lib/python2.7/site-packages')
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir)
 
 import ROOT
 from ROOT import gSystem
 ROOT.gROOT.SetBatch(True)
 
 gSystem.Load('libRooFit')
-gSystem.Load('utils/func_roofit/libRooDoubleCBFast')
+gSystem.Load('../utils/func_roofit/libRooDoubleCBFast')
 from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooTreeData, RooArgSet, RooAddPdf, RooFormulaVar
 from ROOT import RooGaussian, RooExponential, RooChebychev, RooProdPdf, RooCBShape, TFile, RooPolynomial
 import sys, math, pdb
@@ -71,12 +75,16 @@ def _constrainVar(var, nsigma):
     return gauss_constr                        
 
 
+sys.path.append("../utils")
 from utils.utils import *
 from utils.fit_functions import *
 
 nbins = 60
 nSigma_psiRej = 3.
 cut_base      = applyB0PsiCut(args.dimusel, nSigma_psiRej)
+
+## uncertainty on fRT
+frt_sigma = frt_sigmas[args.year]
 
 q2binning = [
                 1,
@@ -91,8 +99,6 @@ q2binning = [
 #                 19,
 ]
 
-## 2018
-frt_sigmas = [0.0025, 0.0028, 0.0028, 0.0025, 0., 0.0026, 0., 0.0026]
 
 from collections import OrderedDict
 fitStats = OrderedDict()
@@ -117,127 +123,151 @@ def fitData(fulldata, ibin, w):
     
     ### creating RT component
     w.loadSnapshot("reference_fit_RT_%s"%ibin)
-    meanrt      = w.var("mean^{RT%s}"%ibin)
-    sigmart  = RooRealVar()
-    sigmart1 = RooRealVar()
-    sigmart2 = RooRealVar()
-    alphart1 = RooRealVar()
-    alphart2 = RooRealVar()
-    nrt1     = RooRealVar()
-    nrt2     = RooRealVar()
+    mean_rt      = w.var("mean^{RT%s}"%ibin)
+    sigma_rt1    = w.var("#sigma_{RT1}^{%s}"%ibin)
+
+    sigma_rt2 = RooRealVar()
+    alpha_rt1 = RooRealVar()
+    alpha_rt2 = RooRealVar()
+    n_rt1     = RooRealVar()
+    n_rt2     = RooRealVar()
+    f1rt     = RooRealVar()
 
     ## double cb fast
-    if ibin < 5:
-        sigmart     = w.var("#sigma_{CB}^{RT%s}"%ibin)
-        alphart1    = w.var("#alpha_{1}^{RT%s}"%ibin)
-        alphart2    = w.var("#alpha_{2}^{RT%s}"%ibin)
-        nrt1        = w.var("n_{1}^{RT%s}"%ibin)
-        nrt2        = w.var("n_{2}^{RT%s}"%ibin)
+    if ibin < 4:
+        alpha_rt1    = w.var("#alpha_{RT1}^{%s}"%ibin)
+        alpha_rt2    = w.var("#alpha_{RT2}^{%s}"%ibin)
+        n_rt1        = w.var("n_{RT1}^{%s}"%ibin)
+        n_rt2        = w.var("n_{RT2}^{%s}"%ibin)
 
     ## double cb old
     else:
-        sigmart1    = w.var("#sigma_{CBRT0}^{%s}"%ibin)
-        sigmart2    = w.var("#sigma_{CBRT1}^{%s}"%ibin)
-        alphart1    = w.var("#alpha_{RT0}^{%s}"%ibin)
-        alphart2    = w.var("#alpha_{RT1}^{%s}"%ibin)
-        nrt1        = w.var("n_{RT0}^{%s}"%ibin)
-        nrt2        = w.var("n_{RT1}^{%s}"%ibin)
+        sigma_rt2    = w.var("#sigma_{RT2}^{%s}"%ibin)
+        alpha_rt1    = w.var("#alpha_{RT1}^{%s}"%ibin)
+        alpha_rt2    = w.var("#alpha_{RT2}^{%s}"%ibin)
+        n_rt1        = w.var("n_{RT1}^{%s}"%ibin)
+        n_rt2        = w.var("n_{RT2}^{%s}"%ibin)
+        f1rt        = w.var("f^{RT%s}"%ibin)
 
     theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
-    if ibin < 5:
-        c_sigma_rt   = _constrainVar(sigmart, 1)
-    else:
-        c_sigma_rt1   = _constrainVar(sigmart1, 1)
-        c_sigma_rt2   = _constrainVar(sigmart2, 1)
-    
-    c_alpha_rt1   = _constrainVar(alphart1, 1)
-    c_alpha_rt2   = _constrainVar(alphart2, 1)
-    c_n_rt1       = _constrainVar(nrt1, 1)
-    c_n_rt2       = _constrainVar(nrt2, 1)
 
     ### creating WT component
     w.loadSnapshot("reference_fit_WT_%s"%ibin)
-    meanwt      = w.var("mean^{WT%s}"%ibin)
-    sigmawt     = w.var("#sigma_{CB}^{WT%s}"%ibin)
-    alphawt1    = w.var("#alpha_{1}^{WT%s}"%ibin)
-    alphawt2    = w.var("#alpha_{2}^{WT%s}"%ibin)
-    nwt1        = w.var("n_{1}^{WT%s}"%ibin)
-    nwt2        = w.var("n_{2}^{WT%s}"%ibin)
-
+    mean_wt      = w.var("mean_{WT}^{%s}"%ibin)
+    sigma_wt     = w.var("#sigma_{WT1}^{%s}"%ibin)
+    alpha_wt1    = w.var("#alpha_{WT1}^{%s}"%ibin)
+    alpha_wt2    = w.var("#alpha_{WT2}^{%s}"%ibin)
+    n_wt1        = w.var("n_{WT1}^{%s}"%ibin)
+    n_wt2        = w.var("n_{WT2}^{%s}"%ibin)
     theWTgauss  = w.pdf("doublecb_%s"%ibin)   
-    c_sigma_wt    = _constrainVar(sigmawt,  1)
-    c_alpha_wt1   = _constrainVar(alphawt1, 1)
-    c_alpha_wt2   = _constrainVar(alphawt2, 1)
-    c_n_wt1       = _constrainVar(nwt1, 1)
-    c_n_wt2       = _constrainVar(nwt2, 1)
 
-
-    ### creating constraints for the RT component
-    ### creating constraints for the RT component
-    c_vars = RooArgSet()
-    if ibin < 5 :
-        c_RTgauss  = RooProdPdf  ("c_RTgauss%s"%ibin , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt, c_alpha_rt2, c_n_rt2  ) )     
-        c_vars = RooArgSet(c_sigma_rt, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
-    else:
-        c_RTgauss  = RooProdPdf  ("c_RTgauss%s"%ibin , "c_RTgauss" , RooArgList(theRTgauss, c_alpha_rt1, c_n_rt1, c_sigma_rt1, c_sigma_rt2, c_alpha_rt2, c_n_rt2  ) )     
-        c_vars = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
-
-    ### creating constraints for the WT component
-    c_WTgauss  = RooProdPdf  ("c_WTgauss%s"%ibin , "c_WTgauss" , RooArgList(theWTgauss, c_alpha_wt1, c_n_wt1, c_sigma_wt, c_alpha_wt2, c_n_wt2  ) )     
-
-    c_vars.add(c_sigma_wt)
-    c_vars.add(c_alpha_wt1)
-    c_vars.add(c_alpha_wt2)
-    c_vars.add(c_n_wt1)
-    c_vars.add(c_n_wt2)
-
+    ### creating variable for the difference between the two peaks
+    deltaPeaks = RooFormulaVar("deltaPeaks%s"%ibin, "@0 - @1", RooArgList(mean_rt, mean_wt))  
     frt              = RooRealVar ("F_{RT}%s"%ibin   , "frt"             , fraction.n , 0, 1)
-    signalFunction   = RooAddPdf  ("sumgaus%s"%ibin  , "rt+wt"           , RooArgList(c_RTgauss,c_WTgauss), RooArgList(frt))
-    c_frt            = RooGaussian("c_frt%s"%ibin    , "c_frt"           , frt,  ROOT.RooFit.RooConst(fraction.n) , ROOT.RooFit.RooConst(frt_sigmas[ibin]) )
-    
-    
-    ### creating constraints for the difference between the two peaks
-    deltaPeaks = RooFormulaVar("deltaPeaks%s"%ibin, "@0 - @1", RooArgList(meanrt, meanwt))  
-    c_deltaPeaks = RooGaussian("c_deltaPeaks%s"%ibin , "c_deltaPeaks", deltaPeaks, ROOT.RooFit.RooConst( deltaPeaks.getVal() ), 
-                                ROOT.RooFit.RooConst( 0.0005 )  ## value to be checked
-                                ) 
-
-    c_signalFunction = RooProdPdf ("c_signalFunction%s"%ibin, "c_signalFunction", RooArgList(signalFunction, c_frt, c_deltaPeaks))     
-    c_vars.add(frt)
-    c_vars.add(deltaPeaks)
+    signalFunction   = RooAddPdf  ("sumgaus%s"%ibin  , "rt+wt"           , RooArgList(theRTgauss,theWTgauss), RooArgList(frt))
 
     ### now create background parametrization
     slope         = RooRealVar    ("slope_%s"%ibin   , "slope"           ,    0.5,   -10, 10);
-    bkg_exp       = RooExponential("bkg_exp_%s"%ibin , "exponential"     ,  slope,   tagged_mass  );
+    bkg_exp       = RooExponential("bkg_exp%s"%ibin , "exponential"     ,  slope,   tagged_mass  );
     pol_c1        = RooRealVar    ("p1_%s"%ibin      , "coeff x^0 term"  ,    0.5,   -10, 10);
     pol_c2        = RooRealVar    ("p2_%s"%ibin      , "coeff x^1 term"  ,    0.5,   -10, 10);
-    bkg_pol       = RooPolynomial  ("bkg_pol%s"%ibin  , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1, pol_c2));
-   
-    nsig          = RooRealVar("Yield%s"%ibin  , "signal frac"    ,     1000,     0,   10000);
-    nbkg          = RooRealVar("nbkg%s"%ibin   , "bkg fraction"   ,     1000,     0,   55000);
+    bkg_pol       = RooPolynomial ("bkg_pol%s"%ibin  , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1, pol_c2));
+
+    fsig          = RooRealVar("fsig%s"%ibin   , "fsig"    ,     0.9,     0,   1);
+#     nsig          = RooRealVar("Yield%s"%ibin  , "signal frac"    ,     1000,     0,   10000);
+#     nbkg          = RooRealVar("nbkg%s"%ibin   , "bkg fraction"   ,     1000,     0,   500000);
+    nsig        = RooRealVar("Yield"         , "signal frac"   ,   600000,     0,   5000000);
+    nbkg        = RooRealVar("nbkg"          , "bkg fraction"  ,   100000,     0,   2000000);
+
+#     if ibin==4:  
+#         nsig.setRange(500000,1500000)
+#         nsig.setVal(900000)
+#         nbkg.setRange(80000,1000000)
+#         nbkg.setVal(100000)
+
+
+    ### creating constraints
+    c_vars = RooArgSet()
+    c_pdfs = RooArgSet()
+
+    c_sigma_rt1   = _constrainVar(sigma_rt1, 1)
+    c_alpha_rt1   = _constrainVar(alpha_rt1, 1)
+    c_alpha_rt2   = _constrainVar(alpha_rt2, 1)
+    c_n_rt1       = _constrainVar(n_rt1, 1)
+    c_n_rt2       = _constrainVar(n_rt2, 1)
+
+    c_sigma_wt    = _constrainVar(sigma_wt,  1)
+    c_alpha_wt1   = _constrainVar(alpha_wt1, 1)
+    c_alpha_wt2   = _constrainVar(alpha_wt2, 1)
+    c_n_wt1       = _constrainVar(n_wt1, 1)
+    c_n_wt2       = _constrainVar(n_wt2, 1)
+
+
+    if ibin < 4:
+        c_pdfs = RooArgSet(c_sigma_rt1, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
+        c_vars = RooArgSet(sigma_rt1,     alpha_rt1,   alpha_rt2,   n_rt1,   n_rt2)
+    else:
+        c_sigma_rt2   = _constrainVar(sigma_rt2, 1)
+        c_pdfs = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
+        c_vars = RooArgSet(  sigma_rt1,   sigma_rt2,   alpha_rt1,   alpha_rt2,   n_rt1,   n_rt2)
+    
+    c_pdfs.add(c_sigma_wt);  c_vars.add(sigma_wt)
+    c_pdfs.add(c_alpha_wt1); c_vars.add(alpha_wt1)
+    c_pdfs.add(c_alpha_wt2); c_vars.add(alpha_wt2)
+    c_pdfs.add(c_n_wt1);     c_vars.add(n_wt1)
+    c_pdfs.add(c_n_wt2);     c_vars.add(n_wt2)
+
+    c_deltaPeaks = RooGaussian("c_deltaPeaks%s"%ibin , "c_deltaPeaks", deltaPeaks, ROOT.RooFit.RooConst( deltaPeaks.getVal() ), 
+                                ROOT.RooFit.RooConst( 0.0005 )  ## value to be checked
+                                ) 
+    c_pdfs.add(c_deltaPeaks)
+    c_vars.add(deltaPeaks)
+    c_frt            = RooGaussian("c_frt%s"%ibin    , "c_frt"           , frt,  ROOT.RooFit.RooConst(fraction.n) , ROOT.RooFit.RooConst(frt_sigma[ibin]) )
+    c_pdfs.add(c_frt)
+    c_vars.add(frt)
+    
+    constr_list = RooArgList(c_pdfs)
+    constr_list.add(signalFunction)
+    c_signalFunction = RooProdPdf ("c_signalFunction", "c_signalFunction", constr_list)     
+
+#     mean        = RooRealVar ("mass"         , "mean"          ,  B0Mass_,   3,    7, "GeV")
+#     sigma       = RooRealVar ("#sigma_{1}"   , "sigma"         ,  0.028,     0,   10, "GeV")
+#     signalGauss = RooGaussian("signalGauss"  , "signal gauss"  ,  tagged_mass,  mean,sigma)
+#     
+#     sigma2       = RooRealVar ("#sigma_{2}"    , "sigma2"         ,  0.048,     0,   0.07, "GeV")
+#     signalGauss2 = RooGaussian("signalGauss2"  , "signal gauss2"  ,  tagged_mass,  mean,sigma2)
+#     f1           = RooRealVar ("f1"            , "f1"             ,  0.8  ,     0.,   1.)
+#     gaus         = RooAddPdf  ("gaus"          , "gaus1+gaus2"    , RooArgList(signalGauss,signalGauss2), RooArgList(f1))
+    
+#     pol_c1      = RooRealVar ("p1"           , "coeff x^0 term",    0.5,   -10, 10);
+#     pol_c2      = RooRealVar ("p2"           , "coeff x^1 term",    0.5,   -10, 10);
+#     pol_c3      = RooRealVar ("p3"           , "coeff x^2 term",    0.5,   -10, 10);
+#     slope       = RooRealVar ("slope"        , "slope"         ,    0.5,   -10, 10);
+#     bkg_exp     = RooExponential("bkg_exp"   , "exponential"   ,  slope,   tagged_mass  );
+#     bkg_pol     = RooChebychev("bkg_pol"     , "2nd order pol" ,  tagged_mass, RooArgList(pol_c1,pol_c2));
 
     fitFunction = RooAddPdf ("fitfunction%s"%ibin , "fit function"  ,  RooArgList(c_signalFunction, bkg_exp), RooArgList(nsig, nbkg))
     
-    r = fitFunction.fitTo(data, 
-#                           RooFit.Extended(True), 
-                          RooFit.Range("full"), 
-                          ROOT.RooFit.Constrain(c_vars),
-                          ROOT.RooFit.Minimizer("Minuit2","migrad"),
-                          ROOT.RooFit.Hesse(True),
-                          ROOT.RooFit.Strategy(2),
-                          ROOT.RooFit.Minos(False),
-                         )
+#     r = fitFunction.fitTo(data, 
+# #                           RooFit.Extended(True), 
+#                           RooFit.Range("full"), 
+#                           ROOT.RooFit.Constrain(c_vars),
+#                           ROOT.RooFit.Minimizer("Minuit2","migrad"),
+#                           ROOT.RooFit.Hesse(True),
+#                           ROOT.RooFit.Strategy(2),
+#                           ROOT.RooFit.Minos(False),
+#                          )
     print 'fit with Hesse strategy 2 done, now Minos'    
     r = fitFunction.fitTo(data, 
-#                           RooFit.Extended(True), 
+                          RooFit.Extended(True), 
                           RooFit.Save(), 
                           RooFit.Range("full"), 
                           RooFit.Verbose(False),
                           ROOT.RooFit.Constrain(c_vars),
 #                           ROOT.RooFit.Minimizer("Minuit2","migrad"),
 #                           ROOT.RooFit.Hesse(True),
-                          ROOT.RooFit.Strategy(2),
-                          ROOT.RooFit.Minos(True),
+#                           ROOT.RooFit.Strategy(2),
+#                           ROOT.RooFit.Minos(False),
                          )
 
     r.Print()
@@ -259,7 +289,7 @@ def fitData(fulldata, ibin, w):
     drawPdfComponents(fitFunction, frame, ROOT.kAzure, RooFit.NormRange("full"), RooFit.Range("full"), isData = True)
 #     fitFunction.paramOn(frame, RooFit.Layout(0.62,0.86,0.89))
 
-    parList = RooArgSet (nsig, meanrt, sigmart, alphart1, alphart2, nrt1, nrt2, meanwt, sigmawt)
+    parList = RooArgSet (nsig, mean_rt, sigma_rt, alpha_rt1, alpha_rt2, n_rt1, n_rt2, mean_wt, sigma_wt)
 #     parList.add(alphawt1)
 #     parList.add(alphawt2)
 #     parList.add(nwt1)
@@ -297,7 +327,7 @@ def fitData(fulldata, ibin, w):
 
     for ilog in [True,False]:
         upperPad.SetLogy(ilog)
-        c1.SaveAs('fit_results_mass/save_fit_data_%s_%s_LMNR_Update%s_newSigmaFRT_pars.pdf'%(ibin, args.year, '_logScale'*ilog))
+        c1.SaveAs('fit_results_mass/save_fit_data_%s_%s_LMNR_Update%s_newSigmaFRT_pars_Jpsi.pdf'%(ibin, args.year, '_logScale'*ilog))
 
 
     out_f.cd()
@@ -348,8 +378,10 @@ thevars.add(deltaB0M)
 thevars.add(deltaJpsiM)
 thevars.add(deltaPsiPM)
 
-
-fname_mcresults = 'fit_results_mass_checkOnMC/results_fits_2018_newSigmaFRT.root'
+if args.year == 'test':
+    fname_mcresults = 'fit_results_mass_checkOnMC/results_fits_2016_newSigmaFRT_Jpsi.root'
+else:
+    fname_mcresults = 'fit_results_mass_checkOnMC/results_fits_%s_newSigmaFRT_Jpsi.root'%args.year
 fo = ROOT.TFile()
 try:
   fo = ROOT.TFile(fname_mcresults,'open')
@@ -358,7 +390,7 @@ except:
 w = fo.Get('w')
 
 
-out_f = TFile ("results_data_fits_%s_newSigmaFRT.root"%args.year,"RECREATE") 
+out_f = TFile ("results_data_fits_%s_newSigmaFRT_Jpsi.root"%args.year,"RECREATE") 
 out_w = ROOT.RooWorkspace("data_w")
 
 for ibin in range(len(q2binning)-1):
@@ -367,6 +399,8 @@ for ibin in range(len(q2binning)-1):
     if args.dimusel == 'rejectPsi' and \
        (q2binning[ibin] == 8.68 or q2binning[ibin] == 12.86): 
            continue
+    if q2binning[ibin] < 8:  continue       
+    if q2binning[ibin] > 10:  continue       
     fitData(fulldata, ibin, w)
     print ' --------------------------------------------------------------------------------------------------- '
 
