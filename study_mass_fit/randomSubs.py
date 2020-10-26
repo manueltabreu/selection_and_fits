@@ -27,8 +27,9 @@ from utils.utils import *
 nSigma_psiRej = 3.
 
 tData = ROOT.TChain('ntuple')
-# tData.Add('/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_10_2_14/src/miniB0KstarMuMu/miniKstarMuMu/bdt/final_ntuples/2017MC_LMNR_100k.root')
+# tData.Add('/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_10_2_14/src/miniB0KstarMuMu/miniKstarMuMu/bdt/final_ntuples/2018MC_LMNR_100k.root')
 tData.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/%sMC_LMNR.root'%args.year)
+# tData.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/%sMC_JPSI.root'%args.year)
 
 ## numbers for 2018, will be read from common function in the next iteration
 n_bin = n_data[args.year]
@@ -46,22 +47,24 @@ q2binning = [
 
 cut_base      = applyB0PsiCut(args.dimusel, nSigma_psiRej)
 
-
+ROOT.RooAbsData.setDefaultStorageType(ROOT.RooAbsData.Tree)  # use Tree-backed data store
 
 def findFrt(fulldata, ibin, h_truef):  
 
     cut  = cut_base + '&& (mumuMass*mumuMass > %s && mumuMass*mumuMass < %s)'%(q2binning[ibin], q2binning[ibin+1])
-    fulldata_v2 = fulldata.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE), cut)
+    fulldata_v2 = fulldata.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE,tagB0,genSignal), cut)
 
     nDataEntries = fulldata_v2.sumEntries()
+    print nDataEntries
     nDesired = n_bin[ibin]/nDataEntries
 
+    selData = fulldata_v2.GetClonedTree()
     for it in range(args.ntoys):
 
         print it
         htag = ROOT.TH1F('htag', 'htag', 4,0,4)
         htag.Reset()
-        tData.Draw("tagB0+genSignal >> htag", "rndm() < %s"%nDesired, "goff")##; // draw random sample of about 20% of entries
+        selData.Draw("tagB0+genSignal >> htag", "rndm() < %s"%nDesired, "goff")##; // draw random sample of about 20% of entries
 
         n_rt = htag.GetBinContent(3)
         n_wt = htag.GetBinContent(2) + htag.GetBinContent(4)
@@ -73,12 +76,16 @@ def findFrt(fulldata, ibin, h_truef):
 tagged_mass     = RooRealVar("tagged_mass" , "#mu^{+}#mu^{-}K#pi mass", 5., 5.6, "GeV")
 mumuMass        = RooRealVar("mumuMass"    , "mumuMass" , 0, 6);
 mumuMassE       = RooRealVar("mumuMassE"   , "mumuMassE", 0, 10000);
+tagB0           = RooRealVar("tagB0"    , "tagB0" , 0, 6);
+genSignal       = RooRealVar("genSignal"    , "genSignal" , 0, 6);
 
 tagged_mass.setRange("full",   5.0,5.6) ;
 thevars = RooArgSet()
 thevars.add(tagged_mass)
 thevars.add(mumuMass)
 thevars.add(mumuMassE)
+thevars.add(tagB0)
+thevars.add(genSignal)
 
 fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
 ## add to the input tree the combination of the variables, to be used for the cuts on the dimuon mass
@@ -93,10 +100,11 @@ thevars.add(deltaJpsiM)
 thevars.add(deltaPsiPM)
 
 
-out_f = TFile ("checkfrt%s.root"%args.year,"RECREATE") 
+out_f = TFile ("checkfrt%s_jpsi.root"%args.year,"RECREATE") 
 out_w = ROOT.RooWorkspace("toy_w")
 
 for ibin in range(len(q2binning)-1):
+# for ibin in range(4,5):
 
     h_truef      = ROOT.TH1F('bin%s'%ibin,    'bin%s;frt_{real}; '%ibin, 250, 0.82,0.92)
     if args.dimusel == 'rejectPsi' and \
@@ -109,7 +117,7 @@ for ibin in range(len(q2binning)-1):
     c2 = ROOT.TCanvas('c2','c2',400,400)
     h_truef.Draw()
     h_truef.Fit('gaus')
-    c2.SaveAs('frt_toy_bin%s_%s_%s.pdf' %(ibin,args.ntoys,args.year))
+    c2.SaveAs('frt_toy_bin%s_%s_%s_test.pdf' %(ibin,args.ntoys,args.year))
     out_f.cd()
     h_truef.Write()
 
