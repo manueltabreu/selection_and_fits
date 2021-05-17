@@ -33,7 +33,10 @@ from bayes_opt.event import Events
 mc_sigma = 0.0400 ## was 49
 mc_mass  = 5.27783 
 
-lumi_mc   = 8256 * (10./11)
+a_punzi = 2
+b_punzi = 5
+
+lumi_mc   = 8256 * (10./11) * 1.95
 lumi_data = 61.1 * (10./11)
 
 gROOT.SetBatch(True)
@@ -81,33 +84,33 @@ def xgboost_fom(max_depth,
     true_sig['bdt_score']  = clf.predict_proba(true_sig[features])[:, 1] ## should be probability to be signal (bdt_score) for each data entry
     
 
-    significances = {}
-    print 'score \t S (on test only) \t B (on test s.) \t significance'
-    for wp in np.arange(0.5,1,0.02):
-        n_sig = float( len(true_sig[true_sig.bdt_score > wp])) * lumi_data/lumi_mc 
-        n_bkg = float( len(true_bkg[true_bkg.bdt_score > wp])) * 5./8 ## to account that we use 8 sigma region for bkg and 5 sigma regin for signal
-        if n_sig > 0:
-            significances[wp] =  n_sig/ sqrt(n_sig + n_bkg) 
+    punzis = {}
+    print ('score \t S (on test only) \t B (on test s.) \t punzi')
+    for wp in np.arange(0.8,1,0.01):
+        n_sig = float( len(true_sig[true_sig.bdt_score > wp])) 
+        n_bkg = float( len(true_bkg[true_bkg.bdt_score > wp])) 
+        den = pow(a_punzi,2)/8 + 9*pow(b_punzi,2)/13 + a_punzi*sqrt(n_bkg) + 0.5*b_punzi*sqrt(pow(b_punzi,2) + 4*a_punzi*sqrt(n_bkg) + 4*n_bkg)
+        if den > 0:
+            punzis[wp] =  n_sig/ den
         else:
-            significances[wp] = 0.0
+            punzis[wp] = 0.0
         
-        print wp, '\t', n_sig, '\t', n_bkg, '\t', significances[wp]
-            
-    return max(significances.values())
+        print ('%.2f\t'%wp, n_sig, '\t', n_bkg, '\t', punzis[wp])
+    return max(punzis.values())
 
-#     return clf.evals_result()['validation_0']['auc'][-1]
-
-#     return cross_val_score(xgb.XGBClassifier(max_depth=int(max_depth),
-#                                              learning_rate=learning_rate,
-#                                              n_estimators=int(n_estimators),
-#                                              nthread=nthread,
-#                                              subsample=subsample,
-#                                              colsample_bytree=colsample_bytree),
-#                            train,
-#                            y,
-#                            "roc_auc",
-#                            cv=5).mean()
-
+#     significances = {}
+#     print 'score \t S (on test only) \t B (on test s.) \t significance'
+#     for wp in np.arange(0.5,1,0.02):
+#         n_sig = float( len(true_sig[true_sig.bdt_score > wp])) * lumi_data/lumi_mc 
+#         n_bkg = float( len(true_bkg[true_bkg.bdt_score > wp])) * 5./8 ## to account that we use 8 sigma region for bkg and 5 sigma regin for signal
+#         if n_sig > 0:
+#             significances[wp] =  n_sig/ sqrt(n_sig + n_bkg) 
+#         else:
+#             significances[wp] = 0.0
+#         
+#         print wp, '\t', n_sig, '\t', n_bkg, '\t', significances[wp]
+#             
+#     return max(significances.values())
 
 ##########################################################################################
 #####   SIGNAL AND BACKGROUND SELECTION
@@ -115,41 +118,43 @@ def xgboost_fom(max_depth,
 sig_selection_cutbased = '((tagB0==1 && (bMass    > {M} - 2.5*{S} && bMass    < {M} + 2.5*{S})) || \
                            (tagB0==0 && (bBarMass > {M} - 2.5*{S} && bBarMass < {M} + 2.5*{S}))) &&\
                             truthMatchMum==1 && truthMatchMup ==1 && truthMatchTrkm==1 && truthMatchTrkp ==1 && \
-                           ((tagB0==1 && genSignal==1) | (tagB0==0 && genSignal==2)) && \
-                           trig == 0 && \
+                           ((tagB0==1 && genSignal==1) || (tagB0==0 && genSignal==2)) && \
+                           ( kstTrkmTrackerMuon == 0 ) && ( kstTrkpTrackerMuon == 0 ) && \
+                          trig == 0 && \
                            (mumuMass < 2.702) '.format( M=mc_mass,S=mc_sigma)
 
 bkg_selection_cutbased = '((tagB0==1 && ((bMass    > {M}-7.*{S} && bMass    < {M}-3.*{S}) || (bMass    > {M}+3.*{S} && bMass    < {M}+7*{S}))) || \
                            (tagB0==0 && ((bBarMass > {M}-7.*{S} && bBarMass < {M}-3.*{S}) || (bBarMass > {M}+3.*{S} && bBarMass < {M}+7*{S}))) && \
+                           ( kstTrkmTrackerMuon == 0 ) && ( kstTrkpTrackerMuon == 0 ) && \
                            (mumuMass < 2.702)) '.format(M=mc_mass,S=mc_sigma)
 
 
 sig_list = [
-          'sub_samples/sample_MC_LMNR_0.root', ### need to include PU profile
 #           'sub_samples/sample_MC_LMNR_1.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_2.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_3.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_4.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_5.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_6.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_7.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_8.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_9.root', ### need to include PU profile
-          'sub_samples/sample_MC_LMNR_10.root', ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_0_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_2_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_3_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_4_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_5_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_6_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_7_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_8_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_9_newphi.root',  ### need to include PU profile
+          'sub_samples/sample_2018_MC_LMNR_10_newphi.root', ### need to include PU profile
 ]
 
 bkg_list = [
-          'sub_samples/sample_data_LMNR_0.root',
 #           'sub_samples/sample_data_LMNR_1.root',
-          'sub_samples/sample_data_LMNR_2.root',
-          'sub_samples/sample_data_LMNR_3.root',
-          'sub_samples/sample_data_LMNR_4.root',
-          'sub_samples/sample_data_LMNR_5.root',
-          'sub_samples/sample_data_LMNR_6.root',
-          'sub_samples/sample_data_LMNR_7.root',
-          'sub_samples/sample_data_LMNR_8.root',
-          'sub_samples/sample_data_LMNR_9.root',
-          'sub_samples/sample_data_LMNR_10.root',
+          'sub_samples/sample_2018_data_LMNR_0_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_2_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_3_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_4_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_5_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_6_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_7_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_8_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_9_newphi.root',
+          'sub_samples/sample_2018_data_LMNR_10_newphi.root',
 ]
 
 
@@ -205,6 +210,8 @@ branches = features + [
     'mumPt',
     'kstTrkpPt',
     'kstTrkmPt',
+    'kstTrkpTrackerMuon',
+    'kstTrkmTrackerMuon',
 ]
 
 branches = list(set(branches))
@@ -279,6 +286,7 @@ data_all['pass_preselection'] = ( data_all.mumTMOneStationTight == 1 ) & ( data_
                                 ( data_all.kkMass > 1.035 ) & \
                                 (~((data_all.kstTrkmGlobalMuon == 1) & ( data_all.kstTrkmNTrkLayers > 5 ) & ( data_all.kstTrkmNPixHits > 0))) & \
                                 (~((data_all.kstTrkpGlobalMuon == 1) & ( data_all.kstTrkpNTrkLayers > 5 ) & ( data_all.kstTrkpNPixHits > 0))) & \
+                                ( data_all.kstTrkmTrackerMuon == 0 ) & ( data_all.kstTrkpTrackerMuon == 0 ) & \
                                 (( (data_all.charge_trig_matched ==  1) & (data_all.kstTrkpPt > 1.2) & (data_all.trkpDCASign > 2) ) | \
                                  ( (data_all.charge_trig_matched == -1) & (data_all.kstTrkmPt > 1.2) & (data_all.trkmDCASign > 2) ) )
 
@@ -299,7 +307,7 @@ xgboostBO = BayesianOptimization(xgboost_fom,
                                   }
                                 )
 ## save optimization steps
-logger = JSONLogger(path="logs_sumIso.json")
+logger = JSONLogger(path="logs_punzi_noTrkMuTrks.json")
 xgboostBO.subscribe(Events.OPTMIZATION_STEP, logger)
 
 xgboostBO.maximize(

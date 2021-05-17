@@ -78,8 +78,8 @@ using namespace RooFit;
      //cout << "ERROR evaluating range..." << endl;
      
    if (!std::isnormal(val)) {
-     printf("bad val: x = %5f, t = %5f, mean = %5f, sigma = %5f, alpha1 = %5f, n1 = %5f, alpha2 = %5f, n2 = %5f\n",double(x), t, double(mean),double(width),double(alpha1),double(n1),double(alpha2), double(n2));
-     printf("val = %5f\n",val);
+//      printf("bad val: x = %5f, t = %5f, mean = %5f, sigma = %5f, alpha1 = %5f, n1 = %5f, alpha2 = %5f, n2 = %5f\n",double(x), t, double(mean),double(width),double(alpha1),double(n1),double(alpha2), double(n2));
+//      printf("val = %5f\n",val);
    }
      
    return val;
@@ -206,9 +206,9 @@ using namespace RooFit;
    
    //if (!std::isnormal(left) || !std::isnormal(central) || !std::isnormal(right)) {
    if (!std::isnormal(sum)) {
-     printf("bad int: mean = %5f, sigma = %5f, alpha1 = %5f, n1 = %5f, alpha2 = %5f, n2 = %5f\n",double(mean),double(width),double(alpha1),double(n1),double(alpha2), double(n2));
+//      printf("bad int: mean = %5f, sigma = %5f, alpha1 = %5f, n1 = %5f, alpha2 = %5f, n2 = %5f\n",double(mean),double(width),double(alpha1),double(n1),double(alpha2), double(n2));
      //printf("left = %5f, central = %5f, right = %5f, A1 = %5f, B1 = %5f, A2 = %5f, B2 = %5f, integral = %5f\n",left,central,right,A1,B1,A2,B2,left+central+right);
-     printf("left = %5f, central = %5f, right = %5f, integral = %5f\n",left,central,right,sum);
+//      printf("left = %5f, central = %5f, right = %5f, integral = %5f\n",left,central,right,sum);
    }
      
    return sum;

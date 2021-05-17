@@ -6,18 +6,18 @@ from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooTreeData, RooArg
 from ROOT import RooGaussian, RooExponential, RooChebychev, RooProdPdf, RooCBShape, TFile, RooPolynomial, RooVoigtian, RooBreitWigner, RooFFTConvPdf
 from uncertainties import ufloat, umath
 
-from utils import *
+from .utils import *
 
 
 def _import(wsp, obj):
     getattr(wsp, 'import')(obj)
 
 
-def singleG(mean, sigma_, tagged_mass, w, fn):
+def singleG(mean, sigma_, tagged_mass, w, fn, bin):
 
 #     mean         = RooRealVar ("mean^{%s}"%fn   , "massSG"        ,  mean_     ,      5,    6, "GeV")
-    sigma        = RooRealVar ("#sigma^{%s}"%fn , "sigmaSG"       ,  sigma_    ,     0,    1, "GeV")
-    singlegaus   = RooGaussian("gaus_%s"%fn    , "singlegaus"     , tagged_mass,  mean, sigma)
+    sigma        = RooRealVar ("#sigma_{%s}^{%s}"%(fn,bin) , "sigmaSG"       ,  sigma_    ,     0,    1, "GeV")
+    singlegaus   = RooGaussian("gaus_%s_%s"%(fn,bin)        , "singlegaus"     , tagged_mass,  mean, sigma)
     _import(w,singlegaus)
 
 
@@ -46,24 +46,24 @@ def tripleG(doublegaus, mean, sigma3_, f2_, tagged_mass, w):
 
 def crystalBall(mean, sigma_, alpha_, n_, tagged_mass, w, fn, bin, rangeAlpha):
 
-    sigmaCB      = RooRealVar ("#sigma_{%s}^{%s}"%(fn, bin) , "sigmaCB_%s"%fn        ,  sigma_  ,     0,   1  )
+    sigmaCB      = RooRealVar ("#sigma_{%s}^{%s}"%(fn, bin)   , "sigmaCB_%s"%fn        ,  sigma_  ,     0,   1  )
     alpha        = RooRealVar ("#alpha_{%s}^{%s}"%(fn, bin)   , "#alpha_{%s}^{%s}"%(fn, bin) ,  alpha_  ,    rangeAlpha[0],  rangeAlpha[1] ) # was 0 - 5
-    n            = RooRealVar ("n_{%s}^{%s}"%(fn, bin)        , "n_%s"%fn              ,  n_      ,      0,   15	 )
+    n            = RooRealVar ("n_{%s}^{%s}"%(fn, bin)        , "n_%s"%fn              ,  n_      ,      0.001,   100	 )
     cbshape      = RooCBShape ("cbshape_%s_%s"%(fn,bin)       , "cbshape_%s_%s"%(fn, bin)        ,  tagged_mass, mean, sigmaCB, alpha, n)
     _import(w,cbshape)
 
 
 def doubleCB(cbshape1, cbshape2, f3_, tagged_mass, w, fn):
 
-    f3           = RooRealVar ("f^{%s}"%fn      , "f3"      ,  f3_  ,     0.,   1.)
+    f3           = RooRealVar ("f^{%s}"%fn      , "f3"       ,  f3_  ,     0.,   1.)
     doublecb     = RooAddPdf  ("doublecb_%s"%fn, "doublecb"  ,  RooArgList(cbshape1,cbshape2), RooArgList(f3))
     _import(w,doublecb)
 
 
-def gausCB(cbshape, gaus, f3_, tagged_mass, w, fn):
+def gausCB(cbshape, gaus, f3_, tagged_mass, w, fn, bin):
 
-    f3           = RooRealVar ("f^{WT%s}"%fn   , "f3"      ,  f3_  ,     0.,   1.)
-    gauscb       = RooAddPdf  ("gauscb_%s"%fn  , "gauscb"  ,  RooArgList(gaus,cbshape), RooArgList(f3))
+    f3           = RooRealVar ("f^{%s%s}"%(fn, bin)  , "f3"      ,  f3_  ,     0.,   1.)
+    gauscb       = RooAddPdf  ("gauscb_%s_%s"%(fn,bin)  , "gauscb"  ,  RooArgList(gaus,cbshape), RooArgList(f3))
     _import(w,gauscb)
 
 
@@ -131,13 +131,15 @@ def drawPdfComponents(fitFunction, frame, base_color, normrange, range, isData =
     pdf_components = fitFunction.getComponents()
     iter = pdf_components.createIterator()
     var = iter.Next();  color = 0
-    list_to_plot      = ['fitfunction', 'c_signalFunction', 'c_RTgauss', 'c_WTgauss', 'bkg_exp', 'bkg_pol']
-    list_to_plot_bins = ['%s%s'%(i,ibin) for i,ibin in product(list_to_plot,xrange(8))]
+    list_to_plot      = ['fitfunction', 'c_signalFunction', 'c_theRTgauss', 'c_theWTgauss', 'bkg_exp', 'bkg_pol', 'cbshape_bs',
+                         'doublecb_', 'doublecb_RT', ]
+    list_to_plot_bins = ['%s%s'%(i,ibin) for i,ibin in product(list_to_plot,list(xrange(8)))]
     while var :
         ### https://root-forum.cern.ch/t/roofit-normalization/23644/5
         if isData and var.GetName() not in list_to_plot and var.GetName() not in list_to_plot_bins:  
             var = iter.Next()
             continue
+#         print var.GetName(), ' -----> plotting  '
         fitFunction.plotOn(frame, RooFit.Components(var.GetName()), RooFit.LineStyle(ROOT.kDashed), RooFit.LineColor(base_color+color), normrange, range)
         var = iter.Next()
         color += 1

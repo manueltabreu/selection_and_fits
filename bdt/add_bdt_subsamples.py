@@ -20,29 +20,38 @@ from sklearn.externals import joblib
 import ROOT
 import root_pandas
 
-# if year == '2016':
-#     folder = '/gwpool/users/fiorendi/p5prime/CMSSW_8_0_24/src/B0KstarMM/B0KstMuMu/bdt/feb5_ntuples_fixPUW/'
-# if year == '2017':
-#     folder = '/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_9_4_0_patch1/src/miniB0KstarMuMu/miniKstarMuMu/bdt/'
-# if year == '2018':
-#     folder = '/gwpool/users/fiorendi/p5prime/miniAOD/CMSSW_10_2_14/src/miniB0KstarMuMu/miniKstarMuMu/bdt/'
-
-
 samples = [
-#            'data_LMNR',
-#            'data_Charmonium',
+           'data_LMNR',
+           'data_Charmonium',
            'MC_LMNR', 
-#            'MC_JPSI', 
-#            'MC_PSIPRIME', 
+           'MC_JPSI', 
+           'MC_PSI', 
+#            'MC_BS', 
+#            'MC_HBJPSIX', 
+#            'data_sameSign', 
           ]
 
-for str_file in samples:
-    for i in range(0,11):  
-      
-        ifile = 'sub_samples/sample_%s_%s_%s.root'%(args.year, str_file, str(i))  
 
-        print 'adding bdt score from classifier.pkl'
-        classifier = joblib.load('results/classifier_%s_final_%s.pkl' %(args.year,i))
+tags = [
+#         '_sign_removeTkMu', 
+#         '_sign_yesTkMu',
+        '_punzi_removeTkMu',
+#         '_punzi_yesTkMu',
+#          '_punzi_removeTkMu_2016_mumuMass_addHLT_correct'
+#          '_asOld_2p7env_'
+       ] 
+
+tag = tags[0] ### remember to update pass_preselection
+
+for str_file in samples:
+    for i in range(11):  
+      
+        ifile = 'sub_samples/sample_%s_%s_%s_newphi.root'%(args.year, str_file, str(i))  
+
+        print 'adding bdt score from %s classifier.pkl'%(i)
+        ## sara for 2016, mar22 correct
+        classifier = joblib.load('results/classifier_%s_%s_mumuMass_addHLT_correct_%s.pkl' %(tag,args.year, i))
+#         classifier = joblib.load('results/classifier_%s_final_%s.pkl' %(args.year,i))
         
         feat_names = [
             'bCosAlphaBS',
@@ -104,6 +113,7 @@ for str_file in samples:
 
         if args.year != '2016':
             additional.append('charge_trig_matched')
+            
         
         print 'loading support dataset...'
         dataset_support = pandas.DataFrame(
@@ -156,19 +166,18 @@ for str_file in samples:
         if args.year == '2016':
             dataset['pass_preselection'] =  ( dataset.mumNTrkLayers >= 6)  & ( dataset.mupNTrkLayers >= 6 ) & \
                                             ( dataset.mumNPixLayers >= 1)  & ( dataset.mupNPixLayers >= 1 ) & \
-                                            ( dataset.mumdxyVtx < 0.3)     & ( dataset.mupdxyVtx < 0.3    ) & \
-                                            ( dataset.mumdzVtx < 20 )      & ( dataset.mupdzVtx  < 20     ) & \
                                             ( dataset.mumHighPurity == 1 ) & ( dataset.mupHighPurity == 1 ) & \
                                             ( dataset.mumTMOneStationTight == 1 ) & ( dataset.mupTMOneStationTight == 1 ) & \
                                             ( dataset.kstTrkmHighPurity == 1 )    & ( dataset.kstTrkpHighPurity == 1    ) & \
                                             ( dataset.kkMass > 1.035 ) & \
+                                            ( dataset.kstTrkmTrackerMuon == 0 ) & ( dataset.kstTrkpTrackerMuon == 0 ) & \
                                             (~((dataset.kstTrkmGlobalMuon == 1) & ( dataset.kstTrkmNTrkLayers > 5 ) & ( dataset.kstTrkmNPixHits > 0))) & \
                                             (~((dataset.kstTrkpGlobalMuon == 1) & ( dataset.kstTrkpNTrkLayers > 5 ) & ( dataset.kstTrkpNPixHits > 0))) 
-        
         
         else:
             dataset['pass_preselection'] = ( dataset.mumTMOneStationTight == 1 ) & ( dataset.mupTMOneStationTight == 1 ) & \
                                             ( dataset.kkMass > 1.035 ) & \
+                                            ( dataset.kstTrkmTrackerMuon == 0 ) & ( dataset.kstTrkpTrackerMuon == 0 ) & \
                                             (~((dataset.kstTrkmGlobalMuon == 1) & ( dataset.kstTrkmNTrkLayers > 5 ) & ( dataset.kstTrkmNPixHits > 0))) & \
                                             (~((dataset.kstTrkpGlobalMuon == 1) & ( dataset.kstTrkpNTrkLayers > 5 ) & ( dataset.kstTrkpNPixHits > 0))) & \
                                             (( (dataset.charge_trig_matched ==  1) & (dataset.kstTrkpPt > 1.2) & (dataset.trkpDCASign > 2) ) | \
@@ -187,4 +196,3 @@ for str_file in samples:
         
         # https://github.com/scikit-hep/root_pandas
         dataset.to_root( ifile.replace('.root', '_addBDT.root'), key='ntuple', store_index=False)
-    

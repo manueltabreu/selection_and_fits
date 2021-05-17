@@ -16,15 +16,19 @@ void create_subsample(int year = 2016, int type = 0, int mc = 0){
   
   // define input files based on the year and the dataset
   std::string version = "Feb5_skimSoftMu";
-  if      (year == 2016)  version = "Oct2019"; //"Feb5_skimSoftMu"; 
-  else if (year == 2017)  version = "Apr16_fixIso"; 
-  else if (year == 2018)  version = "Apr30"; 
+  if      (year == 2016)  version = "Oct2020"; //"Feb5_skimSoftMu"; 
+  else if (year == 2017)  version = "Oct2020"; 
+  else if (year == 2018)  version = "Oct2020"; 
   else {
     std::cout << "please enter valid year" << std::endl;
     return;
   }
   std::string     channel = "LMNR";
-  if (type == 1)  channel = "Charmonium"; 
+  if (type == 1)  channel = "JPSI"; 
+  if (type == 2)  channel = "PSI"; 
+  if (type == 3)  channel = "BS"; 
+  if (type == 4)  channel = "HBJPSIX"; 
+  if (type == 1 && mc == 0 )  channel = "Charmonium"; 
 
   std::string     isdata = "data";
   if (mc == 1)    isdata = "MC"; 
@@ -33,14 +37,14 @@ void create_subsample(int year = 2016, int type = 0, int mc = 0){
 
   TChain* tree = new TChain("ntuple");
   if (mc ==1)
-      tree -> Add(Form("/gwteray/users/fiorendi/p5prime/data%d/flat_ntuples/%s/%dMC_%s_part*.root", year, version.c_str(), year, channel.c_str() ));
+      tree -> Add(Form("/gwteray/users/fiorendi/p5prime/data%d/flat_ntuples/%s/reco_ntuple_%dMC_%s_ls_addNVtx.root", year, version.c_str(), year, channel.c_str() ));
+//       tree -> Add("/gwteray/users/fiorendi/p5prime/data2018/flat_ntuples/Oct2020/reco_ntuple_2018MC_HBJPSIX_5tk_acceptance.root");
   else
-      tree -> Add(Form("/gwteray/users/fiorendi/p5prime/data%d/flat_ntuples/%s/ntuple_%s_%d*.root", year, version.c_str(), channel.c_str(), year ));
-
+      tree -> Add(Form("/gwteray/users/fiorendi/p5prime/data%d/flat_ntuples/%s/ntuple_%s_%d*_miniaod_addHLT.root", year, version.c_str(), channel.c_str(), year ));
   // define output files
   std::vector<TFile*> out_files;
   for (int i=0; i < n_subsamples; i++){
-      TFile* ifile = new TFile(Form("sub_samples/sample_%d_%s_%s_%d.root", year, isdata.c_str(), channel.c_str(), i),"RECREATE");
+      TFile* ifile = new TFile(Form("sub_samples/sample_%d_%s_%s_%d_newphi.root", year, isdata.c_str(), channel.c_str(), i),"RECREATE");
       out_files.push_back(ifile);
       std::cout << "output file : " << out_files.at(i) -> GetName() << std::endl;
   }
