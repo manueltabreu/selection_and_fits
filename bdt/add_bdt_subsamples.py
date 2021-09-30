@@ -26,8 +26,9 @@ samples = [
            'MC_LMNR', 
            'MC_JPSI', 
            'MC_PSI', 
-#            'MC_BS', 
-#            'MC_HBJPSIX', 
+           'MC_BS', 
+           'MC_BSJPSIPHI', 
+           'MC_HBJPSIX', 
 #            'data_sameSign', 
           ]
 
@@ -50,7 +51,7 @@ for str_file in samples:
 
         print 'adding bdt score from %s classifier.pkl'%(i)
         ## sara for 2016, mar22 correct
-        classifier = joblib.load('results/classifier_%s_%s_mumuMass_addHLT_correct_%s.pkl' %(tag,args.year, i))
+        classifier = joblib.load('results/classifier_%s_%s_%s.pkl' %(tag,args.year, i))
 #         classifier = joblib.load('results/classifier_%s_final_%s.pkl' %(args.year,i))
         
         feat_names = [

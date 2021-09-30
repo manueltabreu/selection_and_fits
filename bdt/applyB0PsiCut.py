@@ -24,8 +24,9 @@ samples = [
            'MC_LMNR', 
            'MC_JPSI', 
            'MC_PSI', 
-#            'MC_BS', 
-#            'MC_HBJPSIX'
+           'MC_BS', 
+           'MC_BSJPSIPHI', 
+           'MC_HBJPSIX'
           ]
 
 @np.vectorize
