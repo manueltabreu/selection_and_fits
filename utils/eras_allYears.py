@@ -126,23 +126,21 @@ run_eras[320673,325175] = '2018D'
 ###################################################
 lumi_mc = {}  ## fb-1
 
-lumi_mc['LMNR2016']  =   6216
-lumi_mc['JPSI2016']  =     45.6
-lumi_mc['PSI2016' ]  =     52.8 ### FIXME
+lumi_mc['LMNR2016']  =   9279
+lumi_mc['JPSI2016']  =     68.04
+lumi_mc['PSI2016' ]  =     78.85 ### FIXME
 
-lumi_mc['LMNR2017']  =   8957
-lumi_mc['JPSI2017']  =     51.1
-lumi_mc['PSI2017' ]  =     93.5
+lumi_mc['LMNR2017']  =  13407
+lumi_mc['JPSI2017']  =     76.24
+lumi_mc['PSI2017' ]  =    139.56
 
-lumi_mc['LMNR2018']  =   8256
-lumi_mc['JPSI2018']  =     41.5
-lumi_mc['PSI2018' ]  =     75.6
+lumi_mc['LMNR2018']  =  12321
+lumi_mc['JPSI2018']  =     61.88
+lumi_mc['PSI2018' ]  =    112.88
 
-## Jpsi = 2.2
-## psi2S = 2.7
-norm_fact['2016'] = 2.5
-norm_fact['2017'] = 2.05
-norm_fact['2018'] = 1.95
+norm_fact['2016'] = 1.45
+norm_fact['2017'] = 1.4
+norm_fact['2018'] = 1.3
 
 
 

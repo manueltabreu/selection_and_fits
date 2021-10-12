@@ -19,12 +19,12 @@ from utils.eras_allYears import *
 data_lumi   = lumi_eras[args.year]
 mc_lumi     = lumi_mc['LMNR' + args.year]
 norm_factor = norm_fact[args.year]
+# norm_factor = 1.4
 scale = data_lumi/(mc_lumi * norm_factor)
 
 print 'data lumi: ', data_lumi
 print 'mc lumi: ', mc_lumi
 print 'norm_factor: ', norm_factor
-norm_factor = 2.5
 print 'scale: ', scale
 tag = args.tag # '_sign_yesTkMu'
 
