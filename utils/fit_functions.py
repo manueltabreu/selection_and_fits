@@ -48,7 +48,7 @@ def crystalBall(mean, sigma_, alpha_, n_, tagged_mass, w, fn, bin, rangeAlpha):
 
     sigmaCB      = RooRealVar ("#sigma_{%s}^{%s}"%(fn, bin)   , "sigmaCB_%s"%fn        ,  sigma_  ,     0,   1  )
     alpha        = RooRealVar ("#alpha_{%s}^{%s}"%(fn, bin)   , "#alpha_{%s}^{%s}"%(fn, bin) ,  alpha_  ,    rangeAlpha[0],  rangeAlpha[1] ) # was 0 - 5
-    n            = RooRealVar ("n_{%s}^{%s}"%(fn, bin)        , "n_%s"%fn              ,  n_      ,      0.001,   100	 )
+    n            = RooRealVar ("n_{%s}^{%s}"%(fn, bin)        , "n_%s"%fn              ,  n_      ,      0.001,   200	 )
     cbshape      = RooCBShape ("cbshape_%s_%s"%(fn,bin)       , "cbshape_%s_%s"%(fn, bin)        ,  tagged_mass, mean, sigmaCB, alpha, n)
     _import(w,cbshape)
 
@@ -128,19 +128,40 @@ def bwcb(mean_, width_, sigma_, alpha_, n_, fn, tagged_mass, w):
 from itertools import product
 def drawPdfComponents(fitFunction, frame, base_color, normrange, range, isData = False):
 
+    from ROOT import gStyle
+#     gStyle.SetPalette(109);
+    colorlist = []
+    gStyle.SetPalette(55);
+    colorlist.append(ROOT.TColor.GetColorPalette(20))
+#     colorlist.append(ROOT.TColor.GetColorPalette(50))
+    colorlist.append(ROOT.TColor.GetColorPalette(80))
+#     colorlist.append(ROOT.TColor.GetColorPalette(100))
+    colorlist.append(ROOT.TColor.GetColorPalette(130))
+    colorlist.append(ROOT.TColor.GetColorPalette(150))
+    colorlist.append(ROOT.TColor.GetColorPalette(170))
+    colorlist.append(ROOT.TColor.GetColorPalette(190))
+    colorlist.append(ROOT.TColor.GetColorPalette(210))
+    colorlist.append(ROOT.TColor.GetColorPalette(250))
+    colorlist.append(ROOT.TColor.GetColorPalette(2))
     pdf_components = fitFunction.getComponents()
     iter = pdf_components.createIterator()
     var = iter.Next();  color = 0
-    list_to_plot      = ['fitfunction', 'c_signalFunction', 'c_theRTgauss', 'c_theWTgauss', 'bkg_exp', 'bkg_pol', 'cbshape_bs',
-                         'doublecb_', 'doublecb_RT', ]
+    list_to_plot      = ['fitfunction', 'c_theRTgauss', 'c_theWTgauss', 'bkg_exp', 'bkg_pol', 'cbshape_bs',
+                         'c_signalFunction', 
+                         #'doublecb_', 'doublecb_RT', 'gauscb_RT_', 
+                         #'cbshape_RT1_', 'cbshape_RT2_', 'gaus_RT2_', 
+                         'bs_shape_kk', 'bs_shape_phi', 'bs_shape_kst', 'erf_pdf' ]
     list_to_plot_bins = ['%s%s'%(i,ibin) for i,ibin in product(list_to_plot,list(xrange(8)))]
+#     second_list_to_plot = ['cbshape_bs4_kk', 'n_cb_bs_kk']
+#     import pdb; pdb.set_trace()
     while var :
         ### https://root-forum.cern.ch/t/roofit-normalization/23644/5
         if isData and var.GetName() not in list_to_plot and var.GetName() not in list_to_plot_bins:  
             var = iter.Next()
             continue
-#         print var.GetName(), ' -----> plotting  '
-        fitFunction.plotOn(frame, RooFit.Components(var.GetName()), RooFit.LineStyle(ROOT.kDashed), RooFit.LineColor(base_color+color), normrange, range)
+        print var.GetName(), ' -----> plotting  '
+        fitFunction.plotOn(frame, RooFit.Components(var.GetName()), RooFit.LineStyle(ROOT.kDashed), RooFit.LineColor(colorlist[color]), normrange, range)
+#         fitFunction.plotOn(frame, RooFit.Components(var.GetName()), RooFit.LineStyle(ROOT.kDashed), RooFit.LineColor(base_color+color), normrange, range)
         var = iter.Next()
         color += 1
 
