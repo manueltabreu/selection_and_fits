@@ -1,7 +1,7 @@
 import argparse
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("year"      , help = "choose among:2016,2017,2018", default = '2018')
-parser.add_argument("--tag"      , help = "", default = 'punzi_noTkMu')
+parser.add_argument("--tag"      , help = "", default = 'punzi_removeTkMu_fixBkg')
 args = parser.parse_args()
 year = args.year
 
@@ -18,17 +18,23 @@ pionmass_ = 0.139570
 
 from PhysicsTools.HeppyCore.utils.deltar import deltaR
 
-tag = args.tag
+tag = args.tag + '_' + year
+varName = 'bdt_prob'
+
+print 'BDT tag: ', tag
 
 if year == '2016':
 #     BDTCUT = 0.965 
     BDTCUT = 0.99 ## 0.984 previous bdt  
-if year == '2017':
-    BDTCUT = 0.97 ## wrong 0.94  
+    if 'punzi_removeTkMu_fixBkg' in tag:
+        BDTCUT = 0.992 ## was 0.970  
+elif year == '2017':
+    if tag == 'punzi_noTkMu':
+        BDTCUT = 0.97 ## wrong 0.94  
+    elif 'punzi_removeTkMu_fixBkg' in tag:
+        BDTCUT = 0.994 ## was 0.970  
 #     BDTCUT = 0.965  ## as in AN v2
-
-varName = 'bdt_prob'
-if year == '2018':
+elif year == '2018':
     if tag == 'sign_yesTkMu':
         BDTCUT = 0.955  
     elif tag == 'sign_noTkMu':
@@ -37,6 +43,11 @@ if year == '2018':
         BDTCUT = 0.955   ## update
     elif tag == 'punzi_noTkMu':
         BDTCUT = 0.975 ## was 0.970  
+    elif tag == 'useMinMaxIP':
+        BDTCUT = 0.980 ## was 0.970  
+    elif 'punzi_removeTkMu_fixBkg' in tag:
+        BDTCUT = 0.990 ## was 0.970  
+#         BDTCUT = 0.992 ## was 0.970  
     varName = 'bdt_prob__' + tag.replace('no', 'remove')
         
 # if year == '2016':
@@ -54,9 +65,10 @@ samples = [
            'MC_JPSI', 
            'MC_LMNR', 
            'MC_PSI', 
-           'MC_BS', 
-           'MC_BSJPSIPHI', 
-#            'MC_JPSIX', 
+#            'MC_BS', 
+#            'MC_BSJPSIPHI', 
+#            'MC_BSJPSIKST', 
+#            'MC_BJPSIK',
 # #            'MC_BuJpsiK', 
 # #            'MC_LambdaB', 
 #            'data_sameSign', 
@@ -90,13 +102,14 @@ for str_file in samples:
         input_files = []
         print 'sample: ' , str_file, '  ', i 
         if 'data' not in str_file:
-            input_files.append('sub_samples/sample_%s_%s_%s_newphi_addBDT.root'%(args.year, str_file, str(i)))        
+            input_files.append('sub_samples/sample_%s_%s_%s_newphi_addBDT_punzi_removeTkMu_fixBkg_%s.root'%(args.year, str_file, str(i), args.year))        
         else:
-            input_files.append('sub_samples/sample_%s_%s_LMNR_%s_newphi_addBDT.root'%(args.year, str_file, str(i)))  
-            input_files.append('sub_samples/sample_%s_%s_Charmonium_%s_newphi_addBDT.root'%(args.year, str_file, str(i)))  
+            input_files.append('sub_samples/sample_%s_%s_LMNR_%s_newphi_addBDT_punzi_removeTkMu_fixBkg_%s.root'%(args.year, str_file, str(i), args.year))  
+            input_files.append('sub_samples/sample_%s_%s_Charmonium_%s_newphi_addBDT_punzi_removeTkMu_fixBkg_%s.root'%(args.year, str_file, str(i), args.year))  
         print input_files
 
-        ofile  = '../final_ntuples/%s%s_newphi_%s_part%s.root'%(year, str_file, tag, i)
+        ofile  = '../final_ntuples/%s%s_newphi_%s_fixPres_part%s.root'%(year, str_file, tag, i)
+        print ofile
         isMC = False
         if 'MC' in str_file:
            isMC = True

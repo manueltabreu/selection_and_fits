@@ -26,20 +26,17 @@ samples = [
            'MC_LMNR', 
            'MC_JPSI', 
            'MC_PSI', 
-           'MC_BS', 
-           'MC_BSJPSIPHI', 
-           'MC_HBJPSIX', 
+#            'MC_BS', 
+#            'MC_BSJPSIPHI', 
+#            'MC_BSJPSIKST', 
+#            'MC_BJPSIK',
+#            'MC_HBJPSIX',    # 2018
 #            'data_sameSign', 
           ]
 
 
 tags = [
-#         '_sign_removeTkMu', 
-#         '_sign_yesTkMu',
-        '_punzi_removeTkMu',
-#         '_punzi_yesTkMu',
-#          '_punzi_removeTkMu_2016_mumuMass_addHLT_correct'
-#          '_asOld_2p7env_'
+            '_punzi_removeTkMu_fixBkg_%s'%year,
        ] 
 
 tag = tags[0] ### remember to update pass_preselection
@@ -50,9 +47,7 @@ for str_file in samples:
         ifile = 'sub_samples/sample_%s_%s_%s_newphi.root'%(args.year, str_file, str(i))  
 
         print 'adding bdt score from %s classifier.pkl'%(i)
-        ## sara for 2016, mar22 correct
-        classifier = joblib.load('results/classifier_%s_%s_%s.pkl' %(tag,args.year, i))
-#         classifier = joblib.load('results/classifier_%s_final_%s.pkl' %(args.year,i))
+        classifier = joblib.load('results/classifier_%s_%s.pkl' %(tag,i))
         
         feat_names = [
             'bCosAlphaBS',
@@ -66,6 +61,8 @@ for str_file in samples:
         ]
     
         additional = [
+#             'kstTrkmMinIP2D', 
+#             'kstTrkpMinIP2D', 
             'bMass',
             'bBarMass',
             'bEta',
@@ -115,7 +112,6 @@ for str_file in samples:
         if args.year != '2016':
             additional.append('charge_trig_matched')
             
-        
         print 'loading support dataset...'
         dataset_support = pandas.DataFrame(
             root_numpy.root2array(
@@ -136,6 +132,13 @@ for str_file in samples:
         print '\t...done'
         
 
+        dataset_support['min_trkMinIP2D'] = dataset_support[['kstTrkmMinIP2D', 'kstTrkpMinIP2D']].min(axis=1) 
+        dataset_support['max_trkMinIP2D'] = dataset_support[['kstTrkmMinIP2D', 'kstTrkpMinIP2D']].max(axis=1) 
+        dataset['min_trkMinIP2D'] = dataset[['kstTrkmMinIP2D', 'kstTrkpMinIP2D']].min(axis=1) 
+        dataset['max_trkMinIP2D'] = dataset[['kstTrkmMinIP2D', 'kstTrkpMinIP2D']].max(axis=1) 
+#         feat_names.append('min_trkMinIP2D')
+#         feat_names.append('max_trkMinIP2D')
+
         ## define isolation: # tracks with pt in a cone
         dataset_support['isopt_mum_04']  = dataset_support.mumIsoPt_dr04    /dataset_support.mumPt
         dataset_support['isopt_mup_04']  = dataset_support.mupIsoPt_dr04    /dataset_support.mupPt
@@ -154,6 +157,7 @@ for str_file in samples:
         dataset_support['kstarmass']  = dataset_support.tagB0*dataset_support.kstMass +(1- dataset_support.tagB0)*dataset_support.kstBarMass
         dataset['kstarmass']          = dataset.tagB0*dataset.kstMass +(1- dataset.tagB0)*dataset.kstBarMass
         feat_names.append('kstarmass')
+
 
         ## for 2017 and 2018, adding significance of the track wrt BS (required at trigger level)
         if args.year != '2016':
@@ -185,7 +189,7 @@ for str_file in samples:
                                              ( (dataset.charge_trig_matched == -1) & (dataset.kstTrkmPt > 1.2) & (dataset.trkmDCASign > 2) ) )
                 
         
-        
+        dataset['pass_preselection'] = dataset['pass_preselection'].astype(np.int32)
         ## add branch for BDT 
         print 'computing probabilities...'
         bdt_prob_array = classifier.predict_proba(dataset_support[feat_names])[:,1]
@@ -196,4 +200,4 @@ for str_file in samples:
         print '\t...done'	
         
         # https://github.com/scikit-hep/root_pandas
-        dataset.to_root( ifile.replace('.root', '_addBDT.root'), key='ntuple', store_index=False)
+        dataset.to_root( ifile.replace('.root', '_addBDT%s.root'%tag), key='ntuple', store_index=False)

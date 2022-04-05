@@ -26,9 +26,9 @@ ROOT.RooMsgService.instance().setGlobalKillBelow(4)
 
 nSigma_psiRej = 3.
 
-outfile   = ROOT.TFile('optNov2020/outcome_wp_finding_%s_lmnrPlusCharm_punzi_noTkMu_addHLT.root'%args.year, 'recreate')
+outfile   = ROOT.TFile('optMar2022/outcome_wp_finding_%s_onlyLowMuMuMass_fixBkg_passPresel.root'%args.year, 'recreate')
 
-n_bdt_points = 20
+n_bdt_points = 20 # was 20
 sample_range = 11
 
 
@@ -74,7 +74,7 @@ def fitNSig(ibdt, fulldata,isample):
     fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.62,0.86,0.88))
     canv  = ROOT.TCanvas()
     frame.Draw()
-#     canv.SaveAs('sig_fit_bdt%f_sample%i.pdf'%(ibdt,isample))
+#     canv.SaveAs('optMar2022/sig_fit_bdt%f_sample%i_onlyLowMuMuMass_fixBkg_2018_passPresel.pdf'%(ibdt,isample))
     
     dict_s_v1[ibdt]  = [nsig.getVal(), nsig.getError()]
     dict_sigma[ibdt] = math.sqrt(f1.getVal()*(sigma.getVal()**2) + (1-f1.getVal())*(sigma2.getVal()**2))
@@ -99,19 +99,20 @@ def fitNBkg(ibdt, fullbkg,isample):
     frame.Draw()
     
     nbkg = RooRealVar  ('nbkg', 'bkg n'  ,  1000,       0,   550000)
+#     ebkg = RooExtendPdf('ebkg','ebkg'    ,  bkg_exp, nbkg, 'bdtleft,bdtright')  ## here imposing the range to calculate bkg yield
     ebkg = RooExtendPdf('ebkg','ebkg'    ,  bkg_exp, nbkg, 'sigRangeMC')  ## here imposing the range to calculate bkg yield
     ebkg.fitTo(databkg, ROOT.RooFit.Range('left,right'),  RooFit.PrintLevel(-1))
     ebkg.plotOn(frame, RooFit.LineStyle(ROOT.kDashed), RooFit.LineColor(ROOT.kGreen+1), RooFit.Range(4.9,5.6));
+    ebkg.paramOn(frame, RooFit.Layout(0.62,0.86,0.88))
     frame.Draw()
-#     canv.SaveAs('bkg_fit_bdt%f_sample%i.pdf'%(ibdt,isample))
+#     canv.SaveAs('optMar2022/bkg_fit_bdt%f_sample%i_onlyLowMuMuMass_fixBkg_2018_passPresel.pdf'%(ibdt,isample))
     
     dict_b_v1[ibdt] =  [nbkg.getVal(), nbkg.getError()]
 
 
 for isample in range(sample_range):
     print 'now working on subsample', isample
-    ifileMC   = folder + '/sub_samples/sample_%s_MC_LMNR_%s_newphi_addBDT.root'%(year,isample)
-#     ifileMC   = folder + '/sub_samples/sample_%s_MC_LMNR_%s_newphi_addBDT_addHLT.root'%(year,isample)
+    ifileMC   = folder + '/sub_samples/sample_%s_MC_LMNR_%s_newphi_addBDT_punzi_removeTkMu_fixBkg_%s.root'%(year,isample,args.year)
 
     dict_s_v1  = OrderedDict()
     dict_b_v1  = OrderedDict()
@@ -124,7 +125,7 @@ for isample in range(sample_range):
     mumuMassE = RooRealVar("mumuMassE"         , "mumuMassE"            , 0, 10000)
     tagB0     = RooRealVar("tagB0"             , "tagB0"                , -1, 2)
     bdt_prob  = RooRealVar("bdt_prob"          , "bdt_prob"             ,  0.7, 2) ## already cut here on BDT !!!
-    pass_pre  = RooRealVar("pass_preselection" , "pass_preselection"    ,  1  , 2) ## cut on preselection 
+    pass_preselection  = RooRealVar("pass_preselection" , "pass_preselection"    ,  1  , 2) ## cut on preselection 
     
     thevars = RooArgSet()
     thevars.add(bMass)
@@ -133,6 +134,7 @@ for isample in range(sample_range):
     thevars.add(mumuMassE)
     thevars.add(tagB0)
     thevars.add(bdt_prob)
+    thevars.add(pass_preselection)
 
 
 
@@ -146,23 +148,23 @@ for isample in range(sample_range):
     theBMass     = fulldata.addColumn(theBMassfunc) ;
     theBMass.setRange(4.9,5.6);
 
-    cut_base = '( mumuMass < 2.702 || mumuMass > 4.)'
-#     cut_base = '(mumuMass*mumuMass > 4.3 && mumuMass*mumuMass < 6)'
+    
+    cut_base = '(pass_preselection == 1) && ( mumuMass < 2.702 )'
+    if year == '2016':
+        cut_base = '(pass_preselection == 1) && ( mumuMass < 2.702 || mumuMass > 4.)'
     
     
     for i in range(n_bdt_points):
-#         ibdt = i*0.002+0.97
-#         ibdt = i*0.005+0.85
-        ibdt = i*0.005+0.9
-#         ibdt = i*0.001+0.985
+##         ibdt = i*0.005+0.85
+#         ibdt = i*0.005+0.9
+        ibdt = i*0.002+0.96
         print 'sig, ibdt ', ibdt
         fitNSig(ibdt, fulldata,isample)
     
     
     ### retrieve B from fitting the data sample
     treeBkg = ROOT.TChain('ntuple')
-    treeBkg.Add(folder + 'sub_samples/sample_%s_data_LMNR_%s_newphi_addBDT.root'%(args.year,isample))
-    treeBkg.Add(folder + 'sub_samples/sample_%s_data_Charmonium_%s_newphi_addBDT.root'%(args.year,isample))
+    treeBkg.Add(folder + 'sub_samples/sample_%s_data_LMNR_%s_newphi_addBDT_punzi_removeTkMu_fixBkg_%s.root'%(args.year,isample,args.year))
 
     fullbkg     = RooDataSet('fullbkg', 'fullbkg', treeBkg,  RooArgSet(thevars))
     theBMass    = fullbkg.addColumn(theBMassfunc) 
@@ -170,13 +172,13 @@ for isample in range(sample_range):
     theBMass.setRange(4.9,5.6);
     theBMass.setRange('left'    , 4.9, 5.13)
     theBMass.setRange('right'   , 5.4, 5.6 )
-    
+
+    theBMass.setRange('bdtleft'    , 5.0378, 5.1578)
+    theBMass.setRange('bdtright'   , 5.3978,  5.5178 )
+
     
     for i in range(n_bdt_points):
-#         ibdt = i*0.002+0.97
-#         ibdt = i*0.005+0.92
-        ibdt = i*0.005+0.9
-#         ibdt = i*0.001+0.985
+        ibdt = i*0.002+0.96
         print 'bkg, ibdt ', ibdt
         fitNBkg(ibdt, fullbkg, isample)
         
@@ -184,7 +186,6 @@ for isample in range(sample_range):
     sign_vec_v1 = []
     bkg_vec_v1  = []
     bdt_vec     = []  
-    # 
     for k,v in dict_s_v1.iteritems():
         bdt_vec.append(k)
         sign_vec_v1.append(v[0])

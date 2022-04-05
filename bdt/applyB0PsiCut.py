@@ -24,9 +24,11 @@ samples = [
            'MC_LMNR', 
            'MC_JPSI', 
            'MC_PSI', 
-           'MC_BS', 
-           'MC_BSJPSIPHI', 
-           'MC_HBJPSIX'
+#            'MC_BS', 
+#            'MC_BSJPSIPHI', 
+#            'MC_BSJPSIKST', 
+#            'MC_BJPSIK',
+#            'MC_HBJPSIX'
           ]
 
 @np.vectorize
@@ -81,10 +83,10 @@ for str_file in samples:
     print (str_file)
 
     for i in range(11):
-        ofile = '../final_ntuples/%s%s_newphi_punzi_noTkMu_B0PsiFlag_part%s.root'%(year, str_file,i)
+        ofile = '../final_ntuples/%s%s_newphi_punzi_removeTkMu_fixBkg_B0Psicut_fixPres_part%s.root'%(year, str_file,i)
 
         input_files = []
-        input_files.append('../final_ntuples/%s%s_newphi_punzi_noTkMu_part%s.root'%(args.year, str_file, i ))        
+        input_files.append('../final_ntuples/%s%s_newphi_punzi_removeTkMu_fixBkg_%s_fixPres_part%s.root'%(args.year, str_file, args.year, i ))        
 
         print ('loading dataset...')
         dataset_all = pandas.DataFrame(
@@ -112,6 +114,10 @@ for str_file in samples:
             dataset_all['passB0Psi_lmnr'] = addRejectPsi2016(dataset_all.mumuMass, dataset_all.mumuMassE, dataset_all.deltaB0M, dataset_all.deltaJpsiM, dataset_all.deltaPsiPM )
         else:
             dataset_all['passB0Psi_lmnr'] = addRejectPsi(dataset_all.mumuMass, dataset_all.mumuMassE, dataset_all.deltaB0M, dataset_all.deltaJpsiM, dataset_all.deltaPsiPM )
+
+        dataset_all['passB0Psi_jpsi'] = dataset_all['passB0Psi_jpsi'].astype(np.int32)
+        dataset_all['passB0Psi_psip'] = dataset_all['passB0Psi_psip'].astype(np.int32)
+        dataset_all['passB0Psi_lmnr'] = dataset_all['passB0Psi_lmnr'].astype(np.int32)
     
         import root_pandas
         dataset_all.to_root(ofile, key='ntuple')#, store_index=False)
