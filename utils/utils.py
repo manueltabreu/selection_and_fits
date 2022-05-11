@@ -46,10 +46,10 @@ frt_sigmas['2018'] = [0.013, 0.010, 0.011, 0.007, 0.006, 0.006, 0.006, 0.007]
 frt_sigmas['test'] = [0.013, 0.010, 0.011, 0.007, 0.006, 0.006, 0.006, 0.007]
 
 fM_sigmas = {}
-fM_sigmas['2016'] = [0.023, 0.015, 0.017, 0.013, 0.0003, 0.010, 0.009, 0.013]
-fM_sigmas['2017'] = [0.018, 0.014, 0.015, 0.010, 0.0003, 0.008, 0.005, 0.011]
-fM_sigmas['2018'] = [0.015, 0.010, 0.011, 0.008, 0.0002, 0.006, 0.006, 0.008]
-fM_sigmas['test'] = [0.013, 0.010, 0.011, 0.007, 0.006, 0.006, 0.006, 0.007]
+fM_sigmas['2016'] = [0.023, 0.015, 0.017, 0.013, 0.0005 , 0.010, 0.0018, 0.013]
+fM_sigmas['2017'] = [0.018, 0.014, 0.015, 0.010, 0.0004 , 0.008, 0.0016, 0.011]
+fM_sigmas['2018'] = [0.015, 0.010, 0.011, 0.008, 0.00027, 0.006, 0.0011, 0.008]
+fM_sigmas['test'] = [0.013, 0.010, 0.011, 0.007, 0.006  , 0.006, 0.006 , 0.007]
 ## check sigmas for Jpsi and Psi
 
 
@@ -114,7 +114,7 @@ def writeCMS(frame, year, ibin = [-1,-1], toy=0):
     lumiYear = lumi_eras[str(year)]
     if toy==0:     txt2 = ROOT.TLatex(.75,.91,"%.1f fb^{-1}, 13 TeV"%lumiYear) 
     elif toy==1:   txt2 = ROOT.TLatex(.55,.91,"simulation, equivalent of %.1f fb^{-1}, 13 TeV"%lumiYear) 
-    elif toy==-1:  txt2 = ROOT.TLatex(.55,.91,"simulation, 13 TeV") 
+    elif toy==-1:  txt2 = ROOT.TLatex(.55,.93,"simulation, 13 TeV") 
     else:          txt2 = ROOT.TLatex(.55,.91,"simulation, equivalent of %.1f fb^{-1}, 13 TeV"%toy) 
     txt2 . SetNDC() ;
     txt2 . SetTextSize(0.03) ;
