@@ -255,7 +255,7 @@ def addmmpipimass(
 @np.vectorize
 def addxcut(wt_mass,  wt_kstarmass,  kaonPt, pionPt, mmpiMass, mmkMass):
         
-    bool1 =  ( (5.27958 - wt_mass) - 0.3 ) / (-0.1-0.3)< (((wt_kstarmass-0.896)--0.4) / (0.6--0.4))
+    bool1 =  ( (5.2791 - wt_mass) - 0.3 ) / (-0.1-0.3)< (((wt_kstarmass-0.896)--0.4) / (0.6--0.4))
     bool2 = kaonPt > pionPt
     bool3 = (wt_kstarmass-0.896)>0
     bool4 = (mmpiMass > 3.2) & (mmpiMass < 3.6)
@@ -274,9 +274,7 @@ for str_file in samples:
     for i in range(1):
         input_files = []
         input_files.append('../final_ntuples/%s%s_newphi_punzi_removeTkMu_fixBkg_B0Psicut_fixPres.root'%(args.year, str_file ))        
-        ofile = '../final_ntuples/%s%s_newphi_punzi_removeTkMu_fixBkg_B0Psicut_fixPres_addxcutvariable.root'%(year, str_file)
-#         input_files.append('../final_ntuples/%s%s_newphi_punzi_noTkMu_B0PsiFlag_part%s.root'%(args.year, str_file, i ))        
-#         ofile = '../final_ntuples/%s%s_newphi_punzi_noTkMu_B0PsiFlag_addVars_part%s.root'%(year, str_file,i)
+        ofile = '../final_ntuples/%s%s_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root'%(year, str_file)
 
         print ('loading ds...')
         ds = pandas.DataFrame(
@@ -320,6 +318,24 @@ for str_file in samples:
                                         ds.kstTrkpPt,  ds.kstTrkpEta,  ds.kstTrkpPhi,
                                       )
         ds['xcut'] = addxcut(ds.wt_mass, ds.wt_kstarmass, ds.kaonPt, ds.pionPt, ds.mmpiMass, ds.mmkMass )
+        ds['xcut'] = ds['xcut'].astype(np.int32)        
+        ds['muptrkm_pik'] = addpiKMass(
+                                        ds.mupPt,  ds.mupEta,  ds.mupPhi,  
+                                        ds.kstTrkmPt,  ds.kstTrkmEta,  ds.kstTrkmPhi,
+                                      )
+        ds['muptrkm_kp'] = addpiKMass(
+                                        ds.kstTrkmPt,  ds.kstTrkmEta,  ds.kstTrkmPhi,
+                                        ds.mupPt,  ds.mupEta,  ds.mupPhi,  
+                                      )
+        ds['mumtrkp_pik'] = addpiKMass(
+                                        ds.mumPt,  ds.mumEta,  ds.mumPhi,  
+                                        ds.kstTrkpPt,  ds.kstTrkpEta,  ds.kstTrkpPhi,
+                                      )
+        ds['mumtrkp_kpi'] = addpiKMass(
+                                        ds.kstTrkpPt,  ds.kstTrkpEta,  ds.kstTrkpPhi,
+                                        ds.mumPt,  ds.mumEta,  ds.mumPhi,  
+                                      )
+        
                                       
         import root_pandas
         ds.to_root(ofile, key='ntuple')#, store_index=False)
