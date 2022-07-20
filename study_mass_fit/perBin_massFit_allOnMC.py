@@ -2,7 +2,7 @@ import argparse
 parser = argparse.ArgumentParser(description="")
 # parser.add_argument("inputfile" , help = "Path to the input ROOT file")
 parser.add_argument("dimusel"   , help = "Define if keep or remove dimuon resonances. You can choose: keepPsiP, keepJpsi, rejectPsi, keepPsi")
-parser.add_argument("year"      , help = "choose among:2016,2017,2018", default = '2018')
+parser.add_argument("year"      , help = "choose among:2016,2017,%s", default = '%s')
 args = parser.parse_args()
 
 
@@ -30,7 +30,7 @@ gSystem.Load('../utils/func_roofit/libRooGaussDoubleSidedExp')
 from ROOT import RooFit, RooRealVar, RooDataSet, RooArgList, RooTreeData, RooArgSet, RooAddPdf, RooFormulaVar
 from ROOT import RooGaussian, RooExponential, RooChebychev, RooProdPdf, RooCBShape, TFile, RooPolynomial, RooExtendPdf
 import sys, math, pdb
-from uncertainties import ufloat
+#from uncertainties import ufloat
 import random
 import numpy as np
 
@@ -38,11 +38,11 @@ ROOT.RooMsgService.instance().setGlobalKillBelow(4)
 ROOT.Math.MinimizerOptions.SetDefaultMaxFunctionCalls(50000)
 
 
-def _getFittedVar(varName, w=None):
-    if w is not None:
-        return ufloat (w.var(varName).getVal() , w.var(varName).getError())
-    else :
-        return ufloat (varName.getVal()        , varName.getError())
+#def _getFittedVar(varName, w=None):
+#    if w is not None:
+#        return ufloat (w.var(varName).getVal() , w.var(varName).getError())
+#    else :
+#        return ufloat (varName.getVal()        , varName.getError())
 
 def _goodFit(r):
     return (r.status()==0 and r.covQual() == 3)
@@ -221,25 +221,25 @@ def fitMC(fulldata, correctTag, ibin):
         if ibin == 7:   
             pdfstring = "gauscb_RT_%s_Norm[tagged_mass]_Comp[gauscb_RT_%s]_Range[datarange]_NormRange[datarange]"%(ibin,ibin)
 
-        if doextended:
-            dict_s_rt[ibin]   = _getFittedVar(nsig)
-        else:
-            dict_s_rt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
-        nRT = RooRealVar ("nRT_%s"%ibin, "yield of RT signal",0,1.E9)
-        nRT.setVal(  dict_s_rt[ibin].n)
-        nRT.setError(dict_s_rt[ibin].s)
-        print 'setting nRT to ', dict_s_rt[ibin].n
-        getattr(w,"import")(nRT)
+#        if doextended:
+#            dict_s_rt[ibin]   = _getFittedVar(nsig)
+#        else:
+#            dict_s_rt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
+#        nRT = RooRealVar ("nRT_%s"%ibin, "yield of RT signal",0,1.E9)
+#        nRT.setVal(  dict_s_rt[ibin].n)
+#        nRT.setError(dict_s_rt[ibin].s)
+#        print 'setting nRT to ', dict_s_rt[ibin].n
+#        getattr(w,"import")(nRT)
 
-    else:
-        pdfstring = "doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
+#    else:
+#        pdfstring = "doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
         
-        dict_s_wt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
-        nWT = RooRealVar ("nWT_%s"%ibin, "yield of WT signal",0,1.E7)
-        nWT.setVal(  dict_s_wt[ibin].n)
-        nWT.setError(dict_s_wt[ibin].s)
-        print 'setting nWT to ', dict_s_wt[ibin].n
-        getattr(w,"import")(nWT)
+#        dict_s_wt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
+#        nWT = RooRealVar ("nWT_%s"%ibin, "yield of WT signal",0,1.E7)
+#        nWT.setVal(  dict_s_wt[ibin].n)
+#        nWT.setError(dict_s_wt[ibin].s)
+#        print 'setting nWT to ', dict_s_wt[ibin].n
+#        getattr(w,"import")(nWT)
     
 #     pdfstring = "fitfunction%s_Norm[tagged_mass]_Range[datarange]_NormRange[datarange]"%(ibin)  ## sara 04.11 to comment
 
@@ -520,15 +520,15 @@ if args.year == 'test':
     tMC.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/2016MC_LMNR_100k.root')
 else:    
     if args.dimusel == 'rejectPsi':
-        tData.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/newphi/newbdt/%sMC_LMNR.root'%args.year)
-        tMC.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/newphi/newbdt/%sMC_LMNR.root'%args.year)
+        tData.Add('/lstore/cms/boletti/Run2-BdToKstarMuMu/%sdata_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root'%args.year)
+        tMC.Add('/lstore/cms/boletti/Run2-BdToKstarMuMu/%sMC_LMNR_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root'%args.year)
 #         tMC.Add('/eos/cms/store/user/fiorendi/p5prime/2016/skims/newphi/2016MC_LMNR.root')
     elif args.dimusel == 'keepJpsi':
-        tData.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/newphi/newbdt/%sMC_JPSI.root'%args.year)
-        tMC.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/newphi/newbdt/%sMC_JPSI.root'%args.year)
+        tData.Add('/lstore/cms/boletti/Run2-BdToKstarMuMu/%sdata_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root'%args.year)
+        tMC.Add('/lstore/cms/boletti/Run2-BdToKstarMuMu/%sMC_JPSI_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root'%args.year)
     elif args.dimusel == 'keepPsiP':
-        tData.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/newphi/newbdt/%sMC_PSI.root'%args.year)
-        tMC.Add('/gwteray/users/fiorendi/final_ntuples_p5prime_allyears/newphi/newbdt/%sMC_PSI.root'%args.year)
+        tData.Add('/lstore/cms/boletti/Run2-BdToKstarMuMu/%sdata_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root'%args.year)
+        tMC.Add('/lstore/cms/boletti/Run2-BdToKstarMuMu/%sMC_PSI_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root'%args.year)
 
 print 'mc file name:',  tMC.GetFile().GetName()
 print 'data file name:', tData.GetFile().GetName()
