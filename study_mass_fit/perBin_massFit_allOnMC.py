@@ -2,7 +2,7 @@ import argparse
 parser = argparse.ArgumentParser(description="")
 # parser.add_argument("inputfile" , help = "Path to the input ROOT file")
 parser.add_argument("dimusel"   , help = "Define if keep or remove dimuon resonances. You can choose: keepPsiP, keepJpsi, rejectPsi, keepPsi")
-parser.add_argument("year"      , help = "choose among:2016,2017,%s", default = '%s')
+parser.add_argument("year"      , help = "choose among:2016,2017,%s", default = '2018')
 args = parser.parse_args()
 
 
