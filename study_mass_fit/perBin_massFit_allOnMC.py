@@ -181,16 +181,16 @@ def fitMC(fulldata, correctTag, ibin):
     
     r = fitFunction.fitTo(data, RooFit.Extended(doextended), RooFit.Save(), RooFit.Range(fitrange))
     print 'fit status: ', r.status(), r.covQual() 
-    total_integral = signalFunction.createIntegral(RooArgSet(tagged_mass), RooFit.NormSet(RooArgSet(tagged_mass)), RooFit.Range('fitrange')).getVal()
+#    total_integral = signalFunction.createIntegral(RooArgSet(tagged_mass), RooFit.NormSet(RooArgSet(tagged_mass)), RooFit.Range('fitrange')).getVal()
     center = mean.getVal()
     initial_sigma = 0.03
     for dsigma in np.linspace(0,0.3,300):
         tmp_sigma = initial_sigma + dsigma
         tagged_mass.setRange('tmp_range', center-tmp_sigma, center+tmp_sigma)
-        tmp_int = signalFunction.createIntegral(RooArgSet(tagged_mass), RooFit.NormSet(RooArgSet(tagged_mass)), RooFit.Range('tmp_range')).getVal()
-        if tmp_int/total_integral > 0.68:
-          print tag, ' reached sigma:', tmp_sigma, ' for which we have ', tmp_int/total_integral 
-          break
+#        tmp_int = signalFunction.createIntegral(RooArgSet(tagged_mass), RooFit.NormSet(RooArgSet(tagged_mass)), RooFit.Range('tmp_range')).getVal()
+#        if tmp_int/total_integral > 0.68:
+#          print tag, ' reached sigma:', tmp_sigma, ' for which we have ', tmp_int/total_integral 
+#          break
     
     ## draw everything 
     params = fitFunction.getParameters(RooArgSet(tagged_mass)) 
