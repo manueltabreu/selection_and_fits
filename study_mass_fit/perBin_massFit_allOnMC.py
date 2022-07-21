@@ -37,12 +37,16 @@ import numpy as np
 ROOT.RooMsgService.instance().setGlobalKillBelow(4)
 ROOT.Math.MinimizerOptions.SetDefaultMaxFunctionCalls(50000)
 
+nRT_fromMC = 10
+nRT_fromMC_err = 2
+nWT_fromMC = 10
+nWT_fromMC_err = 2
 
-#def _getFittedVar(varName, w=None):
-#    if w is not None:
-#        return ufloat (w.var(varName).getVal() , w.var(varName).getError())
-#    else :
-#        return ufloat (varName.getVal()        , varName.getError())
+def _getFittedVar(varName, w=None):
+    if w is not None:
+        return ufloat (w.var(varName).getVal() , w.var(varName).getError())
+    else :
+        return ufloat (varName.getVal()        , varName.getError())
 
 def _goodFit(r):
     return (r.status()==0 and r.covQual() == 3)
@@ -214,6 +218,7 @@ def fitMC(fulldata, correctTag, ibin):
 #     pdb.set_trace()
     if correctTag:
         pdfstring = "doublecb_RT%s_Norm[tagged_mass]_Comp[doublecb_RT%s]_Range[datarange]_NormRange[datarange]"%(ibin,ibin)
+        nRT_fromMC = data.sumEntries()
 #         pdfstring = "doublegaus_RT%s_Norm[tagged_mass]_Comp[doublegaus_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
 #         pdfstring = "gauscb_RT%s_Norm[tagged_mass]_Comp[gauscb_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
 #         pdfstring = "expGaussExp_RT%s_Norm[tagged_mass]_Comp[expGaussExp_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
@@ -225,15 +230,16 @@ def fitMC(fulldata, correctTag, ibin):
 #            dict_s_rt[ibin]   = _getFittedVar(nsig)
 #        else:
 #            dict_s_rt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
+#        nRT_fromMC = data.sumEntries()
 #        nRT = RooRealVar ("nRT_%s"%ibin, "yield of RT signal",0,1.E9)
 #        nRT.setVal(  dict_s_rt[ibin].n)
 #        nRT.setError(dict_s_rt[ibin].s)
 #        print 'setting nRT to ', dict_s_rt[ibin].n
 #        getattr(w,"import")(nRT)
 
-#    else:
-#        pdfstring = "doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
-        
+    else:
+        pdfstring = "doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
+        nWT_fromMC = data.sumEntries()
 #        dict_s_wt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
 #        nWT = RooRealVar ("nWT_%s"%ibin, "yield of WT signal",0,1.E7)
 #        nWT.setVal(  dict_s_wt[ibin].n)
@@ -283,9 +289,8 @@ def fitMC(fulldata, correctTag, ibin):
         c1.SaveAs('fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_%s_%s_%s_newSigmaFRT%s%s_asInANv8.pdf'%(ibin, args.year, tag, '_logScale'*ilog, '_Jpsi'*(args.dimusel=='keepJpsi')))
     out_f.cd()
     r.Write('results_%s_%s'%(tag, ibin))
-    
-    return dict_s_rt[ibin].n if correctTag else dict_s_wt[ibin].n
-   
+
+    return
    
 
 ## outdated, not used   
@@ -608,8 +613,6 @@ initial_a_2 = -1.
 initial_sigma1 = 0.028
 initial_sigma2 = 0.048
 initial_sigmaCB = 0.048
-nRT_fromMC = 10
-nWT_fromMC = 10
 
 
 for ibin in range(len(q2binning)-1):
@@ -627,8 +630,10 @@ for ibin in range(len(q2binning)-1):
     if   ibin ==4:  cut_base = 'passB0Psi_jpsi== 1 '
     elif ibin ==6:  cut_base = 'passB0Psi_psip== 1 '
 
-    nRT_fromMC = fitMC(rt_mc, True, ibin)
-    nWT_fromMC = fitMC(wt_mc, False, ibin)
+#    nRT_fromMC = fitMC(rt_mc, True, ibin)
+#    nWT_fromMC = fitMC(wt_mc, False, ibin)
+    fitMC(rt_mc, True, ibin)
+    fitMC(wt_mc, False, ibin)
 #     fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
     print ' --------------------------------------------------------------------------------------------------- '
 
