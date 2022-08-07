@@ -46,7 +46,7 @@ for str_file in samples:
       
         ifile = 'sub_samples/sample_%s_%s_%s_newphi.root'%(args.year, str_file, str(i))  
 
-        print 'adding bdt score from %s classifier.pkl'%(i)
+        print('adding bdt score from %s classifier.pkl'%(i))
         classifier = joblib.load('results/classifier_%s_%s.pkl' %(tag,i))
         
         feat_names = [
