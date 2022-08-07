@@ -42,11 +42,16 @@ nRT_fromMC_err = 2
 nWT_fromMC = 10
 nWT_fromMC_err = 2
 
+def _ufloat(*num,val,std):
+    num[0] = val
+    num[1] = std
+    return num
+
 def _getFittedVar(varName, w=None):
     if w is not None:
-        return ufloat (w.var(varName).getVal() , w.var(varName).getError())
+        return ufloat (w, w.var(varName).getVal() , w.var(varName).getError())
     else :
-        return ufloat (varName.getVal()        , varName.getError())
+        return ufloat (varName, varName.getVal()        , varName.getError())
 
 def _goodFit(r):
     return (r.status()==0 and r.covQual() == 3)
@@ -218,7 +223,7 @@ def fitMC(fulldata, correctTag, ibin):
 #     pdb.set_trace()
     if correctTag:
         pdfstring = "doublecb_RT%s_Norm[tagged_mass]_Comp[doublecb_RT%s]_Range[datarange]_NormRange[datarange]"%(ibin,ibin)
-        nRT_fromMC = data.sumEntries()
+#        nRT_fromMC = data.sumEntries()
 #         pdfstring = "doublegaus_RT%s_Norm[tagged_mass]_Comp[doublegaus_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
 #         pdfstring = "gauscb_RT%s_Norm[tagged_mass]_Comp[gauscb_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
 #         pdfstring = "expGaussExp_RT%s_Norm[tagged_mass]_Comp[expGaussExp_RT%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
@@ -226,16 +231,24 @@ def fitMC(fulldata, correctTag, ibin):
         if ibin == 7:   
             pdfstring = "gauscb_RT_%s_Norm[tagged_mass]_Comp[gauscb_RT_%s]_Range[datarange]_NormRange[datarange]"%(ibin,ibin)
 
-#        if doextended:
-#            dict_s_rt[ibin]   = _getFittedVar(nsig)
-#        else:
-#            dict_s_rt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
-#        nRT_fromMC = data.sumEntries()
+        if doextended:
+            dict_s_rt[ibin]   = _getFittedVar(nsig)
+            print("0")
+            
+        else:
+            dict_s_rt[ibin]    = ufloat(dict_s_rt[ibin], data.sumEntries(), math.sqrt(data.sumEntries()))
+#            nRT_fromMC = data.sumEntries()
+        nRT = RooRealVar ("nRT_%s"%ibin, "yield of RT signal",0,1.E9)
+        nRT.setVal(  dict_s_rt[ibin][0])
+        nRT.setError(dict_s_rt[ibin][1])
+        print 'setting nRT to ', dict_s_rt[ibin][0]
+        getattr(w,"import")(nRT)
 #        nRT = RooRealVar ("nRT_%s"%ibin, "yield of RT signal",0,1.E9)
 #        nRT.setVal(  dict_s_rt[ibin].n)
 #        nRT.setError(dict_s_rt[ibin].s)
 #        print 'setting nRT to ', dict_s_rt[ibin].n
 #        getattr(w,"import")(nRT)
+
 
     else:
         pdfstring = "doublecb_%s_Norm[tagged_mass]_Comp[doublecb_%s]_Range[mcrange]_NormRange[mcrange]"%(ibin,ibin)
@@ -246,6 +259,12 @@ def fitMC(fulldata, correctTag, ibin):
 #        nWT.setError(dict_s_wt[ibin].s)
 #        print 'setting nWT to ', dict_s_wt[ibin].n
 #        getattr(w,"import")(nWT)
+        dict_s_wt[ibin]    = ufloat(data.sumEntries(), math.sqrt(data.sumEntries()))
+        nWT = RooRealVar ("nWT_%s"%ibin, "yield of WT signal",0,1.E7)
+        nWT.setVal(  dict_s_wt[ibin][0])
+        nWT.setError(dict_s_wt[ibin][1])
+        print 'setting nWT to ', dict_s_wt[ibin][0]
+        getattr(w,"import")(nWT)
     
 #     pdfstring = "fitfunction%s_Norm[tagged_mass]_Range[datarange]_NormRange[datarange]"%(ibin)  ## sara 04.11 to comment
 
@@ -266,7 +285,8 @@ def fitMC(fulldata, correctTag, ibin):
     lowerPad.Draw()
 
     upperPad.cd()
-    if not args.year=='test':  writeCMS(frame, args.year, [ q2binning[ibin], q2binning[ibin+1] ], -1)
+    if not args.year=='test':  
+        writeCMS(frame, args.year, [ q2binning[ibin], q2binning[ibin+1] ], -1)
     frame.Draw()
     
     ## add plot of pulls
@@ -289,8 +309,6 @@ def fitMC(fulldata, correctTag, ibin):
         c1.SaveAs('fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_%s_%s_%s_newSigmaFRT%s%s_asInANv8.pdf'%(ibin, args.year, tag, '_logScale'*ilog, '_Jpsi'*(args.dimusel=='keepJpsi')))
     out_f.cd()
     r.Write('results_%s_%s'%(tag, ibin))
-
-    return
    
 
 ## outdated, not used   
@@ -305,8 +323,9 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     cut = 'rand < %f'%nDesired
     data = fulldata_v2.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE), cut)
 
-    fraction = dict_s_wt[ibin] / (dict_s_rt[ibin] + dict_s_wt[ibin])
-    print 'mistag fraction on MC for bin ', ibin , ' : ' , fraction.n , '+/-', fraction.s 
+    fraction = dict_s_wt[ibin][0] / (dict_s_rt[ibin][0] + dict_s_wt[ibin][0])
+#    fraction = nWT_fromMC / (nRT_fromMC + nWT_fromMC)
+#    print ('mistag fraction on MC for bin ', ibin , ' : ' , fraction.n , '+/-', fraction.s) 
     
     ### creating RT component
     w.loadSnapshot("reference_fit_RT_%s"%ibin)
@@ -393,7 +412,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     ### creating variable for the difference between the two peaks
     deltaPeaks = RooFormulaVar("deltaPeaks%s"%ibin, "@0 - @1", RooArgList(mean_rt, mean_wt))  
-    fm              = RooRealVar ("f_{M}^{%s}"%ibin , "fm"             , fraction.n , 0, 1)
+    fm              = RooRealVar ("f_{M}^{%s}"%ibin , "fm"             , fraction , 0, 1)
     signalFunction  = RooAddPdf  ("sumgaus%s"%ibin  , "rt+wt"          , RooArgList(c_theWTgauss,c_theRTgauss), RooArgList(fm))
 
     ### now create background parametrization
@@ -417,7 +436,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 #     c_pdfs.add(c_deltaPeaks)
 #     c_vars.add(deltaPeaks)
 
-    c_fm            = RooGaussian("c_fm%s"%ibin    , "c_fm"           , fm,  ROOT.RooFit.RooConst(fraction.n) , ROOT.RooFit.RooConst(fm_sigma[ibin]) )
+    c_fm            = RooGaussian("c_fm%s"%ibin    , "c_fm"           , fm,  ROOT.RooFit.RooConst(fraction) , ROOT.RooFit.RooConst(fm_sigma[ibin]) )
     c_pdfs.add(c_fm)
     c_vars.add(fm)
 
@@ -634,7 +653,7 @@ for ibin in range(len(q2binning)-1):
 #    nWT_fromMC = fitMC(wt_mc, False, ibin)
     fitMC(rt_mc, True, ibin)
     fitMC(wt_mc, False, ibin)
-#     fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
+    fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
     print ' --------------------------------------------------------------------------------------------------- '
 
 
