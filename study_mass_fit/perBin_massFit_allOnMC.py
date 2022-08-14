@@ -117,6 +117,11 @@ n_bin = n_data[args.year]
 ## uncertainty on fRT
 fm_sigma = fM_sigmas[args.year]
 
+q2binningone = [
+    10.09,
+    12.86
+]
+
 q2binning = [
                 1,
                 2, 
@@ -134,7 +139,7 @@ from collections import OrderedDict
 fitStats = OrderedDict()
 covStats = OrderedDict()
 chi2s    = OrderedDict()
-
+print("start function declaration")
   
 def fitMC(fulldata, correctTag, ibin):
 
