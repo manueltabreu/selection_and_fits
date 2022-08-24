@@ -475,7 +475,9 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     c_vars.add(fm)
 
     constr_list = RooArgList(c_pdfs)
-    constr_list.add(signalFunction)
+#    constr_list.add(signalFunction)
+    sig_bkg_function = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(signalFunction, bkg_exp), RooArgList(nsig,nbkg))
+    constr_list.add(sig_bkg_function)
     c_signalFunction = RooProdPdf ("c_signalFunction%s"%ibin, "c_signalFunction", constr_list)   
 
 #background pdf
