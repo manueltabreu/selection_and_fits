@@ -378,19 +378,6 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
         n_rt2        = w.var("n_{RT2}^{%s}"%ibin)
         f1rt         = w.var("f^{RT%s}"%ibin)
 
-    print 'alpha values, first rt1'
-    print (alpha_rt1)
-    print 'next rt2'
-    print (alpha_rt2)
-    print 'alpha values, first rt1'
-    print (alpha_rt1.getVal())
-    print 'next rt2'
-    print (alpha_rt2.getVal())
-    print 'it is okay'
-    print 'next nrt1'
-    print (n_rt1.getVal())
-    print 'it passed the debug'
-
 
     theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
 
@@ -403,6 +390,24 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     n_wt1        = w.var("n_{WT1}^{%s}"%ibin)
     n_wt2        = w.var("n_{WT2}^{%s}"%ibin)
     theWTgauss   = w.pdf("doublecb_%s"%ibin)   
+
+# rejectPsi debug
+ #   print 'ibin'
+ #   print(ibin)
+ #   print 'alpha values, first rt1'
+ #   print (alpha_rt1)
+ #   print 'next rt2'
+ #   print (alpha_rt2)
+ #   print 'next nrt2'
+ #   print (n_rt2.getVal())
+ #   print 'next nrt1'
+ #   print (n_rt1.getVal())
+ #   print 'it is okay'
+ #   print 'alpha values, first rt1'
+ #   print (alpha_rt1.getVal())
+ #   print 'next rt2'
+ #   print (alpha_rt2.getVal())
+ #   print 'it passed the debug'
 
 
     ### creating constraints
@@ -423,12 +428,14 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     if ibin < 4:
         c_pdfs_rt = RooArgSet(c_sigma_rt1, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
+#        c_pdfs_rt = RooArgSet(c_sigma_rt1, c_alpha_rt1, c_n_rt1)
         c_vars = RooArgSet(sigma_rt1,     alpha_rt1,   alpha_rt2,   n_rt1,   n_rt2)
     else:
         c_sigma_rt2   = _constrainVar(sigma_rt2, 1)
         c_f1rt        = _constrainVar(f1rt, 1)
 
         c_pdfs_rt = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2, c_f1rt)
+#        c_pdfs_rt = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_n_rt1, c_f1rt)
         c_vars = RooArgSet(  sigma_rt1,   sigma_rt2,   alpha_rt1,   alpha_rt2,   n_rt1,   n_rt2,   f1rt)
     
     c_pdfs_wt = RooArgSet(c_sigma_wt, c_alpha_wt1, c_alpha_wt2, c_n_wt1, c_n_wt2)
@@ -657,7 +664,8 @@ print 'reading data...'
 # = fulldataall.reduce("runN>316000 && runN<317000")
 #fulldata.Print()
 
-# "runN > 316000 && runN <316100"
+# fastest run to Jpsi (~10 minutes) "runN > 316050 && runN < 316060"
+# to the PsiP "runN > 316000 && runN <316100"
 fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316000 && runN <316100")
 print 'it worked :)'
 #fulldata.printValue()
