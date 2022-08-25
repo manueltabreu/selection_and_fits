@@ -378,6 +378,20 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
         n_rt2        = w.var("n_{RT2}^{%s}"%ibin)
         f1rt         = w.var("f^{RT%s}"%ibin)
 
+    print 'alpha values, first rt1'
+    print (alpha_rt1)
+    print 'next rt2'
+    print (alpha_rt2)
+    print 'alpha values, first rt1'
+    print (alpha_rt1.getVal())
+    print 'next rt2'
+    print (alpha_rt2.getVal())
+    print 'it is okay'
+    print 'next nrt1'
+    print (n_rt1.getVal())
+    print 'it passed the debug'
+
+
     theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
 
     ### creating WT component
@@ -478,15 +492,15 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 #    constr_list.add(signalFunction)
     sig_bkg_function = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(signalFunction, bkg_exp), RooArgList(nsig,nbkg))
     constr_list.add(sig_bkg_function)
-    c_signalFunction = RooProdPdf ("c_signalFunction%s"%ibin, "c_signalFunction", constr_list)   
+    totalFunction = RooProdPdf ("totalFunction%s"%ibin, "totalFunction", constr_list)   
 
 #background pdf
 #defined above
 
 #total pdf (data)
-    fitFunction = c_signalFunction   
+    fitFunction = totalFunction   
     #fitFunction = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(signalFunction, bkg_exp), RooArgList(nsig,nbkg))
-    #fitFunction = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(c_signalFunction, bkg_exp), RooArgList(nsig,nbkg))
+    #fitFunction = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(totalFunction, bkg_exp), RooArgList(nsig,nbkg))
     
     print 'here 0'
     
@@ -525,20 +539,30 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     observables = RooArgSet(tagged_mass)
     flparams = fitFunction.getParameters(observables)
     nparam = int(flparams.selectByAttrib("Constant",ROOT.kFALSE).getSize())
-    pdfstring = "c_signalFunction%s_Norm[tagged_mass]_Range[datarange]_NormRange[datarange]"%ibin
-#     pdfstring = "c_signalFunction_Norm[tagged_mass]_Range[full]_NormRange[full]"
+    pdfstring = "totalFunction%s_Norm[tagged_mass]_Range[datarange]_NormRange[datarange]"%ibin
+#     pdfstring = "totalFunction_Norm[tagged_mass]_Range[full]_NormRange[full]"
     chi2s['data%s'%ibin] = frame.chiSquare(pdfstring, "h_fulldata",  nparam)
     frame. addObject(_writeChi2( chi2s['data%s'%ibin] ))
 
     drawPdfComponents(fitFunction, frame, ROOT.kAzure, RooFit.NormRange("datarange"), RooFit.Range("datarange"), isData = True)
 
-    parList = RooArgSet (nsig, mean_rt, mean_wt, sigma_rt1, sigma_rt2, alpha_rt1, alpha_rt2, mean_wt, sigma_wt)
-    parList.add(alpha_wt1)
-    parList.add(alpha_wt2)
-    parList.add(n_wt1)
-    parList.add(n_wt2)
-    parList.add(fm)
-    fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.56,0.86,0.89))
+    parList1 = RooArgSet (nsig, alpha_wt1, alpha_wt2,  alpha_rt1, alpha_rt2, sigma_wt, sigma_rt1, sigma_rt2)
+    parList2 = RooArgSet (mean_rt, n_wt1, n_wt2, n_rt1, n_rt2, f1rt, fm, nbkg)
+
+#    parList = RooArgSet (nsig, mean_rt, mean_wt, sigma_rt1, sigma_rt2, alpha_rt1, alpha_rt2, mean_wt, sigma_wt)
+#    parList.add(alpha_wt1)
+#    parList.add(alpha_wt2)
+#    parList.add(n_wt1)
+#    parList.add(n_wt2)
+#    parList.add(fm)
+#    fitFunction.paramOn(frame, RooFit.Parameters(parList), RooFit.Layout(0.56,0.86,0.89))
+
+#    fitFunction.paramOn(frame, RooFit.Parameters(parList2), RooFit.Layout(0.72,0.86,0.89)) 
+  
+    fitFunction.paramOn(frame, RooFit.Parameters(parList1), RooFit.Layout(0.56,0.70,0.89))
+    frame.getAttText().SetTextSize(0.023)
+    fitFunction.paramOn(frame, RooFit.Parameters(parList2), RooFit.Layout(0.72,0.80,0.89))
+    frame.getAttText().SetTextSize(0.023)
 
     frame.Draw()
     niceFrame(frame, '')
@@ -633,7 +657,8 @@ print 'reading data...'
 # = fulldataall.reduce("runN>316000 && runN<317000")
 #fulldata.Print()
 
-fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316000 && runN <317000")
+# "runN > 316000 && runN <316100"
+fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316000 && runN <316100")
 print 'it worked :)'
 #fulldata.printValue()
 
