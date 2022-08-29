@@ -1,4 +1,5 @@
 import argparse
+from ast import Yield
 parser = argparse.ArgumentParser(description="")
 # parser.add_argument("inputfile" , help = "Path to the input ROOT file")
 parser.add_argument("dimusel"   , help = "Define if keep or remove dimuon resonances. You can choose: keepPsiP, keepJpsi, rejectPsi, keepPsi")
@@ -368,7 +369,13 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
         alpha_rt2    = w.var("#alpha_{RT2}^{%s}"%ibin)
         n_rt1        = w.var("n_{RT1}^{%s}"%ibin)
         n_rt2        = w.var("n_{RT2}^{%s}"%ibin)
-
+    ## for gauscb
+    elif ibin == 7:
+        sigma_rt2    = w.var("#sigma_{RT2}^{%s}"%ibin)
+        alpha_rt1    = w.var("#alpha_{RT1}^{%s}"%ibin)
+        n_rt1        = w.var("n_{RT1}^{%s}"%ibin)
+        f1rt         = w.var("f^{RT%s}"%ibin)
+        print (Yield)
     ## double cb old
     else:
         sigma_rt2    = w.var("#sigma_{RT2}^{%s}"%ibin)
@@ -376,8 +383,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
         alpha_rt2    = w.var("#alpha_{RT2}^{%s}"%ibin)
         n_rt1        = w.var("n_{RT1}^{%s}"%ibin)
         n_rt2        = w.var("n_{RT2}^{%s}"%ibin)
-        f1rt         = w.var("f^{RT%s}"%ibin)
-
+        f1rt         = w.var("f^{RT%s}"%ibin)        
 
     theRTgauss  = w.pdf("doublecb_RT%s"%ibin)   
 
@@ -391,25 +397,6 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     n_wt2        = w.var("n_{WT2}^{%s}"%ibin)
     theWTgauss   = w.pdf("doublecb_%s"%ibin)   
 
-# rejectPsi debug
- #   print 'ibin'
- #   print(ibin)
- #   print 'alpha values, first rt1'
- #   print (alpha_rt1)
- #   print 'next rt2'
- #   print (alpha_rt2)
- #   print 'next nrt2'
- #   print (n_rt2.getVal())
- #   print 'next nrt1'
- #   print (n_rt1.getVal())
- #   print 'it is okay'
- #   print 'alpha values, first rt1'
- #   print (alpha_rt1.getVal())
- #   print 'next rt2'
- #   print (alpha_rt2.getVal())
- #   print 'it passed the debug'
-
-
     ### creating constraints
     c_vars = RooArgSet()
     c_pdfs_rt = RooArgSet()
@@ -417,9 +404,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     c_sigma_rt1   = _constrainVar(sigma_rt1, 1)
     c_alpha_rt1   = _constrainVar(alpha_rt1, 1)
-    c_alpha_rt2   = _constrainVar(alpha_rt2, 1)
     c_n_rt1       = _constrainVar(n_rt1, 1)
-    c_n_rt2       = _constrainVar(n_rt2, 1)
     c_sigma_wt    = _constrainVar(sigma_wt,  1)
     c_alpha_wt1   = _constrainVar(alpha_wt1, 1)
     c_alpha_wt2   = _constrainVar(alpha_wt2, 1)
@@ -427,15 +412,26 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     c_n_wt2       = _constrainVar(n_wt2, 1)
 
     if ibin < 4:
+        c_alpha_rt2   = _constrainVar(alpha_rt2, 1)
+        c_n_rt2       = _constrainVar(n_rt2, 1)
+
         c_pdfs_rt = RooArgSet(c_sigma_rt1, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2)
-#        c_pdfs_rt = RooArgSet(c_sigma_rt1, c_alpha_rt1, c_n_rt1)
         c_vars = RooArgSet(sigma_rt1,     alpha_rt1,   alpha_rt2,   n_rt1,   n_rt2)
+
+    elif ibin == 7:
+        c_sigma_rt2   = _constrainVar(sigma_rt2, 1)
+        c_f1rt        = _constrainVar(f1rt, 1)
+
+        c_pdfs_rt = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_n_rt1, c_f1rt)
+        c_vars = RooArgSet(  sigma_rt1,   sigma_rt2,   alpha_rt1,  n_rt1,   f1rt)
+        
     else:
+        c_alpha_rt2   = _constrainVar(alpha_rt2, 1)
+        c_n_rt2       = _constrainVar(n_rt2, 1)
         c_sigma_rt2   = _constrainVar(sigma_rt2, 1)
         c_f1rt        = _constrainVar(f1rt, 1)
 
         c_pdfs_rt = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_alpha_rt2, c_n_rt1, c_n_rt2, c_f1rt)
-#        c_pdfs_rt = RooArgSet(c_sigma_rt1, c_sigma_rt2, c_alpha_rt1, c_n_rt1, c_f1rt)
         c_vars = RooArgSet(  sigma_rt1,   sigma_rt2,   alpha_rt1,   alpha_rt2,   n_rt1,   n_rt2,   f1rt)
     
     c_pdfs_wt = RooArgSet(c_sigma_wt, c_alpha_wt1, c_alpha_wt2, c_n_wt1, c_n_wt2)
@@ -469,6 +465,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     nsig          = RooRealVar("Yield"         , "signal frac"    ,     nRT_fromMC + nWT_fromMC,     0,   1000000);
     nbkg          = RooRealVar("nbkg"          , "bkg fraction"   ,     1000,     0,   550000);
 
+    print 'nsig is'
     print nsig.getVal()
 
     #trying to fit with the 2 gaussians
@@ -509,10 +506,8 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     #fitFunction = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(signalFunction, bkg_exp), RooArgList(nsig,nbkg))
     #fitFunction = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(totalFunction, bkg_exp), RooArgList(nsig,nbkg))
     
-    print 'here 0'
+    print 'here'
     
-    
-    print 'here 1'
     print 'total pdf created'
     r = fitFunction.fitTo(data, 
                           RooFit.Range("datarange"), 
@@ -666,7 +661,7 @@ print 'reading data...'
 
 # fastest run to Jpsi (~10 minutes) "runN > 316050 && runN < 316060"
 # to the PsiP "runN > 316000 && runN <316100"
-fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316050 && runN < 316060" )
+fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
 print 'it worked :)'
 #fulldata.printValue()
 
@@ -746,7 +741,7 @@ for ibin in range(len(q2binning)-1):
     fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
     print ' --------------------------------------------------------------------------------------------------- '
 
-
+w.Print()
 print '--------------------------------------------------------------------------------------------------- '
 print 'bin\t\t fit status \t cov. matrix \t\t chi2'
 # for i,k in enumerate(fitStats.keys()):    
