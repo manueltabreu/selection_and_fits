@@ -1,11 +1,11 @@
 import argparse
 from ast import Yield
+from calendar import c
 parser = argparse.ArgumentParser(description="")
 # parser.add_argument("inputfile" , help = "Path to the input ROOT file")
 parser.add_argument("dimusel"   , help = "Define if keep or remove dimuon resonances. You can choose: keepPsiP, keepJpsi, rejectPsi, keepPsi")
 parser.add_argument("year"      , help = "choose among:2016,2017,%s", default = '2018')
 args = parser.parse_args()
-
 
 '''
 code to fit the B0 mass distribution:
@@ -29,9 +29,10 @@ gSystem.Load('libRooFit')
 gSystem.Load('../utils/func_roofit/libRooDoubleCBFast')
 gSystem.Load('../utils/func_roofit/libRooGaussDoubleSidedExp')
 from ROOT import RooFit, RooRealVar, RooAbsReal, RooDataSet, RooArgList, RooTreeData, RooArgSet, RooAddPdf, RooFormulaVar
-from ROOT import RooGaussian, RooExponential, RooChebychev, RooProdPdf, RooCBShape, TFile, RooPolynomial, RooExtendPdf
+from ROOT import RooGaussian, RooExponential, RooChebychev, RooProdPdf, RooCBShape, TFile, TGraphErrors, RooPolynomial, RooExtendPdf
 import sys, math, pdb
 #from uncertainties import ufloat
+import array
 import random
 import numpy as np
 import time
@@ -119,6 +120,16 @@ n_bin = n_data[args.year]
 ## uncertainty on fRT
 fm_sigma = fM_sigmas[args.year]
 
+MC_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
+MC_RT_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
+MC_WT_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
+MC_num_entries_error = [0, 0, 0, 0, 0, 0, 0, 0]
+
+tgraph_y = [0, 0, 0, 0, 0, 0, 0, 0]
+tgraph_x = [0, 0, 0, 0, 0, 0, 0, 0]
+tgraph_ex = [0, 0, 0, 0, 0, 0, 0, 0]
+tgraph_ey = [0, 0, 0, 0, 0, 0, 0, 0]
+
 q2binningone = [
     10.09,
     12.86
@@ -169,7 +180,10 @@ def fitMC(fulldata, correctTag, ibin):
     tag        = 'RT' if correctTag else 'WT'
     if correctTag:
         fitrange   = "datarange"
-        mean        = RooRealVar ("mean_{RT}^{%s}"%ibin,        "massRT"         , B0Mass_,     5.2,    5.8, "GeV")
+        mean        = RooRealVar ("mean_{RT}^{%s}"%ibin,        "massRT"         , B0Mass_,     5.2,    5.4, "GeV")
+#        mean        = RooRealVar ("mean_{RT}^{%s}"%ibin,        "massRT"         , B0Mass_,     5.2,    5.8, "GeV")
+       
+        MC_RT_num_entries[ibin] = fulldata_v2.sumEntries()
         if ibin < 4:  #4  
             ### double CB, 1 sigma
             sigmaCB     = RooRealVar ("#sigma_{RT1}^{%s}"%ibin, "sigmaCB"        ,  0.03  ,     0,   1  )#1
@@ -197,6 +211,7 @@ def fitMC(fulldata, correctTag, ibin):
         fitFunction = signalFunction  ## sara 04.11 to uncomment
 
     else:
+        MC_WT_num_entries[ibin] = fulldata_v2.sumEntries()
         ### double CB, 1 sigma
         mean        = RooRealVar ("mean_{WT}^{%s}"%ibin,     "massWT"         , B0Mass_,     5,    6, "GeV")
         sigmaCB     = RooRealVar ("#sigma_{WT1}^{%s}"%ibin,  "sigmaCB"        ,  0.03  ,    0,   1  )
@@ -546,6 +561,13 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     chi2s['data%s'%ibin] = frame.chiSquare(pdfstring, "h_fulldata",  nparam)
     frame. addObject(_writeChi2( chi2s['data%s'%ibin] ))
 
+#   get the Yields
+    print 'ibin and Yield'
+    print (ibin)
+    print (nsig)
+    tgraph_y[ibin] = nsig.getVal()
+    tgraph_ey[ibin] = nsig.getError()
+
     drawPdfComponents(fitFunction, frame, ROOT.kAzure, RooFit.NormRange("datarange"), RooFit.Range("datarange"), isData = True)
 
     parList1 = RooArgSet (nsig, alpha_wt1, alpha_wt2,  alpha_rt1, alpha_rt2, sigma_wt, sigma_rt1, sigma_rt2)
@@ -661,7 +683,16 @@ print 'reading data...'
 
 # fastest run to Jpsi (~10 minutes) "runN > 316050 && runN < 316060"
 # to the PsiP "runN > 316000 && runN <316100"
-fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
+# fastest run to PsiP (~10 minutes) "runN > 316050 && runN < 316060"
+#fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
+
+if args.dimusel == 'rejectPsi': 
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))       
+if args.dimusel == 'keepJpsi': 
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316050 && runN < 316060")   
+if args.dimusel == 'keepPsiP':  
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316050 && runN <316060")    
+
 print 'it worked :)'
 #fulldata.printValue()
 
@@ -741,6 +772,61 @@ for ibin in range(len(q2binning)-1):
     fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
     print ' --------------------------------------------------------------------------------------------------- '
 
+#create Tgraph
+for ibin in range(len(q2binning)-1):
+
+#   yields
+    middle_value = (q2binning[ibin+1] +  q2binning[ibin]) / 2
+
+#   efficiencies
+    MC_num_entries[ibin] = MC_RT_num_entries[ibin] + MC_WT_num_entries[ibin]
+    MC_num_entries_error[ibin] = math.sqrt(MC_num_entries[ibin])
+
+#   q2bins
+    tgraph_x[ibin] = middle_value
+    tgraph_ex[ibin] = middle_value - q2binning[ibin]
+
+
+#arr_tgraph_y = array.array('d',tgraph_y)
+#arr_tgraph_x = array.array('d',tgraph_x)
+#arr_tgraph_ex = array.array('d',tgraph_ex)
+#arr_tgraph_y = array.array('d',tgraph_y)
+
+tgraph_yield = TGraphErrors(8, np.array(tgraph_x), np.array(tgraph_y), np.array(tgraph_ex), np.array(tgraph_ey))
+#tgraph_yield = TGraphErrors(8, tgraph_x, tgraph_y, tgraph_ex, tgraph_ey)
+
+tgraph_efficiency = TGraphErrors(8, np.array(tgraph_x), np.array(MC_num_entries), np.array(tgraph_ex), np.array(MC_num_entries_error))
+
+print 'tgraph_y'
+print(tgraph_y)
+
+print 'MC_num_entries'
+print(MC_num_entries)
+
+print 'MC_num_entries_error'
+print(MC_num_entries_error)
+
+c2 = ROOT.TCanvas() 
+tgraph_yield.SetName("Yields")
+tgraph_yield.Draw("AP")
+c2.SaveAs("tgraph_yields1.pdf")
+
+print 'tgraph_yield created'
+print (tgraph_yield)
+
+c3 = ROOT.TCanvas() 
+tgraph_efficiency.SetName("Efficiencies_num")
+tgraph_efficiency.Draw("AP")
+c3.SaveAs("tgraph_efficiencies.pdf")
+
+print 'tgraph_efficiency created'
+print (tgraph_efficiency)
+
+out_gname = "fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_%s%s.root"%(args.year, '_Jpsi'*(args.dimusel=='keepJpsi') + '_Psi'*(args.dimusel=='keepPsiP'))
+out_g = TFile (out_gname, "RECREATE") 
+tgraph_yield.Write("tgraph_yields_%s%s"%(args.year, '_Jpsi'*(args.dimusel=='keepJpsi') + '_Psi'*(args.dimusel=='keepPsiP')))
+tgraph_efficiency.Write("tgraph_efficiencies_%s%s"%(args.year, '_Jpsi'*(args.dimusel=='keepJpsi') + '_Psi'*(args.dimusel=='keepPsiP')))
+
 w.Print()
 print '--------------------------------------------------------------------------------------------------- '
 print 'bin\t\t fit status \t cov. matrix \t\t chi2'
@@ -755,5 +841,6 @@ print 'It took', time.time() - T, 'seconds'
 print (time.time()- T)/60, 'minutes'
 print (time.time() - T)/3600, 'hours'
 
+out_g.Close()
 out_f.Close()
 w.writeToFile(out_f.GetName(), False)
