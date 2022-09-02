@@ -691,7 +691,7 @@ if args.dimusel == 'rejectPsi':
 if args.dimusel == 'keepJpsi': 
     fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316050 && runN < 316060")   
 if args.dimusel == 'keepPsiP':  
-    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316050 && runN <316060")    
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))    
 
 print 'it worked :)'
 #fulldata.printValue()
