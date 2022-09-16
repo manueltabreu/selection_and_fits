@@ -1,0 +1,321 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_2018_Jpsi.root
+eff
+1859815.0
+1859815.0
+1475796.04821
+yields
+[453.57456451844416, 904.1133984311056, 760.9883072523527, 1437.319966268724, 1475796.0482104758, 2823.6230063150015, 66772.05165540423, 2.7755575615628914e-07]
+453.574564518
+904.113398431
+760.988307252
+1437.31996627
+1475796.04821
+2823.62300632
+66772.0516554
+2.77555756156e-07
+efficiency
+[0.0017297498240572287, 0.0021091434521446207, 0.002333823405052547, 0.002285300456693789, 0.003594063985278734, 0.0034145599386706557, 0.0038652568526485113, 0.0035404964175921975]
+delta_qi2 =  1
+yield[ 0 ] =  453.574564518
+efficiency[ 0 ] =  0.00172974982406
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 0 ] =  4.80931554962e-08
+----------------
+eff_error
+5.34260333729e-06
+yields_error[ibin]
+25.1866827838
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+delta_qi2 =  2.3
+yield[ 1 ] =  904.113398431
+efficiency[ 1 ] =  0.00210914345214
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 1 ] =  3.41827364089e-08
+----------------
+eff_error
+4.30531589068e-06
+yields_error[ibin]
+36.4602441599
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+delta_qi2 =  1.7
+yield[ 2 ] =  760.988307252
+efficiency[ 2 ] =  0.00233382340505
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 2 ] =  3.51786320336e-08
+----------------
+eff_error
+5.19599534793e-06
+yields_error[ibin]
+33.8531525701
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+delta_qi2 =  2.68
+yield[ 3 ] =  1437.31996627
+efficiency[ 3 ] =  0.00228530045669
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 3 ] =  4.30420783719e-08
+----------------
+eff_error
+3.80563764414e-06
+yields_error[ibin]
+45.7281285587
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+delta_qi2 =  1.41
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 4 ] =  5.34120567376e-05
+----------------
+eff_error
+2.63542663936e-06
+yields_error[ibin]
+1836.53011904
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+delta_qi2 =  2.77
+yield[ 5 ] =  2823.62300632
+efficiency[ 5 ] =  0.00341455993867
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 5 ] =  5.47532720771e-08
+----------------
+eff_error
+4.29580866696e-06
+yields_error[ibin]
+64.733183347
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+delta_qi2 =  1.32
+yield[ 6 ] =  66772.0516554
+efficiency[ 6 ] =  0.00386525685265
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 6 ] =  2.4002711575e-06
+----------------
+eff_error
+8.24159823267e-06
+yields_error[ibin]
+424.200372835
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+delta_qi2 =  1.82
+yield[ 7 ] =  2.77555756156e-07
+efficiency[ 7 ] =  0.00354049641759
+yield[ 4 ] =  1475796.04821
+efficiency[ 4 ] =  0.00359406398528
+d_branch_f[ 4 ] =  7.5311e-05
+d_branch_f[ 7 ] =  7.90009960699e-18
+----------------
+eff_error
+5.66608537614e-06
+yields_error[ibin]
+1.15440687842
+yields_error[4]
+1836.53011904
+1st_norm_err
+0.0006
+3.6e-07
+branch_norm
+7.5311e-05
+5.671746721e-09
+1st err squared
+0.000102374811246
+2nd err squared
+0.00155000310001
+bf_uncert_term
+0.00165237791125
+[1.5, 3.15, 5.15, 7.34, 9.385, 11.475, 13.52, 15.09]
+x error
+[0.5, 1.15, 0.8500000000000005, 1.3399999999999999, 0.7050000000000001, 1.3849999999999998, 0.6600000000000001, 0.9100000000000001]
+d_branch_f
+[4.809315549617477e-08, 3.4182736408941496e-08, 3.517863203359645e-08, 4.304207837186113e-08, -1e-09, 5.475327207714226e-08, -1e-09, -1e-09]
+stat_errors
+[2.671250292393594e-09, 1.3791457742533972e-09, 1.5655608050693732e-09, 1.3704247037606056e-09, 9.399960130582454e-08, 1.2570982132120803e-09, 1.5538628330949135e-08, 3.285800825329662e-11]
+tot_errors
+[3.3137225305335575e-09, 1.9591520184706925e-09, 2.121946668775874e-09, 2.2238315457919377e-09, 2.173910418006434e-06, 2.557411000475779e-09, 9.894739712363113e-08, 3.285800825329662e-11]
+num_events
+[104824.0, 239995.0, 201743.0, 360605.0, 1859815.0, 631800.0, 219955.0, 390447.0]
+NORM_BRANCH
+7.5311e-05
+NORM_BRANCH_ERROR
+3.06135084562e-06
+ah
+Name: TLegendEntry Title: Storage class for one entry of a TLegend
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+
+Thread 2 (Thread 0x7f344bb5c700 (LWP 25102)):
+#0  0x00007f347107ab3b in do_futex_wait.constprop.1 () from /lib64/libpthread.so.0
+#1  0x00007f347107abcf in __new_sem_wait_slow.constprop.0 () from /lib64/libpthread.so.0
+#2  0x00007f347107ac6b in sem_wait
+
+GLIBC_2.2.5 () from /lib64/libpthread.so.0
+#3  0x00007f347139ad55 in PyThread_acquire_lock () from /lib64/libpython2.7.so.1.0
+#4  0x00007f34713668a6 in PyEval_RestoreThread () from /lib64/libpython2.7.so.1.0
+#5  0x00007f345771c076 in time_sleep () from /usr/lib64/python2.7/lib-dynload/timemodule.so
+#6  0x00007f347136e300 in PyEval_EvalFrameEx () from /lib64/libpython2.7.so.1.0
+#7  0x00007f347137064d in PyEval_EvalCodeEx () from /lib64/libpython2.7.so.1.0
+#8  0x00007f34712fa07d in function_call () from /lib64/libpython2.7.so.1.0
+#9  0x00007f34712d5073 in PyObject_Call () from /lib64/libpython2.7.so.1.0
+#10 0x00007f3471368d0d in PyEval_EvalFrameEx () from /lib64/libpython2.7.so.1.0
+#11 0x00007f347136dccd in PyEval_EvalFrameEx () from /lib64/libpython2.7.so.1.0
+#12 0x00007f347136dccd in PyEval_EvalFrameEx () from /lib64/libpython2.7.so.1.0
+#13 0x00007f347137064d in PyEval_EvalCodeEx () from /lib64/libpython2.7.so.1.0
+#14 0x00007f34712f9f88 in function_call () from /lib64/libpython2.7.so.1.0
+#15 0x00007f34712d5073 in PyObject_Call () from /lib64/libpython2.7.so.1.0
+#16 0x00007f34712e4065 in instancemethod_call () from /lib64/libpython2.7.so.1.0
+#17 0x00007f34712d5073 in PyObject_Call () from /lib64/libpython2.7.so.1.0
+#18 0x00007f3471366f07 in PyEval_CallObjectWithKeywords () from /lib64/libpython2.7.so.1.0
+#19 0x00007f347139ee42 in t_bootstrap () from /lib64/libpython2.7.so.1.0
+#20 0x00007f3471074ea5 in start_thread () from /lib64/libpthread.so.0
+#21 0x00007f3470694b0d in clone () from /lib64/libc.so.6
+
+Thread 1 (Thread 0x7f3471833740 (LWP 24993)):
+#0  0x00007f347065b659 in waitpid () from /lib64/libc.so.6
+#1  0x00007f34705d8f62 in do_system () from /lib64/libc.so.6
+#2  0x00007f34705d9311 in system () from /lib64/libc.so.6
+#3  0x00007f34683f6757 in TUnixSystem::StackTrace() () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libCore.so
+#4  0x00007f34687acf7f in (anonymous namespace)::TExceptionHandlerImp::HandleException(int) () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libcppyy_backend2_7.so
+#5  0x00007f34683f8ee9 in TUnixSystem::DispatchSignals(ESignals) () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libCore.so
+#6  <signal handler called>
+#7  0x00007f3449cdca9e in TLegend::PaintPrimitives() () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGraf.so
+#8  0x00007f3443dba3fc in TPad::Paint(char const*) () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGpad.so
+#9  0x00007f3443dae712 in TPad::Print(char const*, char const*) () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGpad.so
+#10 0x00007f3443daf5ae in TPad::SaveAs(char const*, char const*) const () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGpad.so
+#11 0x00007f3457b53072 in ?? ()
+#12 0x0000000000000000 in ?? ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash.
+You may get help by asking at the ROOT forum https://root.cern.ch/forum
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern.ch/bugs Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#7  0x00007f3449cdca9e in TLegend::PaintPrimitives() () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGraf.so
+#8  0x00007f3443dba3fc in TPad::Paint(char const*) () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGpad.so
+#9  0x00007f3443dae712 in TPad::Print(char const*, char const*) () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGpad.so
+#10 0x00007f3443daf5ae in TPad::SaveAs(char const*, char const*) const () from /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/libGpad.so
+#11 0x00007f3457b53072 in ?? ()
+#12 0x0000000000000000 in ?? ()
+===========================================================
+
+
+Traceback (most recent call last):
+  File "branch_frac.py", line 366, in <module>
+    c1.SaveAs("branching_fraction.pdf")
+cppyy.ll.SegmentationViolation: void TPad::SaveAs(const char* filename = "", const char* option = "") =>
+    SegmentationViolation: segfault in C++; program state was reset

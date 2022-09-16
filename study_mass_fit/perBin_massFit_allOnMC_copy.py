@@ -124,6 +124,8 @@ MC_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
 MC_RT_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
 MC_WT_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
 MC_num_entries_error = [0, 0, 0, 0, 0, 0, 0, 0]
+eff = [0, 0, 0, 0, 0, 0, 0, 0]
+eff_error = [0, 0, 0, 0, 0, 0, 0, 0]
 
 tgraph_y = [0, 0, 0, 0, 0, 0, 0, 0]
 tgraph_x = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -136,10 +138,10 @@ q2binningone = [
 ]
 
 q2binning = [
-                1,
-                2, 
+                1.,
+                2., 
                 4.3,
-                6,
+                6.,
                 8.68,
                 10.09,
                 12.86,
@@ -350,13 +352,13 @@ def fitMC(fulldata, correctTag, ibin):
 def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     cut  = cut_base + '&& (mumuMass*mumuMass > %s && mumuMass*mumuMass < %s)'%(q2binning[ibin], q2binning[ibin+1])
-    fulldata_v2 = fulldata.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE, randVar), cut)
+    data = fulldata.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE, randVar), cut)
 
     ## reduce to data-like statistics
-    nDataEntries = fulldata_v2.sumEntries()
-    nDesired = n_bin[ibin]/nDataEntries
-    cut = 'rand < %f'%nDesired
-    data = fulldata_v2.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE), cut)
+#    nDataEntries = data.sumEntries()
+#    nDesired = n_bin[ibin]/nDataEntries
+#    cut = 'rand < %f'%nDesired
+#    data = fulldata_v2.reduce(RooArgSet(tagged_mass,mumuMass,mumuMassE), cut)
 
 #    fraction = dict_s_wt[ibin] / (dict_s_rt[ibin] + dict_s_wt[ibin])
     nRT_fromMC_err = math.sqrt(nRT_fromMC)
@@ -477,9 +479,11 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     pol_c2        = RooRealVar    ("p2"         , "coeff x^1 term"  ,    0.5,   -10, 10);
     bkg_pol       = RooChebychev  ("bkg_pol"    , "2nd order pol"   ,  tagged_mass, RooArgList(pol_c1));
    
-    nsig          = RooRealVar("Yield"         , "signal frac"    ,     nRT_fromMC + nWT_fromMC,     0,   1000000);
-    nbkg          = RooRealVar("nbkg"          , "bkg fraction"   ,     1000,     0,   550000);
-
+    nsig          = RooRealVar("Yield"         , "signal frac"    ,     nRT_fromMC + nWT_fromMC,     0,   1E8);
+    if ibin == 5:
+        nbkg          = RooRealVar("nbkg"          , "bkg fraction"   ,     3000,     0,   550000);
+    else:
+        nbkg          = RooRealVar("nbkg"          , "bkg fraction"   ,     1000,     0,   550000)
     print 'nsig is'
     print nsig.getVal()
 
@@ -526,6 +530,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     print 'total pdf created'
     r = fitFunction.fitTo(data, 
                           RooFit.Range("datarange"), 
+                          ROOT.RooFit.NumCPU(8),
                           ROOT.RooFit.Constrain(c_vars),
                           ROOT.RooFit.Minimizer("Minuit2","migrad"),
                           ROOT.RooFit.Hesse(True),
@@ -536,7 +541,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     r = fitFunction.fitTo(data, 
                           RooFit.Save(), 
                           RooFit.Range("datarange"), 
-                          RooFit.Verbose(False),
+                          ROOT.RooFit.NumCPU(8),
                           ROOT.RooFit.Constrain(c_vars),
                           ROOT.RooFit.Minimizer("Minuit2","migrad"),
                           ROOT.RooFit.Hesse(True),
@@ -683,13 +688,13 @@ print 'reading data...'
 
 # fastest run to Jpsi (~10 minutes) "runN > 316050 && runN < 316060"
 # to the PsiP "runN > 316000 && runN <316100"
-# fastest run to PsiP (~10 minutes) "runN > 316050 && runN < 316060"
+# fastest run to PsiP (~3 minutes) "runN > 316050 && runN < 316060"
 #fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
 
 if args.dimusel == 'rejectPsi': 
     fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))       
 if args.dimusel == 'keepJpsi': 
-    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316050 && runN < 316060")   
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))   
 if args.dimusel == 'keepPsiP':  
     fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))    
 
@@ -787,12 +792,14 @@ for ibin in range(len(q2binning)-1):
     tgraph_ex[ibin] = middle_value - q2binning[ibin]
 
 
-#arr_tgraph_y = array.array('d',tgraph_y)
-#arr_tgraph_x = array.array('d',tgraph_x)
-#arr_tgraph_ex = array.array('d',tgraph_ex)
-#arr_tgraph_y = array.array('d',tgraph_y)
+arr_tgraph_y = array.array('d',tgraph_y)
+arr_tgraph_x = array.array('d',tgraph_x)
+arr_tgraph_ex = array.array('d',tgraph_ex)
+arr_tgraph_ey = array.array('d',tgraph_ey)
+arr_MC_num_entries = array.array('d', MC_num_entries)
+arr_MC_num_entries_error = array.array('d',MC_num_entries_error)
 
-tgraph_yield = TGraphErrors(8, np.array(tgraph_x), np.array(tgraph_y), np.array(tgraph_ex), np.array(tgraph_ey))
+tgraph_yield = TGraphErrors(8, np.array(arr_tgraph_x), np.array(arr_tgraph_y), np.array(arr_tgraph_ex), np.array(arr_tgraph_ey))
 #tgraph_yield = TGraphErrors(8, tgraph_x, tgraph_y, tgraph_ex, tgraph_ey)
 
 tgraph_efficiency = TGraphErrors(8, np.array(tgraph_x), np.array(MC_num_entries), np.array(tgraph_ex), np.array(MC_num_entries_error))
@@ -821,6 +828,11 @@ c3.SaveAs("tgraph_efficiencies.pdf")
 
 print 'tgraph_efficiency created'
 print (tgraph_efficiency)
+
+print 'tgraph_x'
+print (q2binning[0])
+print (q2binning[1])
+print (tgraph_x)
 
 out_gname = "fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_%s%s.root"%(args.year, '_Jpsi'*(args.dimusel=='keepJpsi') + '_Psi'*(args.dimusel=='keepPsiP'))
 out_g = TFile (out_gname, "RECREATE") 

@@ -1,0 +1,21 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+tgraph_y
+[266.24961202947884, 457.4291188016444, 360.8221403914036, 792.7427824641064, 0, 1200.496289495756, 0, 1.3179568547627696e-05]
+eff
+[0.0017297498240572287, 0.0021091434521446207, 0.002333823405052547, 0.002285300456693789, 0, 0.0034145599386706557, 0, 0.0035404964175921975]
+eff_error
+[5.342603337289582e-06, 4.3053158906795685e-06, 5.1959953479324436e-06, 3.8056376441363526e-06, 0.0, 4.295808666963292e-06, 0.0, 5.666085376139398e-06]
+Info in <TCanvas::Print>: pdf file tgraph_yields1.pdf has been created
+tgraph_yield created
+Info in <TCanvas::Print>: pdf file tgraph_efficiencies.pdf has been created
+Name: Yields Title: Yields
+tgraph_efficiency created
+Name: Efficiencies_num Title: Efficiencies_num
+It took 0.35991191864 seconds
+0.00599891742071 minutes
+9.99844074249e-05 hours

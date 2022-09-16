@@ -454,17 +454,17 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     deltaPeaks = RooFormulaVar("deltaPeaks%s"%ibin, "@0 - @1", RooArgList(mean_rt, mean_wt))  
 #    fm              = RooRealVar ("f_{M}^{%s}"%ibin , "fm"             , fraction.n , 0, 1)
     fm              = RooRealVar ("f_{M}^{%s}"%ibin , "fm"             , fraction_val , 0, 1) 
-#    signalFunction  = RooAddPdf  ("sumgaus%s"%ibin  , "rt+wt"          , RooArgList(c_theWTgauss,c_theRTgauss), RooArgList(fm))
+    signalFunction  = RooAddPdf  ("sumgaus%s"%ibin  , "rt+wt"          , RooArgList(c_theWTgauss,c_theRTgauss), RooArgList(fm))
 
 #   create the gaussians to study the quality of the fit
-    meanG = RooRealVar("mean", "mean", 5, 4, 6)
-    sigma1 = RooRealVar("sigma1", "sigma1", 1, 0, 3)
-    sigma2 = RooRealVar("sigma2", "sigma2", 1.5, 0, 6)
+#    meanG = RooRealVar("mean", "mean", 5, 4, 6)
+#    sigma1 = RooRealVar("sigma1", "sigma1", 1, 0, 3)
+#    sigma2 = RooRealVar("sigma2", "sigma2", 1.5, 0, 6)
 
-    gauss1 = RooGaussian("gauss1", "gauss1", tagged_mass, meanG, sigma1)
-    gauss2 = RooGaussian("gauss2", "gauss2", tagged_mass, meanG, sigma2)
+#    gauss1 = RooGaussian("gauss1", "gauss1", tagged_mass, meanG, sigma1)
+#    gauss2 = RooGaussian("gauss2", "gauss2", tagged_mass, meanG, sigma2)
 
-    signalFunction = RooAddPdf("sumgaus", "gauss1+gauss2", RooArgList(gauss1,gauss2), RooArgList(0.8, 0.2))
+#    signalFunction = RooAddPdf("sumgaus", "gauss1+gauss2", RooArgList(gauss1,gauss2), RooArgList(fm))
 
     ### now create background parametrization
     slope         = RooRealVar    ("slope"      , "slope"           ,    0.5,   -10, 10);
@@ -505,7 +505,8 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
 
     constr_list = RooArgList(c_pdfs)
 #    constr_list.add(signalFunction)
-    sig_bkg_function = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(signalFunction, bkg_exp), RooArgList(nsig,nbkg))
+#    sig_bkg_function = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(signalFunction, bkg_exp), RooArgList(nsig,nbkg))
+    sig_bkg_function = RooAddPdf  ("totpdf%s"%ibin  , "wt+rt+bkg"          , RooArgList(signalFunction, bkg_pol), RooArgList(nsig,nbkg))
     constr_list.add(sig_bkg_function)
     totalFunction = RooProdPdf ("totalFunction%s"%ibin, "totalFunction", constr_list)   
 
@@ -601,6 +602,7 @@ def fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC):
     frame2.addPlotable(hpull,"P") 
     niceFrameLowerPad(frame2, 'pull')
     frame2.Draw()
+#    line = ROOT.TLine(5.1,0,5.4,0)
     line = ROOT.TLine(5.0,0,5.6,0)
     line.SetLineColor(ROOT.kGreen+3)
     line.Draw()
@@ -651,6 +653,7 @@ passB0Psi_psip  = RooRealVar("passB0Psi_psip" , "passB0Psi_psip", -200, 2);
 runN            = RooRealVar("runN"   ,   "runN", 0, 10000000)
 weight          = RooRealVar("weight" , "weight", 0,10);
 
+#tagged_mass.setRange("datarange", 5.1,5.4) ;
 tagged_mass.setRange("datarange", 5.0,5.6) ;
 # tagged_mass.setRange("datarange"  , 4.9,5.7) ;
 tagged_mass.setRange("mcrange"  , 4.9,5.7) ;
@@ -673,7 +676,14 @@ print 'reading data...'
 
 # fastest run to Jpsi (~10 minutes) "runN > 316050 && runN < 316060"
 # to the PsiP "runN > 316000 && runN <316100"
-fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
+if args.dimusel == 'rejectPsi': 
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))       
+if args.dimusel == 'keepJpsi': 
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316050 && runN < 316060")   
+if args.dimusel == 'keepPsiP':  
+    fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars), "runN > 316000 && runN <316100")    
+
+#fulldata   = RooDataSet('fulldata', 'fulldataset', tData,  RooArgSet(thevars))
 print 'it worked :)'
 #fulldata.printValue()
 

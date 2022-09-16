@@ -1,0 +1,22 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+Error in <TFile::TFile>: file /home/t3cms/u22manuelabreu/intproj/selection_and_fits/study_mass_fit/fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_2018_Psi.root does not exist
+104824.0
+239995.0
+201743.0
+360605.0
+0.0
+631800.0
+0.0
+390447.0
+fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_2018_Jpsi.root
+Traceback (most recent call last):
+  File "branch_frac.py", line 136, in <module>
+    f_PsiP = TFile(f_PsiP_name, "READ")
+  File "/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib/ROOT/pythonization/_tfile.py", line 55, in _TFileConstructor
+    raise OSError('Failed to open file {}'.format(args[0]))
+OSError: Failed to open file fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_2018_Psi.root

@@ -1,0 +1,1968 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+start function declaration
+mc file name: /lstore/cms/boletti/Run2-BdToKstarMuMu/2018MC_PSI_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root
+data file name: /lstore/cms/boletti/Run2-BdToKstarMuMu/2018data_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root
+reading data...
+[#0] ERROR:InputArguments -- Didn't find a branch in Tree 'ntuple' to read variable 'weight' from.
+	Note: Name the RooFit variable the same as the branch.
+it worked :)
+reading monte carlo...
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+now fitting:  6  for  correctTag  
+fitting the mc...
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 #alpha_{RT1}^{6}   1.50000e+00  7.50000e-01    0.00000e+00  1.00000e+01
+     2 #alpha_{RT2}^{6}  -2.00000e+00  1.00000e+00   -1.00000e+01  0.00000e+00
+     3 #sigma_{RT1}^{6}   2.80000e-02  1.40000e-02    0.00000e+00  1.00000e+00
+     4 #sigma_{RT2}^{6}   4.80000e-02  2.40000e-02    0.00000e+00  1.00000e+00
+     5 f^{RT6}      8.00000e-01  1.00000e-01    0.00000e+00  1.00000e+00
+     6 mean_{RT}^{6}   5.27958e+00  2.00000e-02    5.20000e+00  5.40000e+00
+     7 n_{RT1}^{6}   1.00000e+00  4.99500e-01    1.00000e-03  2.00000e+02
+     8 n_{RT2}^{6}   1.00000e+00  4.99500e-01    1.00000e-03  2.00000e+02
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        4000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-347762 FROM MIGRAD    STATUS=INITIATE       34 CALLS          35 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{RT1}^{6}   1.50000e+00   7.50000e-01   2.16811e-01  -8.16858e+04
+   2  #alpha_{RT2}^{6}  -2.00000e+00   1.00000e+00   2.57889e-01   1.18991e+04
+   3  #sigma_{RT1}^{6}   2.80000e-02   1.40000e-02   8.78020e-02  -2.78353e+04
+   4  #sigma_{RT2}^{6}   4.80000e-02   2.40000e-02   1.16111e-01   1.40787e+04
+   5  f^{RT6}      8.00000e-01   1.00000e-01   2.57889e-01   5.18928e+03
+   6  mean_{RT}^{6}   5.27958e+00   2.00000e-02   2.05952e-01  -2.68078e+04
+   7  n_{RT1}^{6}   1.00000e+00   4.99500e-01   3.66720e-02  -2.06343e+05
+   8  n_{RT2}^{6}   1.00000e+00   4.99500e-01   3.66720e-02  -1.74314e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-359815 FROM MIGRAD    STATUS=CONVERGED     550 CALLS         551 TOTAL
+                     EDM=1.00854e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   3.0 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{RT1}^{6}   1.23146e+00   4.58726e-02  -1.36042e-04   4.10164e-01
+   2  #alpha_{RT2}^{6}  -2.93976e+00   7.00699e-02  -1.75742e-05  -6.90215e-02
+   3  #sigma_{RT1}^{6}   2.47306e-02   3.57316e-04   3.43857e-06  -2.23834e+00
+   4  #sigma_{RT2}^{6}   4.05597e-02   2.45980e-04  -6.88476e-06  -1.34967e+00
+   5  f^{RT6}      4.11240e-01   1.46481e-02   3.13264e-05   1.52321e-01
+   6  mean_{RT}^{6}   5.27948e+00   1.18126e-04   7.74063e-06   1.07016e+00
+   7  n_{RT1}^{6}   7.16552e+00   7.81072e-01   2.29366e-04  -3.70677e-02
+   8  n_{RT2}^{6}   2.78381e+00   4.74491e-01  -5.58888e-05   7.26574e-02
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  2.104e-03 -2.324e-04  6.891e-06  6.960e-06  1.815e-04 -3.753e-06 -2.853e-02 -9.534e-04 
+ -2.324e-04  4.910e-03  2.216e-06 -1.272e-06  7.778e-05  5.350e-07  5.632e-03  2.868e-02 
+  6.891e-06  2.216e-06  1.277e-07  5.069e-08  4.456e-06 -3.441e-09  3.305e-05  5.822e-06 
+  6.960e-06 -1.272e-06  5.069e-08  6.051e-08  2.644e-06 -8.810e-09 -3.698e-05 -4.763e-06 
+  1.815e-04  7.778e-05  4.456e-06  2.644e-06  2.146e-04  1.199e-07  3.077e-03  1.415e-04 
+ -3.753e-06  5.350e-07 -3.441e-09 -8.810e-09  1.199e-07  1.395e-08  5.959e-05  8.941e-07 
+ -2.853e-02  5.632e-03  3.305e-05 -3.698e-05  3.077e-03  5.959e-05  6.102e-01  2.007e-02 
+ -9.534e-04  2.868e-02  5.822e-06 -4.763e-06  1.415e-04  8.941e-07  2.007e-02  2.252e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.97544   1.000 -0.072  0.420  0.617  0.270 -0.693 -0.796 -0.044
+        2  0.87380  -0.072  1.000  0.089 -0.074  0.076  0.065  0.103  0.863
+        3  0.93410   0.420  0.089  1.000  0.577  0.851 -0.082  0.118  0.034
+        4  0.91049   0.617 -0.074  0.577  1.000  0.734 -0.303 -0.192 -0.041
+        5  0.95024   0.270  0.076  0.851  0.734  1.000  0.069  0.269  0.020
+        6  0.75528  -0.693  0.065 -0.082 -0.303  0.069  1.000  0.646  0.016
+        7  0.95802  -0.796  0.103  0.118 -0.192  0.269  0.646  1.000  0.054
+        8  0.86883  -0.044  0.863  0.034 -0.041  0.020  0.016  0.054  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        4000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-359815 FROM HESSE     STATUS=OK             75 CALLS         626 TOTAL
+                     EDM=0.000149838    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  #alpha_{RT1}^{6}   1.23146e+00   4.26419e-02   1.26920e-03  -8.53687e-01
+   2  #alpha_{RT2}^{6}  -2.93976e+00   6.80141e-02   3.15919e-03   4.24701e-01
+   3  #sigma_{RT1}^{6}   2.47306e-02   4.05623e-04   3.45843e-04  -1.25497e+00
+   4  #sigma_{RT2}^{6}   4.05597e-02   2.58341e-04   2.15640e-04  -1.16523e+00
+   5  f^{RT6}      4.11240e-01   1.61275e-02   3.91740e-03  -1.78466e-01
+   6  mean_{RT}^{6}   5.27948e+00   1.22324e-04   3.47315e-04  -2.06638e-01
+   7  n_{RT1}^{6}   7.16552e+00   6.84174e-01   2.51350e-03  -1.18996e+00
+   8  n_{RT2}^{6}   2.78381e+00   4.37189e-01   4.00434e-03  -1.33433e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  1.818e-03 -1.080e-04  9.189e-06  6.944e-06  2.699e-04 -3.565e-06 -1.997e-02 -2.677e-04 
+ -1.080e-04  4.626e-03  2.174e-06 -8.885e-07  6.714e-05  2.018e-07  3.672e-03  2.532e-02 
+  9.189e-06  2.174e-06  1.645e-07  6.613e-08  5.688e-06 -1.142e-08  4.237e-05  4.666e-06 
+  6.944e-06 -8.885e-07  6.613e-08  6.674e-08  3.274e-06 -9.814e-09 -1.225e-05 -2.805e-06 
+  2.699e-04  6.714e-05  5.688e-06  3.274e-06  2.602e-04 -1.129e-07  3.244e-03  1.230e-04 
+ -3.565e-06  2.018e-07 -1.142e-08 -9.814e-09 -1.129e-07  1.496e-08  4.525e-05  2.537e-07 
+ -1.997e-02  3.672e-03  4.237e-05 -1.225e-05  3.244e-03  4.525e-05  4.681e-01  7.967e-03 
+ -2.677e-04  2.532e-02  4.666e-06 -2.805e-06  1.230e-04  2.537e-07  7.967e-03  1.912e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.97175   1.000 -0.037  0.531  0.630  0.392 -0.683 -0.685 -0.014
+        2  0.85971  -0.037  1.000  0.079 -0.051  0.061  0.024  0.079  0.851
+        3  0.94754   0.531  0.079  1.000  0.631  0.869 -0.230  0.153  0.026
+        4  0.91758   0.630 -0.051  0.631  1.000  0.786 -0.311 -0.069 -0.025
+        5  0.95747   0.392  0.061  0.869  0.786  1.000 -0.057  0.294  0.017
+        6  0.74156  -0.683  0.024 -0.230 -0.311 -0.057  1.000  0.541  0.005
+        7  0.94395  -0.685  0.079  0.153 -0.069  0.294  0.541  1.000  0.027
+        8  0.85554  -0.014  0.851  0.026 -0.025  0.017  0.005  0.027  1.000
+fit status:  0 3
+doublecb_RT6  -----> plotting  
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+cbshape_RT1_6  -----> plotting  
+cbshape_RT2_6  -----> plotting  
+setting nRT to  192011.0
+Info in <TCanvas::Print>: pdf file fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_6_2018_RT_newSigmaFRT_asInANv8.pdf has been created
+now fitting:  6  for   wrongTag
+fitting the mc...
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 #alpha_{WT1}^{6}   5.00000e-01  2.50000e-01    0.00000e+00  1.00000e+01
+     2 #alpha_{WT2}^{6}   2.50000e+00  1.00000e+00    0.00000e+00  1.00000e+01
+     3 #sigma_{WT1}^{6}   3.00000e-02  1.50000e-02    0.00000e+00  1.00000e+00
+     4 mean_{WT}^{6}   5.27958e+00  1.00000e-01    5.00000e+00  6.00000e+00
+     5 n_{WT1}^{6}   1.00000e+00  4.95000e-01    1.00000e-02  1.00000e+02
+     6 n_{WT2}^{6}   1.00000e+00  4.95000e-01    1.00000e-02  1.00000e+02
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        3000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-23164.4 FROM MIGRAD    STATUS=INITIATE       24 CALLS          25 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{6}   5.00000e-01   2.50000e-01   1.18625e-01  -2.73772e+04
+   2  #alpha_{WT2}^{6}   2.50000e+00   1.00000e+00   2.35352e-01   1.82688e+04
+   3  #sigma_{WT1}^{6}   3.00000e-02   1.50000e-02   9.09734e-02  -5.93186e+04
+   4  mean_{WT}^{6}   5.27958e+00   1.00000e-01   2.26180e-01  -1.09005e+05
+   5  n_{WT1}^{6}   1.00000e+00   4.95000e-01   5.17524e-02  -5.05491e+04
+   6  n_{WT2}^{6}   1.00000e+00   4.95000e-01   5.17524e-02   1.32072e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-32762.5 FROM HESSE     STATUS=OK             44 CALLS         365 TOTAL
+                     EDM=0.0174587    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{6}   9.88794e-01   3.71454e-02   4.01775e-04   5.01046e-01
+   2  #alpha_{WT2}^{6}   1.32894e+00   6.58957e-02   6.07321e-04   5.08438e-01
+   3  #sigma_{WT1}^{6}   5.32547e-02   9.04291e-04   1.73483e-04  -2.45456e+00
+   4  mean_{WT}^{6}   5.27529e+00   5.73369e-04   1.13385e-04  -1.31180e-02
+   5  n_{WT1}^{6}   1.03095e+01   1.93262e+00   3.11146e-03  -4.21730e-02
+   6  n_{WT2}^{6}   2.01242e+01   8.73353e+00   9.91065e-03  -8.78290e-01
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-32762.5 FROM MIGRAD    STATUS=CONVERGED     378 CALLS         379 TOTAL
+                     EDM=9.2767e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   9.1 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{6}   9.90078e-01   3.68354e-02   4.30049e-04   2.85633e-01
+   2  #alpha_{WT2}^{6}   1.33674e+00   5.93788e-02   2.29602e-03  -2.18645e+00
+   3  #sigma_{WT1}^{6}   5.33097e-02   8.81824e-04   2.44753e-04   3.94404e+00
+   4  mean_{WT}^{6}   5.27530e+00   5.71517e-04   2.74643e-05   3.38646e+00
+   5  n_{WT1}^{6}   1.02916e+01   1.92934e+00  -5.89092e-04   6.72391e-03
+   6  n_{WT2}^{6}   1.89404e+01   7.17159e+00   2.98720e-02   1.65461e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  1.357e-03  1.098e-03  2.427e-05 -1.140e-05 -5.871e-02  6.538e-02 
+  1.098e-03  3.526e-03  3.905e-05  8.359e-07 -2.410e-02  3.605e-01 
+  2.427e-05  3.905e-05  7.776e-07 -1.699e-07 -6.079e-04  2.544e-03 
+ -1.140e-05  8.359e-07 -1.699e-07  3.266e-07  4.437e-04  5.159e-04 
+ -5.871e-02 -2.410e-02 -6.079e-04  4.437e-04  3.727e+00 -1.249e+00 
+  6.538e-02  3.605e-01  2.544e-03  5.159e-04 -1.249e+00  5.202e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.96544   1.000  0.502  0.747 -0.542 -0.826  0.246
+        2  0.96081   0.502  1.000  0.746  0.025 -0.210  0.842
+        3  0.93564   0.747  0.746  1.000 -0.337 -0.357  0.400
+        4  0.70545  -0.542  0.025 -0.337  1.000  0.402  0.125
+        5  0.91953  -0.826 -0.210 -0.357  0.402  1.000 -0.090
+        6  0.91355   0.246  0.842  0.400  0.125 -0.090  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        3000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-32762.5 FROM HESSE     STATUS=OK             44 CALLS         423 TOTAL
+                     EDM=0.000119217    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  #alpha_{WT1}^{6}   9.90078e-01   3.73924e-02   4.01764e-04  -9.30610e-01
+   2  #alpha_{WT2}^{6}   1.33674e+00   6.25496e-02   6.07350e-04  -8.22209e-01
+   3  #sigma_{WT1}^{6}   5.33097e-02   8.85165e-04   1.73469e-04  -1.10481e+00
+   4  mean_{WT}^{6}   5.27530e+00   5.73653e-04   4.53540e-05  -4.66086e-01
+   5  n_{WT1}^{6}   1.02916e+01   1.96292e+00   1.24458e-03  -9.17932e-01
+   6  n_{WT2}^{6}   1.89404e+01   7.30285e+00   9.91441e-03  -2.47112e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  1.398e-03  1.159e-03  2.469e-05 -1.157e-05 -6.107e-02  7.004e-02 
+  1.159e-03  3.913e-03  4.114e-05  1.378e-06 -2.572e-02  3.949e-01 
+  2.469e-05  4.114e-05  7.835e-07 -1.679e-07 -6.307e-04  2.735e-03 
+ -1.157e-05  1.378e-06 -1.679e-07  3.291e-07  4.584e-04  5.694e-04 
+ -6.107e-02 -2.572e-02 -6.307e-04  4.584e-04  3.858e+00 -1.337e+00 
+  7.004e-02  3.949e-01  2.735e-03  5.694e-04 -1.337e+00  5.396e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.96640   1.000  0.495  0.746 -0.539 -0.831  0.255
+        2  0.96408   0.495  1.000  0.743  0.038 -0.209  0.859
+        3  0.93583   0.746  0.743  1.000 -0.331 -0.363  0.421
+        4  0.70807  -0.539  0.038 -0.331  1.000  0.407  0.135
+        5  0.92260  -0.831 -0.209 -0.363  0.407  1.000 -0.093
+        6  0.92352   0.255  0.859  0.421  0.135 -0.093  1.000
+Info in <TCanvas::Print>: pdf file fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_6_2018_WT_newSigmaFRT_asInANv8.pdf has been created
+fit status:  0 3
+doublecb_6  -----> plotting  
+setting nWT to  27944.0
+mistag fraction on MC for bin  6  :  0.127044168125 +/- 0.276142986869
+constraining var #sigma_{RT1}^{6} :  0.0247305710039  with uncertainty  0.000405622936656
+constraining var #alpha_{RT1}^{6} :  1.23145612381  with uncertainty  0.0426418661098
+constraining var n_{RT1}^{6} :  7.16552078573  with uncertainty  0.684173925976
+constraining var #sigma_{WT1}^{6} :  0.0533097081932  with uncertainty  0.000885164819812
+constraining var #alpha_{WT1}^{6} :  0.990078432382  with uncertainty  0.037392425922
+constraining var #alpha_{WT2}^{6} :  1.33674402432  with uncertainty  0.0625496318276
+constraining var n_{WT1}^{6} :  10.29162669  with uncertainty  1.96291613787
+constraining var n_{WT2}^{6} :  18.9403999394  with uncertainty  7.30285246499
+constraining var #alpha_{RT2}^{6} :  -2.93975703832  with uncertainty  0.0680141102454
+constraining var n_{RT2}^{6} :  2.78380874999  with uncertainty  0.437189116835
+constraining var #sigma_{RT2}^{6} :  0.0405597161509  with uncertainty  0.000258340647515
+constraining var f^{RT6} :  0.411239849884  with uncertainty  0.0161274649404
+nsig is
+219955.0
+here
+total pdf created
+Minuit2Minimizer: Minimize with max-calls 8500 convergence for edm < 1 strategy 2
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =       203836.2828 Edm =       300449.7686 NCalls =     53
+Info in <Minuit2>: MnSeedGenerator Negative G2 found - new state: 
+  Minimum value : 151819.2522
+  Edm           : 258401.4117
+  Internal parameters:
+     -1.585392536
+      0.424701252
+    -0.9306097373
+     -0.822209182
+     -1.254966179
+     -1.165233704
+     -1.104813882
+     -0.594494435
+      1.650456157
+    -0.8419025663
+    -0.2066379072
+     -1.189960898
+     -1.334329579
+    -0.9179316992
+    -0.6704697728
+     -1.485490177
+      1.569216898
+  Internal gradient  :
+     -23752.23214
+     -2.387789909
+    0.04859674141
+    0.03896446855
+      18966.79652
+     -168.1548368
+    0.07197262445
+       311452.716
+      1675.832424
+    0.04053706093
+      10992.26488
+      0.665318184
+      1.181688636
+    0.04732738598
+    0.02869932397
+      7569.236678
+    -0.4517499214
+  Internal covariance matrix:
+  1.2360734e-06              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0  0.00044913904              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0   0.0003134773              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0   0.0006756948              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0  7.9581432e-06              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0  3.4353115e-06              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0  3.1050152e-05              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0  9.3041168e-06              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0  9.1188792e-05              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0  2.1820684e-05              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0   0.0010444915              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0  0.00067864735              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0  0.00070100323              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0   0.0083546125              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0    0.069541383              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0  1.8468512e-05              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0   0.0069928463
+Minuit2:0: RuntimeWarning: MnPosDef Matrix forced pos-def by adding to diagonal 0.187449
+Info in <Minuit2>: MnSeedGenerator run Hesse - new state: 
+  Minimum value : 151819.2522
+  Edm           : 19369597.99
+  Internal parameters:
+     -1.585392536
+      0.424701252
+    -0.9306097373
+     -0.822209182
+     -1.254966179
+     -1.165233704
+     -1.104813882
+     -0.594494435
+      1.650456157
+    -0.8419025663
+    -0.2066379072
+     -1.189960898
+     -1.334329579
+    -0.9179316992
+    -0.6704697728
+     -1.485490177
+      1.569216898
+  Internal gradient  :
+     -23752.24571
+     -2.372087212
+  3.239993864e-06
+  2.574653168e-06
+      18966.75204
+     -168.2361904
+  5.147369784e-06
+      311452.7332
+      1675.819362
+  4.093471715e-06
+      10992.40765
+     0.5747261718
+      1.029067628
+  3.033408079e-06
+   1.81277583e-07
+      7569.253549
+    -0.4517042882
+  Internal covariance matrix:
+  1.3505221e-06  6.5992306e-08  -4.723018e-14  4.7423832e-14 -9.3375525e-08  1.8376516e-07  1.4749874e-14  2.3118687e-05 -7.9975155e-07  1.4545284e-14 -0.00024427361  6.6113867e-08 -1.1713967e-07  1.3919908e-13  4.0160087e-13  3.4906107e-06  2.9163385e-07
+  6.5992306e-08  0.00037827426 -1.0799948e-14  1.5514488e-14  1.1284896e-07  3.8413058e-08  3.5497681e-15  5.7943128e-06  6.7038749e-07 -2.5228958e-14 -6.2059808e-05  5.1576185e-09 -2.0516911e-06 -5.1020056e-13 -1.4719708e-12  7.0742223e-07  6.7227504e-08
+  -4.723018e-14 -1.0799948e-14  0.00026399224 -9.0740684e-21 -5.6450366e-14 -1.8819202e-14 -2.1054785e-21 -3.5448591e-12  8.6915904e-14  2.3580832e-14  3.7898266e-11  1.2808828e-13  1.8573784e-14  4.6141118e-13  1.3312094e-12 -5.3647804e-13 -4.6698511e-13
+  4.7423832e-14  1.5514488e-14 -9.0740684e-21  0.00056903064  1.3516099e-13  2.6450408e-14  3.0640743e-21  5.0996598e-12 -1.3806104e-13 -3.4620343e-14  -5.465941e-11  1.9722303e-13 -2.6763149e-14 -6.7742366e-13 -1.9544233e-12  7.7051758e-13  6.8416926e-13
+ -9.3375525e-08  1.1284896e-07 -5.6450366e-14  1.3516099e-13  8.1888827e-06  2.7748703e-07   2.865704e-14  4.1936229e-05 -3.7199782e-06  1.9226382e-14  -0.0004633353   2.854759e-08 -2.1645687e-07  4.1047728e-13  1.1842609e-12  6.1220699e-06  5.1023186e-07
+  1.8376516e-07  3.8413058e-08 -1.8819202e-14  2.6450408e-14  2.7748703e-07  3.0197249e-06  6.2937935e-15  1.5825687e-05 -2.1494502e-07  7.8638854e-15 -0.00016930123  1.4151461e-08 -7.0625459e-08  1.3465581e-13  3.8849315e-13  2.3495791e-06  1.9693117e-07
+  1.4749874e-14  3.5497681e-15 -2.1054785e-21  3.0640743e-21   2.865704e-14  6.2937935e-15  2.6148622e-05  1.1716624e-12 -3.2310073e-14  -7.421436e-15 -1.2546225e-11  4.2502375e-14 -6.1347013e-15 -1.4521683e-13 -4.1896255e-13  1.7702049e-13  1.4765269e-13
+  2.3118687e-05  5.7943128e-06 -3.5448591e-12  5.0996598e-12  4.1936229e-05  1.5825687e-05  1.1716624e-12   0.0020249721 -8.0367332e-05  1.0033603e-12     -0.0215859  1.8017487e-06 -1.0340859e-05  1.7561245e-11  5.0665646e-11  0.00030539458  2.5507882e-05
+ -7.9975155e-07  6.7038749e-07  8.6915904e-14 -1.3806104e-13 -3.7199782e-06 -2.1494502e-07 -3.2310073e-14 -8.0367332e-05  8.0806971e-05 -3.9172208e-14  0.00085149408 -6.9826392e-08 -1.7059836e-07  -1.207422e-12 -3.4835122e-12 -1.3062737e-05 -1.0772921e-06
+  1.4545284e-14 -2.5228958e-14  2.3580832e-14 -3.4620343e-14  1.9226382e-14  7.8638854e-15  -7.421436e-15  1.0033603e-12 -3.9172208e-14  1.8376104e-05 -1.0684975e-11  1.0221491e-15 -4.0279205e-14  8.6904543e-21   2.507268e-20  1.4554055e-13  1.3505202e-14
+ -0.00024427361 -6.2059808e-05  3.7898266e-11  -5.465941e-11  -0.0004633353 -0.00016930123 -1.2546225e-11     -0.0215859  0.00085149408 -1.0684975e-11      0.2310311 -1.9203859e-05  0.00011070757 -1.8719712e-10 -5.4007919e-10  -0.0032677802 -0.00027293968
+  6.6113867e-08  5.1576185e-09  1.2808828e-13  1.9722303e-13   2.854759e-08  1.4151461e-08  4.2502375e-14  1.8017487e-06 -6.9826392e-08  1.0221491e-15 -1.9203859e-05  0.00057152065 -9.1996155e-09  1.3075019e-14   3.772251e-14  2.7224587e-07  2.2740177e-08
+ -1.1713967e-07 -2.0516911e-06  1.8573784e-14 -2.6763149e-14 -2.1645687e-07 -7.0625459e-08 -6.1347013e-15 -1.0340859e-05 -1.7059836e-07 -4.0279205e-14  0.00011070757 -9.1996155e-09  0.00059041243  6.0686355e-13  1.7508515e-12 -1.4849593e-06 -1.2894602e-07
+  1.3919908e-13 -5.1020056e-13  4.6141118e-13 -6.7742366e-13  4.1047728e-13  1.3465581e-13 -1.4521683e-13  1.7561245e-11  -1.207422e-12  8.6904543e-21 -1.8719712e-10  1.3075019e-14  6.0686355e-13   0.0070357659  4.7280944e-19  2.5412839e-12  2.3854476e-13
+  4.0160087e-13 -1.4719708e-12  1.3312094e-12 -1.9544233e-12  1.1842609e-12  3.8849315e-13 -4.1896255e-13  5.0665646e-11 -3.4835122e-12   2.507268e-20 -5.4007919e-10   3.772251e-14  1.7508515e-12  4.7280944e-19    0.058563685  7.3318143e-12  6.8822137e-13
+  3.4906107e-06  7.0742223e-07 -5.3647804e-13  7.7051758e-13  6.1220699e-06  2.3495791e-06  1.7702049e-13  0.00030539458 -1.3062737e-05  1.4554055e-13  -0.0032677802  2.7224587e-07 -1.4849593e-06  2.5412839e-12  7.3318143e-12  6.1817843e-05  1.4973142e-06
+  2.9163385e-07  6.7227504e-08 -4.6698511e-13  6.8416926e-13  5.1023186e-07  1.9693117e-07  1.4765269e-13  2.5507882e-05 -1.0772921e-06  1.3505202e-14 -0.00027293968  2.2740177e-08 -1.2894602e-07  2.3854476e-13  6.8822137e-13  1.4973142e-06    0.005889649
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.001 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =       151819.2522 Edm =       19369597.99 NCalls =    449
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -7593.968269 Edm =        251436.566 NCalls =    503
+Info in <Minuit2>: VariableMetricBuilder    2 - FCN =      -7898.692829 Edm =       87.19920279 NCalls =    548
+Info in <Minuit2>: VariableMetricBuilder    3 - FCN =      -8020.225906 Edm =       5.781728435 NCalls =    590
+Info in <Minuit2>: VariableMetricBuilder    4 - FCN =       -8029.08782 Edm =       3.268561595 NCalls =    633
+Info in <Minuit2>: VariableMetricBuilder    5 - FCN =       -8051.84308 Edm =       8.893150991 NCalls =    676
+Info in <Minuit2>: VariableMetricBuilder    6 - FCN =      -8098.693536 Edm =       28.69467223 NCalls =    720
+Info in <Minuit2>: VariableMetricBuilder    7 - FCN =      -8565.208096 Edm =       1654.483501 NCalls =    771
+Info in <Minuit2>: VariableMetricBuilder    8 - FCN =      -8623.056335 Edm =       116.1825234 NCalls =    814
+Info in <Minuit2>: VariableMetricBuilder    9 - FCN =      -8976.776666 Edm =       185.0093732 NCalls =    859
+Info in <Minuit2>: VariableMetricBuilder   10 - FCN =      -9129.501965 Edm =         24.018549 NCalls =    897
+Info in <Minuit2>: VariableMetricBuilder   11 - FCN =      -9149.622287 Edm =       3.199389744 NCalls =    934
+Info in <Minuit2>: VariableMetricBuilder   12 - FCN =      -9151.731047 Edm =     0.04544607946 NCalls =    970
+Info in <Minuit2>: VariableMetricBuilder   13 - FCN =      -9151.781376 Edm =     0.01702296593 NCalls =   1006
+Info in <Minuit2>: VariableMetricBuilder   14 - FCN =      -9151.919661 Edm =      0.1085805838 NCalls =   1043
+Info in <Minuit2>: VariableMetricBuilder   15 - FCN =      -9162.092218 Edm =       6.753045854 NCalls =   1090
+Info in <Minuit2>: VariableMetricBuilder   16 - FCN =      -9162.119327 Edm =      0.1234129323 NCalls =   1126
+Info in <Minuit2>: VariableMetricBuilder   17 - FCN =      -9163.641196 Edm =       1.589106369 NCalls =   1169
+Info in <Minuit2>: VariableMetricBuilder   18 - FCN =       -9164.87927 Edm =       1.297996823 NCalls =   1210
+Info in <Minuit2>: VariableMetricBuilder   19 - FCN =      -9169.993068 Edm =       3.101230022 NCalls =   1252
+Info in <Minuit2>: VariableMetricBuilder   20 - FCN =      -9177.956218 Edm =       2.835745845 NCalls =   1295
+Info in <Minuit2>: VariableMetricBuilder   21 - FCN =      -9180.948524 Edm =       4.399417874 NCalls =   1333
+Info in <Minuit2>: VariableMetricBuilder   22 - FCN =      -9187.185013 Edm =       2.248456263 NCalls =   1373
+Info in <Minuit2>: VariableMetricBuilder   23 - FCN =       -9191.19585 Edm =       2.125319795 NCalls =   1409
+Info in <Minuit2>: VariableMetricBuilder   24 - FCN =      -9265.690886 Edm =       92.68877958 NCalls =   1456
+Info in <Minuit2>: VariableMetricBuilder   25 - FCN =      -9269.299274 Edm =       22.74415488 NCalls =   1497
+Info in <Minuit2>: VariableMetricBuilder   26 - FCN =       -9387.54276 Edm =       70.28226488 NCalls =   1544
+Info in <Minuit2>: VariableMetricBuilder   27 - FCN =      -9536.612761 Edm =       35.84513658 NCalls =   1589
+Info in <Minuit2>: VariableMetricBuilder   28 - FCN =      -9568.032311 Edm =       13.22165904 NCalls =   1629
+Info in <Minuit2>: VariableMetricBuilder   29 - FCN =      -9576.772554 Edm =       2.779123459 NCalls =   1668
+Info in <Minuit2>: VariableMetricBuilder   30 - FCN =      -9582.552311 Edm =       5.841091329 NCalls =   1709
+Info in <Minuit2>: VariableMetricBuilder   31 - FCN =      -9590.718136 Edm =       17.85033619 NCalls =   1749
+Info in <Minuit2>: VariableMetricBuilder   32 - FCN =      -9593.257007 Edm =       2.208035933 NCalls =   1788
+Info in <Minuit2>: VariableMetricBuilder   33 - FCN =      -9599.486437 Edm =       1.257950975 NCalls =   1828
+Info in <Minuit2>: VariableMetricBuilder   34 - FCN =        -9600.4895 Edm =      0.1225292808 NCalls =   1864
+Info in <Minuit2>: VariableMetricBuilder   35 - FCN =       -9600.73886 Edm =       0.021627975 NCalls =   1900
+Info in <Minuit2>: VariableMetricBuilder   36 - FCN =      -9600.755831 Edm =     0.00347054402 NCalls =   1936
+Info in <Minuit2>: VariableMetricBuilder   37 - FCN =      -9600.758785 Edm =   8.203730515e-05 NCalls =   1971
+Info in <Minuit2>: VariableMetricBuilder After Hessian
+Info in <Minuit2>: VariableMetricBuilder   38 - FCN =      -9600.758785 Edm =   7.863199935e-05 NCalls =   2190
+Minuit2Minimizer : Valid minimum - status = 0
+FVAL  = -9600.75878538372126
+Edm   = 7.86319993532698418e-05
+Nfcn  = 2190
+#alpha_{RT1}^{6}	  = 1.2283	 +/-  0.0424634	(limited)
+#alpha_{RT2}^{6}	  = -2.93562	 +/-  0.0683775	(limited)
+#alpha_{WT1}^{6}	  = 0.990077	 +/-  0.0373915	(limited)
+#alpha_{WT2}^{6}	  = 1.33674	 +/-  0.0625461	(limited)
+#sigma_{RT1}^{6}	  = 0.0248038	 +/-  0.000401041	(limited)
+#sigma_{RT2}^{6}	  = 0.04065	 +/-  0.000255983	(limited)
+#sigma_{WT1}^{6}	  = 0.0533097	 +/-  0.000885163	(limited)
+Yield	  = 970.778	 +/-  33.8474	(limited)
+f^{RT6}	  = 0.401514	 +/-  0.0157668	(limited)
+f_{M}^{6}	  = 0.127044	 +/-  0.0011	(limited)
+mean_{RT}^{6}	  = 5.27739	 +/-  0.00131232	(limited)
+n_{RT1}^{6}	  = 7.20111	 +/-  0.67975	(limited)
+n_{RT2}^{6}	  = 2.78067	 +/-  0.436632	(limited)
+n_{WT1}^{6}	  = 10.2912	 +/-  1.96156	(limited)
+n_{WT2}^{6}	  = 18.938	 +/-  7.2609	(limited)
+nbkg	  = 562.543	 +/-  39.2285	(limited)
+slope	  = -5.39413	 +/-  0.488271	(limited)
+Info in <Minuit2>: Minuit2Minimizer::Hesse Using max-calls 8500
+Info in <Minuit2>: Minuit2Minimizer::Hesse Hesse is valid - matrix is accurate
+fit with Hesse strategy 2 done, now Minos
+Minuit2Minimizer: Minimize with max-calls 8500 convergence for edm < 1 strategy 2
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.758785 Edm =   6.967322053e-05 NCalls =     35
+Info in <Minuit2>: MnSeedGenerator run Hesse - new state: 
+  Minimum value : -9600.758785
+  Edm           : 7.863258971e-05
+  Internal parameters:
+    -0.8546488354
+      0.425610396
+    -0.9306102201
+    -0.8222100164
+     -1.254495147
+     -1.164776158
+     -1.104813953
+      -1.50847163
+      -0.19826947
+    -0.8419025943
+    -0.2280231316
+     -1.189004515
+     -1.334463631
+     -0.917944233
+     -0.670532308
+     -1.506822737
+    -0.5697394164
+  Internal gradient  :
+   -0.05384561147
+     0.4386229936
+   -0.00307540852
+  -0.002465851503
+    -0.4533595572
+       2.17276564
+  -0.004554689757
+      1.490957912
+    -0.1359822111
+  -0.002565340868
+    -0.2898013582
+     0.0588862902
+    -0.2456647339
+  -0.002995451847
+  -0.001796191267
+    -0.3640094128
+    -0.1049289321
+  Internal covariance matrix:
+  0.00033470782 -4.3948696e-07  1.5832111e-14 -1.3264804e-14  1.7619307e-06  3.2546122e-07 -2.8439965e-15 -1.0073379e-06 -1.4651549e-05 -3.3374915e-14 -3.3596071e-05 -3.9486973e-06  2.8413382e-07 -6.5071876e-13 -1.8597036e-12  2.3096693e-06  3.3462254e-05
+ -4.3948696e-07  0.00045092818  3.2411505e-15 -4.3149566e-15  7.8278347e-08  2.2507933e-08   -9.25134e-16   4.336258e-07 -3.0323933e-06  3.8803987e-14  1.9712893e-07 -2.6067803e-07 -1.4118931e-06  7.5657069e-13  2.1537541e-12 -2.0245811e-07 -4.8428791e-05
+  1.5832111e-14  3.2411505e-15   0.0003134783 -6.0014258e-22  2.6158828e-14 -1.2636923e-14 -1.2867159e-22  4.0439832e-16 -1.4131839e-14  3.2855305e-14 -1.1734981e-13   1.897304e-13  1.8199301e-13  6.4058781e-13  1.8329396e-12  2.8494952e-14 -6.6607051e-13
+ -1.3264804e-14 -4.3149566e-15 -6.0014258e-22  0.00067569595  3.6906489e-14  1.8038056e-14  2.3371027e-22  9.6345045e-17  5.9775372e-14 -4.8234049e-14  1.7048016e-13 -2.7492463e-13 -2.6752742e-13 -9.4043088e-13 -2.6908926e-12 -4.3269325e-14  9.4796269e-13
+  1.7619307e-06  7.8278347e-08  2.6158828e-14  3.6906489e-14  1.3298393e-05 -9.0744815e-08  7.9128138e-15   1.218479e-07  6.8918161e-06 -3.7848163e-17 -3.1752272e-07  6.3813803e-07 -6.1457685e-08 -7.3793475e-16 -2.5925559e-15  -2.536792e-07 -5.2760697e-06
+  3.2546122e-07  2.2507933e-08 -1.2636923e-14  1.8038056e-14 -9.0744815e-08  3.3604871e-06  3.8673897e-15   1.051479e-07  1.1205708e-06 -1.1226928e-16  3.1589952e-08  1.3110244e-07  4.4252279e-09 -2.1889412e-15 -6.2286659e-15 -1.3534463e-07 -8.2653641e-06
+ -2.8439965e-15   -9.25134e-16 -1.2867159e-22  2.3371027e-22  7.9128138e-15  3.8673897e-15  3.1050187e-05  2.0656541e-17  1.2815941e-14 -1.0341462e-14  3.6551235e-14 -5.8944306e-14 -5.7358331e-14 -2.0162997e-13 -5.7693193e-13 -9.2770166e-15  2.0324481e-13
+ -1.0073379e-06   4.336258e-07  4.0439832e-16  9.6345045e-17   1.218479e-07   1.051479e-07  2.0656541e-17  2.3626073e-06 -2.0374151e-06 -2.7951084e-15  8.5788259e-08 -7.9227115e-07 -3.1563241e-07 -5.4496903e-14 -1.5840485e-13 -5.4630893e-07 -2.4767137e-05
+ -1.4651549e-05 -3.0323933e-06 -1.4131839e-14  5.9775372e-14  6.8918161e-06  1.1205708e-06  1.2815941e-14 -2.0374151e-06   0.0020697696  8.8114825e-14  2.8969659e-05 -8.6426827e-07   1.507542e-06   1.717996e-12  4.9275714e-12  1.8425027e-06  0.00019500821
+ -3.3374915e-14  3.8803987e-14  3.2855305e-14 -4.8234049e-14 -3.7848163e-17 -1.1226928e-16 -1.0341462e-14 -2.7951084e-15  8.8114825e-14  2.1820686e-05  4.5036457e-15  1.2989526e-15  2.9031249e-16  4.6942601e-22  1.3454599e-21  4.8265308e-16  3.0226596e-14
+ -3.3596071e-05  1.9712893e-07 -1.1734981e-13  1.7048016e-13 -3.1752272e-07  3.1589952e-08  3.6551235e-14  8.5788259e-08  2.8969659e-05  4.5036457e-15  0.00036302061 -1.0421658e-05   1.559654e-07  8.7808666e-14  2.5247131e-13  3.2602334e-06 -0.00015133744
+ -3.9486973e-06 -2.6067803e-07   1.897304e-13 -2.7492463e-13  6.3813803e-07  1.3110244e-07 -5.8944306e-14 -7.9227115e-07 -8.6426827e-07  1.2989526e-15 -1.0421658e-05  0.00066577683  1.6512654e-07  2.5325993e-14  7.3758842e-14   2.117444e-06  1.0485389e-05
+  2.8413382e-07 -1.4118931e-06  1.8199301e-13 -2.6752742e-13 -6.1457685e-08  4.4252279e-09 -5.7358331e-14 -3.1563241e-07   1.507542e-06  2.9031249e-16   1.559654e-07  1.6512654e-07  0.00069560893  5.6602926e-15  5.4612293e-12  1.0479591e-07   3.545509e-05
+ -6.5071876e-13  7.5657069e-13  6.4058781e-13 -9.4043088e-13 -7.3793475e-16 -2.1889412e-15 -2.0162997e-13 -5.4496903e-14   1.717996e-12  4.6942601e-22  8.7808666e-14  2.5325993e-14  5.6602926e-15    0.008355246  2.6232757e-20  9.4104034e-15  5.8933524e-13
+ -1.8597036e-12  2.1537541e-12  1.8329396e-12 -2.6908926e-12 -2.5925559e-15 -6.2286659e-15 -5.7693193e-13 -1.5840485e-13  4.9275714e-12  1.3454599e-21  2.5247131e-13  7.3758842e-14  5.4612293e-12  2.6232757e-20      0.0695229  2.7746678e-14  1.9638211e-12
+  2.3096693e-06 -2.0245811e-07  2.8494952e-14 -4.3269325e-14  -2.536792e-07 -1.3534463e-07 -9.2770166e-15 -5.4630893e-07  1.8425027e-06  4.8265308e-16  3.2602334e-06   2.117444e-06  1.0479591e-07  9.4104034e-15  2.7746678e-14  9.9790903e-06 -7.9942548e-05
+  3.3462254e-05 -4.8428791e-05 -6.6607051e-13  9.4796269e-13 -5.2760697e-06 -8.2653641e-06  2.0324481e-13 -2.4767137e-05  0.00019500821  3.0226596e-14 -0.00015133744  1.0485389e-05   3.545509e-05  5.8933524e-13  1.9638211e-12 -7.9942548e-05   0.0067480068
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.001 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.758785 Edm =   7.863258971e-05 NCalls =    254
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.758864 Edm =   3.858415648e-08 NCalls =    289
+Info in <Minuit2>: VariableMetricBuilder After Hessian
+Info in <Minuit2>: VariableMetricBuilder    2 - FCN =      -9600.758864 Edm =   8.021480698e-11 NCalls =    566
+Minuit2Minimizer : Valid minimum - status = 0
+FVAL  = -9600.75886409538361
+Edm   = 8.02148069757669712e-11
+Nfcn  = 566
+#alpha_{RT1}^{6}	  = 1.22832	 +/-  0.0424623	(limited)
+#alpha_{RT2}^{6}	  = -2.93608	 +/-  0.068369	(limited)
+#alpha_{WT1}^{6}	  = 0.990078	 +/-  0.0373914	(limited)
+#alpha_{WT2}^{6}	  = 1.33674	 +/-  0.0625461	(limited)
+#sigma_{RT1}^{6}	  = 0.0248043	 +/-  0.000401039	(limited)
+#sigma_{RT2}^{6}	  = 0.0406492	 +/-  0.000255981	(limited)
+#sigma_{WT1}^{6}	  = 0.0533097	 +/-  0.000885163	(limited)
+Yield	  = 970.668	 +/-  33.8457	(limited)
+f^{RT6}	  = 0.401591	 +/-  0.0157669	(limited)
+f_{M}^{6}	  = 0.127044	 +/-  0.0011	(limited)
+mean_{RT}^{6}	  = 5.2774	 +/-  0.00131239	(limited)
+n_{RT1}^{6}	  = 7.20038	 +/-  0.679766	(limited)
+n_{RT2}^{6}	  = 2.78273	 +/-  0.436547	(limited)
+n_{WT1}^{6}	  = 10.2916	 +/-  1.96155	(limited)
+n_{WT2}^{6}	  = 18.9404	 +/-  7.26064	(limited)
+nbkg	  = 562.522	 +/-  39.2622	(limited)
+slope	  = -5.39099	 +/-  0.488469	(limited)
+Info in <Minuit2>: Minuit2Minimizer::Hesse Using max-calls 8500
+Info in <Minuit2>: Minuit2Minimizer::Hesse Hesse is valid - matrix is accurate
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #0 : #alpha_{RT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 0
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 0: #alpha_{RT1}^{6} = 1.18587
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.257754 Edm =   7.203696545e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.257754 Edm =   7.203696545e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.257761 Edm =   6.897690374e-10 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.257761 Edm =   6.897690374e-10 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} |  fixed  |      1.185865428 | 0.04245332742
+    1 | #alpha_{RT2}^{6} | limited |     -2.935994107 | 0.06838147236
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769951 | 0.03739180523
+    3 | #alpha_{WT2}^{6} | limited |      1.336741194 | 0.0625452819
+    4 | #sigma_{RT1}^{6} | limited |    0.02479357566 | 0.0004007572777
+    5 | #sigma_{RT2}^{6} | limited |    0.04064662846 | 0.0002559843796
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969236 | 0.0008851758242
+    7 |      Yield | limited |      971.9474471 |  33.83209553
+    8 |    f^{RT6} | limited |     0.4018674274 | 0.01576617669
+    9 |  f_{M}^{6} | limited |     0.1270441588 | 0.00110003074
+   10 | mean_{RT}^{6} | limited |       5.27752791 | 0.001305804837
+   11 | n_{RT1}^{6} | limited |      7.206488785 | 0.6798002018
+   12 | n_{RT2}^{6} | limited |      2.782380374 | 0.4365163539
+   13 | n_{WT1}^{6} | limited |      10.29124425 |  1.961558502
+   14 | n_{WT2}^{6} | limited |      18.93787399 |  7.257500581
+   15 |       nbkg | limited |      560.8580685 |  39.26362377
+   16 |      slope | limited |     -5.402336492 | 0.4869494019
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter #alpha_{RT1}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #0 : #alpha_{RT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 0
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 0: #alpha_{RT1}^{6} = 1.27077
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.260005 Edm =   8.365731986e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.260005 Edm =   8.365731986e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.260013 Edm =   1.575001261e-09 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.260013 Edm =   1.575001261e-09 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} |  fixed  |      1.270772083 | 0.04245332742
+    1 | #alpha_{RT2}^{6} | limited |     -2.936154114 | 0.06838121354
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769951 | 0.03739181201
+    3 | #alpha_{WT2}^{6} | limited |      1.336741194 | 0.06254529806
+    4 | #sigma_{RT1}^{6} | limited |    0.02481457818 | 0.000401003179
+    5 | #sigma_{RT2}^{6} | limited |    0.04065161265 | 0.0002559913105
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969235 | 0.0008851757135
+    7 |      Yield | limited |      969.5070618 |  33.78793887
+    8 |    f^{RT6} | limited |     0.4013175194 | 0.01575964643
+    9 |  f_{M}^{6} | limited |     0.1270441587 | 0.001100030745
+   10 | mean_{RT}^{6} | limited |      5.277277108 | 0.001303461971
+   11 | n_{RT1}^{6} | limited |      7.194900835 | 0.6797284367
+   12 | n_{RT2}^{6} | limited |      2.782903904 | 0.4365549011
+   13 | n_{WT1}^{6} | limited |      10.29124424 |  1.961577061
+   14 | n_{WT2}^{6} | limited |      18.93787398 |  7.257832071
+   15 |       nbkg | limited |      564.0266011 |  39.34333513
+   16 |      slope | limited |     -5.380510241 | 0.4872914103
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter #alpha_{RT1}^{6}
+Minos: Lower error for parameter #alpha_{RT1}^{6}  :  -0.0424066
+Minos: Upper error for parameter #alpha_{RT1}^{6}  :  0.0425022
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #1 : #alpha_{RT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 1
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 1: #alpha_{RT2}^{6} = -3.00446
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.257211 Edm =   5.323216608e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.257211 Edm =   5.323216608e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.257215 Edm =   2.497938013e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.257215 Edm =   2.497938013e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228365139 | 0.04245362681
+    1 | #alpha_{RT2}^{6} |  fixed  |     -3.004462307 | 0.06838107823
+    2 | #alpha_{WT1}^{6} | limited |     0.9900771168 | 0.03739187249
+    3 | #alpha_{WT2}^{6} | limited |      1.336741434 | 0.06254543237
+    4 | #sigma_{RT1}^{6} | limited |    0.02480389084 | 0.0004010207729
+    5 | #sigma_{RT2}^{6} | limited |    0.04064894606 | 0.0002561042182
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969492 | 0.0008851768158
+    7 |      Yield | limited |      970.2587166 |  33.81656863
+    8 |    f^{RT6} | limited |     0.4016355509 | 0.0157658736
+    9 |  f_{M}^{6} | limited |     0.1270441596 | 0.001100030638
+   10 | mean_{RT}^{6} | limited |      5.277397505 | 0.001314061578
+   11 | n_{RT1}^{6} | limited |      7.200629152 | 0.6798094671
+   12 | n_{RT2}^{6} | limited |       2.78371453 | 0.4365204169
+   13 | n_{WT1}^{6} | limited |      10.29127965 |  1.961621316
+   14 | n_{WT2}^{6} | limited |      18.93808892 |   7.25795482
+   15 |       nbkg | limited |      562.6346319 |  39.26151395
+   16 |      slope | limited |      -5.37865182 | 0.4825840806
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter #alpha_{RT2}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #1 : #alpha_{RT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 1
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 1: #alpha_{RT2}^{6} = -2.8677
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258128 Edm =   7.057085316e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258128 Edm =   7.057085316e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258134 Edm =   2.695104759e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258134 Edm =   2.695104759e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228259901 | 0.04245327792
+    1 | #alpha_{RT2}^{6} |  fixed  |      -2.86770015 | 0.06838107823
+    2 | #alpha_{WT1}^{6} | limited |     0.9900770956 | 0.03739182876
+    3 | #alpha_{WT2}^{6} | limited |      1.336741387 | 0.06254532662
+    4 | #sigma_{RT1}^{6} | limited |    0.02480469317 | 0.0004010280965
+    5 | #sigma_{RT2}^{6} | limited |    0.04064955698 | 0.000255954253
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969247 | 0.0008851757111
+    7 |      Yield | limited |      971.1597133 |   33.8648151
+    8 |    f^{RT6} | limited |       0.40153828 | 0.01576717555
+    9 |  f_{M}^{6} | limited |     0.1270441589 | 0.001100030618
+   10 | mean_{RT}^{6} | limited |      5.277401668 | 0.001311269861
+   11 | n_{RT1}^{6} | limited |       7.19994155 | 0.6797769762
+   12 | n_{RT2}^{6} | limited |      2.781525475 | 0.4365904488
+   13 | n_{WT1}^{6} | limited |      10.29126537 |  1.961556758
+   14 | n_{WT2}^{6} | limited |      18.93803953 |  7.257537935
+   15 |       nbkg | limited |      562.3972889 |  39.24355517
+   16 |      slope | limited |     -5.405956876 | 0.4876940644
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter #alpha_{RT2}^{6}
+Minos: Lower error for parameter #alpha_{RT2}^{6}  :  -0.0682686
+Minos: Upper error for parameter #alpha_{RT2}^{6}  :  0.0683312
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #2 : #alpha_{WT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 2
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 2: #alpha_{WT1}^{6} = 0.952687
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =       -9600.25888 Edm =   1.662320882e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =       -9600.25888 Edm =   1.662320882e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =       -9600.25888 Edm =    1.13969362e-07 NCalls =     69
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =       -9600.25888 Edm =    1.13969362e-07 NCalls =     69 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318593 | 0.04244963434
+    1 | #alpha_{RT2}^{6} | limited |     -2.936081114 | 0.06837481196
+    2 | #alpha_{WT1}^{6} |  fixed  |     0.9526866064 | 0.0373918237
+    3 | #alpha_{WT2}^{6} | limited |      1.336743663 | 0.06259040453
+    4 | #sigma_{RT1}^{6} | limited |    0.02480425611 | 0.000401024003
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920418 | 0.0002558514853
+    6 | #sigma_{WT1}^{6} | limited |    0.05330973619 | 0.0008861887437
+    7 |      Yield | limited |      970.6680096 |  33.59361741
+    8 |    f^{RT6} | limited |      0.401591082 | 0.01575856075
+    9 |  f_{M}^{6} | limited |     0.1270441669 | 0.001100058085
+   10 | mean_{RT}^{6} | limited |      5.277399292 | 0.001309609464
+   11 | n_{RT1}^{6} | limited |      7.200393178 | 0.6838740946
+   12 | n_{RT2}^{6} | limited |      2.782714512 | 0.4390367774
+   13 | n_{WT1}^{6} | limited |      10.29164433 |  1.991483891
+   14 | n_{WT2}^{6} | limited |      18.94007808 |  7.316114666
+   15 |       nbkg | limited |      562.5214683 |  38.31262462
+   16 |      slope | limited |     -5.390966275 | 0.3940952073
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter #alpha_{WT1}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #2 : #alpha_{WT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 2
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 2: #alpha_{WT1}^{6} = 1.02747
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =       -9600.25888 Edm =   1.062535129e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =       -9600.25888 Edm =   1.062535129e-07 NCalls =     33
+Minuit2:0: RuntimeWarning: VariableMetricBuilder No improvement in line search
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =       -9600.25888 Edm =   1.062535129e-07 NCalls =     42
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =       -9600.25888 Edm =   1.062535129e-07 NCalls =     42 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318725 | 0.04245332697
+    1 | #alpha_{RT2}^{6} | limited |     -2.936081065 | 0.06838107711
+    2 | #alpha_{WT1}^{6} |  fixed  |      1.027470254 | 0.0373918237
+    3 | #alpha_{WT2}^{6} | limited |      1.336744021 | 0.06254532674
+    4 | #sigma_{RT1}^{6} | limited |    0.02480426895 | 0.0004010255797
+    5 | #sigma_{RT2}^{6} | limited |    0.04064921349 | 0.0002559837747
+    6 | #sigma_{WT1}^{6} | limited |    0.05330967383 | 0.0008851755595
+    7 |      Yield | limited |      970.6689583 |  33.84907629
+    8 |    f^{RT6} | limited |      0.401590572 | 0.01576684701
+    9 |  f_{M}^{6} | limited |     0.1270441681 | 0.001100030801
+   10 | mean_{RT}^{6} | limited |      5.277399307 | 0.001311945084
+   11 | n_{RT1}^{6} | limited |      7.200352022 | 0.6797924263
+   12 | n_{RT2}^{6} | limited |      2.782735606 | 0.4365504759
+   13 | n_{WT1}^{6} | limited |       10.2915502 |  1.961620862
+   14 | n_{WT2}^{6} | limited |      18.94039661 |  7.259148378
+   15 |       nbkg | limited |       562.522765 |  39.24421975
+   16 |      slope | limited |     -5.391030703 | 0.4883120299
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter #alpha_{WT1}^{6}
+Minos: Lower error for parameter #alpha_{WT1}^{6}  :  -0.0373924
+Minos: Upper error for parameter #alpha_{WT1}^{6}  :  0.0373924
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #3 : #alpha_{WT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 3
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 3: #alpha_{WT2}^{6} = 1.2742
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258933 Edm =    1.65944307e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258933 Edm =    1.65944307e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258933 Edm =   1.136962641e-07 NCalls =     69
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258933 Edm =   1.136962641e-07 NCalls =     69 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318592 | 0.04244965773
+    1 | #alpha_{RT2}^{6} | limited |     -2.936081114 | 0.06837484206
+    2 | #alpha_{WT1}^{6} | limited |     0.9900782486 | 0.03741135032
+    3 | #alpha_{WT2}^{6} |  fixed  |      1.274198693 | 0.06254532672
+    4 | #sigma_{RT1}^{6} | limited |    0.02480425611 | 0.0004010240136
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920418 | 0.0002558515644
+    6 | #sigma_{WT1}^{6} | limited |    0.05330973618 | 0.0008861899717
+    7 |      Yield | limited |      970.6680102 |  33.59375202
+    8 |    f^{RT6} | limited |     0.4015910818 | 0.01575857485
+    9 |  f_{M}^{6} | limited |     0.1270441669 | 0.001100058119
+   10 | mean_{RT}^{6} | limited |      5.277399292 | 0.001309610764
+   11 | n_{RT1}^{6} | limited |      7.200393158 | 0.6838798395
+   12 | n_{RT2}^{6} | limited |      2.782714499 |  0.439041703
+   13 | n_{WT1}^{6} | limited |      10.29164423 |  1.991530108
+   14 | n_{WT2}^{6} | limited |      18.94007759 |  7.316469135
+   15 |       nbkg | limited |      562.5214693 |  38.31309742
+   16 |      slope | limited |     -5.390966309 | 0.3941483286
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter #alpha_{WT2}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #3 : #alpha_{WT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 3
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 3: #alpha_{WT2}^{6} = 1.39929
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258933 Edm =    1.05970029e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258933 Edm =    1.05970029e-07 NCalls =     33
+Minuit2:0: RuntimeWarning: VariableMetricBuilder No improvement in line search
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258933 Edm =    1.05970029e-07 NCalls =     42
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258933 Edm =    1.05970029e-07 NCalls =     42 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318725 | 0.04245332697
+    1 | #alpha_{RT2}^{6} | limited |     -2.936081065 | 0.06838107711
+    2 | #alpha_{WT1}^{6} | limited |     0.9900784306 | 0.03739182371
+    3 | #alpha_{WT2}^{6} |  fixed  |      1.399289347 | 0.06254532672
+    4 | #sigma_{RT1}^{6} | limited |    0.02480426895 | 0.0004010255797
+    5 | #sigma_{RT2}^{6} | limited |    0.04064921349 | 0.0002559837747
+    6 | #sigma_{WT1}^{6} | limited |    0.05330967383 | 0.0008851755596
+    7 |      Yield | limited |      970.6689583 |  33.84907629
+    8 |    f^{RT6} | limited |      0.401590572 | 0.01576684701
+    9 |  f_{M}^{6} | limited |     0.1270441681 | 0.001100030801
+   10 | mean_{RT}^{6} | limited |      5.277399307 | 0.001311945084
+   11 | n_{RT1}^{6} | limited |      7.200352024 | 0.6797924264
+   12 | n_{RT2}^{6} | limited |      2.782735606 | 0.4365504759
+   13 | n_{WT1}^{6} | limited |      10.29155021 |  1.961620863
+   14 | n_{WT2}^{6} | limited |      18.94039661 |  7.259148378
+   15 |       nbkg | limited |      562.5227649 |  39.24421974
+   16 |      slope | limited |     -5.391030699 | 0.4883120301
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter #alpha_{WT2}^{6}
+Minos: Lower error for parameter #alpha_{WT2}^{6}  :  -0.0625496
+Minos: Upper error for parameter #alpha_{WT2}^{6}  :  0.0625496
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #4 : #sigma_{RT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 4
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 4: #sigma_{RT1}^{6} = 0.0244032
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =       -9600.25874 Edm =   1.039331844e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =       -9600.25874 Edm =   1.039331844e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =       -9600.25874 Edm =   2.527982395e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =       -9600.25874 Edm =   2.527982395e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.227197934 | 0.04241730732
+    1 | #alpha_{RT2}^{6} | limited |     -2.936147873 | 0.0683792909
+    2 | #alpha_{WT1}^{6} | limited |     0.9900771349 | 0.0373918929
+    3 | #alpha_{WT2}^{6} | limited |      1.336741498 | 0.06254551506
+    4 | #sigma_{RT1}^{6} |  fixed  |    0.02440323703 | 0.0004010255295
+    5 | #sigma_{RT2}^{6} | limited |    0.04065265477 | 0.0002560212732
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969503 | 0.0008851771786
+    7 |      Yield | limited |      969.9351412 |  33.81104426
+    8 |    f^{RT6} | limited |     0.4009212221 | 0.01578333463
+    9 |  f_{M}^{6} | limited |     0.1270441635 | 0.001100032779
+   10 | mean_{RT}^{6} | limited |      5.277404683 | 0.001313210317
+   11 | n_{RT1}^{6} | limited |      7.195586251 | 0.6797190722
+   12 | n_{RT2}^{6} | limited |      2.782948425 | 0.4365356697
+   13 | n_{WT1}^{6} | limited |      10.29131768 |  1.961609411
+   14 | n_{WT2}^{6} | limited |      18.93819713 |  7.252525429
+   15 |       nbkg | limited |      563.3895148 |  39.24909168
+   16 |      slope | limited |     -5.382488303 | 0.4837119709
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter #sigma_{RT1}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #4 : #sigma_{RT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 4
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 4: #sigma_{RT1}^{6} = 0.0252053
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259047 Edm =   1.171384109e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259047 Edm =   1.171384109e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259048 Edm =   1.825518772e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.259048 Edm =   1.825518772e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.229443675 | 0.04245830516
+    1 | #alpha_{RT2}^{6} | limited |     -2.936010578 |  0.068379551
+    2 | #alpha_{WT1}^{6} | limited |     0.9900772457 | 0.03739188916
+    3 | #alpha_{WT2}^{6} | limited |      1.336741665 | 0.06254544905
+    4 | #sigma_{RT1}^{6} |  fixed  |    0.02520528809 | 0.0004010255295
+    5 | #sigma_{RT2}^{6} | limited |    0.04064570918 | 0.0002559771725
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969432 | 0.0008851764744
+    7 |      Yield | limited |      971.4090258 |  33.83882605
+    8 |    f^{RT6} | limited |     0.4022294793 | 0.01576387634
+    9 |  f_{M}^{6} | limited |     0.1270441576 | 0.00110003086
+   10 | mean_{RT}^{6} | limited |      5.277392414 | 0.001317787147
+   11 | n_{RT1}^{6} | limited |      7.204848139 | 0.6800084357
+   12 | n_{RT2}^{6} | limited |      2.782379605 |  0.436473721
+   13 | n_{WT1}^{6} | limited |       10.2912839 |  1.961415434
+   14 | n_{WT2}^{6} | limited |      18.93825659 |  7.248333478
+   15 |       nbkg | limited |      561.6550226 |  39.20950147
+   16 |      slope | limited |     -5.399743355 | 0.4861835781
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter #sigma_{RT1}^{6}
+Minos: Lower error for parameter #sigma_{RT1}^{6}  :  -0.000400976
+Minos: Upper error for parameter #sigma_{RT1}^{6}  :  0.000401099
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #5 : #sigma_{RT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 5
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 5: #sigma_{RT2}^{6} = 0.0403932
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258779 Edm =   2.477315237e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258779 Edm =   2.477315237e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258779 Edm =   5.433180325e-08 NCalls =     67
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258779 Edm =   5.433180325e-08 NCalls =     67 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.227903971 | 0.04245953103
+    1 | #alpha_{RT2}^{6} | limited |     -2.936124632 | 0.06869483486
+    2 | #alpha_{WT1}^{6} | limited |     0.9900773475 | 0.03739281892
+    3 | #alpha_{WT2}^{6} | limited |      1.336741998 | 0.06254839419
+    4 | #sigma_{RT1}^{6} | limited |    0.02480972856 | 0.0004014037427
+    5 | #sigma_{RT2}^{6} |  fixed  |    0.04039322469 | 0.0002559837595
+    6 | #sigma_{WT1}^{6} | limited |    0.05330970046 | 0.0008851989914
+    7 |      Yield | limited |      969.4015501 |   33.9588832
+    8 |    f^{RT6} | limited |     0.4013808187 | 0.01585897728
+    9 |  f_{M}^{6} | limited |     0.1270441746 | 0.001100095663
+   10 | mean_{RT}^{6} | limited |      5.277398396 | 0.001310947601
+   11 | n_{RT1}^{6} | limited |      7.198452249 | 0.6800009823
+   12 | n_{RT2}^{6} | limited |      2.782659148 | 0.4369752525
+   13 | n_{WT1}^{6} | limited |      10.29143675 |  1.965318243
+   14 | n_{WT2}^{6} | limited |      18.93878778 |  7.243185999
+   15 |       nbkg | limited |      563.4533626 |  38.83810359
+   16 |      slope | limited |     -5.364217369 | 0.4620875208
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter #sigma_{RT2}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #5 : #sigma_{RT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 5
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 5: #sigma_{RT2}^{6} = 0.0409052
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258813 Edm =   8.637462541e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258813 Edm =   8.637462541e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258813 Edm =   2.695202008e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258813 Edm =   2.695202008e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |       1.22873001 | 0.04245635767
+    1 | #alpha_{RT2}^{6} | limited |     -2.935990625 | 0.0684241156
+    2 | #alpha_{WT1}^{6} | limited |     0.9900773972 | 0.03739230346
+    3 | #alpha_{WT2}^{6} | limited |      1.336741945 | 0.06254630941
+    4 | #sigma_{RT1}^{6} | limited |    0.02479886436 | 0.0004009575933
+    5 | #sigma_{RT2}^{6} |  fixed  |    0.04090519221 | 0.0002559837595
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969527 | 0.0008851774198
+    7 |      Yield | limited |      971.9303988 |  33.86706857
+    8 |    f^{RT6} | limited |     0.4018054505 | 0.01577276281
+    9 |  f_{M}^{6} | limited |     0.1270441564 | 0.001100031641
+   10 | mean_{RT}^{6} | limited |      5.277399784 | 0.001314243873
+   11 | n_{RT1}^{6} | limited |      7.202217476 | 0.6798809162
+   12 | n_{RT2}^{6} | limited |      2.782710921 | 0.4365207891
+   13 | n_{WT1}^{6} | limited |      10.29131512 |  1.961513097
+   14 | n_{WT2}^{6} | limited |      18.93847323 |  7.247309247
+   15 |       nbkg | limited |      561.6069972 |   39.1173328
+   16 |      slope | limited |      -5.41792653 | 0.4831968356
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter #sigma_{RT2}^{6}
+Minos: Lower error for parameter #sigma_{RT2}^{6}  :  -0.000255962
+Minos: Upper error for parameter #sigma_{RT2}^{6}  :  0.000255971
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #6 : #sigma_{WT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 6
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 6: #sigma_{WT1}^{6} = 0.0524245
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258852 Edm =   2.179282959e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258852 Edm =   2.179282959e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258852 Edm =   1.143211989e-07 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258852 Edm =   1.143211989e-07 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318843 | 0.04245017157
+    1 | #alpha_{RT2}^{6} | limited |     -2.936079919 | 0.06837441132
+    2 | #alpha_{WT1}^{6} | limited |     0.9900791694 | 0.03742350394
+    3 | #alpha_{WT2}^{6} | limited |      1.336745151 | 0.0626079157
+    4 | #sigma_{RT1}^{6} | limited |    0.02480426094 | 0.0004010674866
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920877 | 0.0002559566018
+    6 | #sigma_{WT1}^{6} |  fixed  |    0.05242453234 | 0.0008851758293
+    7 |      Yield | limited |      970.6690542 |  33.74657351
+    8 |    f^{RT6} | limited |     0.4015907679 | 0.01576145644
+    9 |  f_{M}^{6} | limited |     0.1270441336 | 0.001100177071
+   10 | mean_{RT}^{6} | limited |      5.277399321 | 0.001311185146
+   11 | n_{RT1}^{6} | limited |      7.200361649 | 0.6805148668
+   12 | n_{RT2}^{6} | limited |      2.782710692 | 0.4374713443
+   13 | n_{WT1}^{6} | limited |      10.29153195 |  1.968305694
+   14 | n_{WT2}^{6} | limited |      18.94082921 |  7.334044255
+   15 |       nbkg | limited |      562.5232344 |   38.8614708
+   16 |      slope | limited |     -5.391020829 | 0.4499137059
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter #sigma_{WT1}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #6 : #sigma_{WT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 6
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 6: #sigma_{WT1}^{6} = 0.0541949
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258852 Edm =    8.51350838e-08 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258852 Edm =    8.51350838e-08 NCalls =     33
+Minuit2:0: RuntimeWarning: VariableMetricBuilder No improvement in line search
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258852 Edm =    8.51350838e-08 NCalls =     41
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258852 Edm =    8.51350838e-08 NCalls =     41 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318148 | 0.04245331838
+    1 | #alpha_{RT2}^{6} | limited |     -2.936082298 | 0.06838108549
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769794 | 0.03739179929
+    3 | #alpha_{WT2}^{6} | limited |      1.336741593 | 0.06254527867
+    4 | #sigma_{RT1}^{6} | limited |    0.02480426245 | 0.0004010255286
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920838 | 0.0002559837593
+    6 | #sigma_{WT1}^{6} |  fixed  |      0.054194884 | 0.0008851758293
+    7 |      Yield | limited |      970.6679708 |  33.84905909
+    8 |    f^{RT6} | limited |     0.4015908723 | 0.01576684895
+    9 |  f_{M}^{6} | limited |     0.1270442108 | 0.001100030958
+   10 | mean_{RT}^{6} | limited |      5.277399276 | 0.001311944987
+   11 | n_{RT1}^{6} | limited |      7.200378772 | 0.6797936426
+   12 | n_{RT2}^{6} | limited |      2.782729498 | 0.4365500034
+   13 | n_{WT1}^{6} | limited |      10.29162617 |   1.96162728
+   14 | n_{WT2}^{6} | limited |      18.93899661 |  7.258942501
+   15 |       nbkg | limited |      562.5211685 |  39.24416412
+   16 |      slope | limited |      -5.39098388 | 0.4883137693
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter #sigma_{WT1}^{6}
+Minos: Lower error for parameter #sigma_{WT1}^{6}  :  -0.000885165
+Minos: Upper error for parameter #sigma_{WT1}^{6}  :  0.000885165
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #7 : Yield using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 7
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 7: Yield = 936.819
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.249036 Edm =   2.229987137e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.249036 Edm =   2.229987137e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.249058 Edm =   1.991431818e-10 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.249058 Edm =   1.991431818e-10 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.229857344 | 0.04244707962
+    1 | #alpha_{RT2}^{6} | limited |     -2.936961664 | 0.06838417033
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769885 | 0.03739179739
+    3 | #alpha_{WT2}^{6} | limited |      1.336741182 | 0.06254526595
+    4 | #sigma_{RT1}^{6} | limited |    0.02479531969 | 0.0004008666855
+    5 | #sigma_{RT2}^{6} | limited |    0.04063948849 | 0.0002557681156
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969227 | 0.000885175686
+    7 |      Yield |  fixed  |      936.8192616 |   33.8490653
+    8 |    f^{RT6} | limited |     0.4020648836 | 0.01576600295
+    9 |  f_{M}^{6} | limited |     0.1270441589 | 0.00110003084
+   10 | mean_{RT}^{6} | limited |       5.27739523 | 0.001311927872
+   11 | n_{RT1}^{6} | limited |      7.213959385 | 0.6802860982
+   12 | n_{RT2}^{6} | limited |      2.785979334 | 0.4367945978
+   13 | n_{WT1}^{6} | limited |      10.29124408 |  1.961583174
+   14 | n_{WT2}^{6} | limited |      18.93786723 |  7.258437893
+   15 |       nbkg | limited |      567.1948571 |  39.12195797
+   16 |      slope | limited |     -5.294137029 | 0.4823107751
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 7: Yield = 937.146
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258955 Edm =    4.29983416e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258955 Edm =    4.29983416e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258959 Edm =   4.071500006e-08 NCalls =     67
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.258959 Edm =   4.071500006e-08 NCalls =     67 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.229843783 | 0.04245091842
+    1 | #alpha_{RT2}^{6} | limited |     -2.936953569 | 0.06837842479
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769975 | 0.03739179734
+    3 | #alpha_{WT2}^{6} | limited |      1.336741197 | 0.06254526594
+    4 | #sigma_{RT1}^{6} | limited |    0.02479539732 | 0.0004008931169
+    5 | #sigma_{RT2}^{6} | limited |    0.04063957428 | 0.0002557660239
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969231 | 0.0008851756863
+    7 |      Yield |  fixed  |       937.146377 |   33.8490653
+    8 |    f^{RT6} | limited |     0.4020607589 | 0.01576583473
+    9 |  f_{M}^{6} | limited |     0.1270441587 | 0.001100030833
+   10 | mean_{RT}^{6} | limited |      5.277395272 | 0.00131186691
+   11 | n_{RT1}^{6} | limited |        7.2138391 | 0.6802868896
+   12 | n_{RT2}^{6} | limited |      2.785948651 |  0.436766584
+   13 | n_{WT1}^{6} | limited |      10.29124327 |  1.961582419
+   14 | n_{WT2}^{6} | limited |      18.93785792 |  7.258378934
+   15 |       nbkg | limited |      567.1548266 |  39.51474209
+   16 |      slope | limited |     -5.295027818 | 0.4689507911
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter Yield
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #7 : Yield using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 7
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 7: Yield = 1004.52
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.268235 Edm =   1.953446356e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.268235 Edm =   1.953446356e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.268255 Edm =   2.878418607e-09 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.268255 Edm =   2.878418607e-09 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.226798893 | 0.0424047941
+    1 | #alpha_{RT2}^{6} | limited |     -2.935155733 | 0.06836374063
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769886 | 0.03739178796
+    3 | #alpha_{WT2}^{6} | limited |      1.336741183 | 0.06254524786
+    4 | #sigma_{RT1}^{6} | limited |    0.02481278828 | 0.0004009897313
+    5 | #sigma_{RT2}^{6} | limited |    0.04065862682 | 0.0002558505433
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969231 | 0.0008851757023
+    7 |      Yield |  fixed  |      1004.517392 |   33.8490653
+    8 |    f^{RT6} | limited |     0.4011461303 | 0.01575566313
+    9 |  f_{M}^{6} | limited |     0.1270441589 | 0.00110003074
+   10 | mean_{RT}^{6} | limited |      5.277403346 | 0.001311951185
+   11 | n_{RT1}^{6} | limited |      7.186566786 | 0.6790078466
+   12 | n_{RT2}^{6} | limited |      2.779128385 | 0.4362334473
+   13 | n_{WT1}^{6} | limited |      10.29124417 |  1.961579686
+   14 | n_{WT2}^{6} | limited |      18.93786808 |  7.258063436
+   15 |       nbkg | limited |      558.2912713 |  38.70833376
+   16 |      slope | limited |     -5.485951457 | 0.4764053312
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 7: Yield = 1004.84
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258951 Edm =   3.097513021e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258951 Edm =   3.097513021e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258954 Edm =   1.072437984e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.258954 Edm =   1.072437984e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.226785661 | 0.04240582777
+    1 | #alpha_{RT2}^{6} | limited |     -2.935148111 | 0.06836987995
+    2 | #alpha_{WT1}^{6} | limited |     0.9900770029 | 0.03739178757
+    3 | #alpha_{WT2}^{6} | limited |      1.336741207 | 0.0625452472
+    4 | #sigma_{RT1}^{6} | limited |    0.02481286449 | 0.0004009640366
+    5 | #sigma_{RT2}^{6} | limited |    0.04065870908 | 0.0002558448145
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969235 | 0.0008851757023
+    7 |      Yield |  fixed  |      1004.839804 |   33.8490653
+    8 |    f^{RT6} | limited |     0.4011421722 | 0.01575396014
+    9 |  f_{M}^{6} | limited |     0.1270441587 | 0.001100030732
+   10 | mean_{RT}^{6} | limited |      5.277403376 | 0.001311955758
+   11 | n_{RT1}^{6} | limited |      7.186447905 |  0.679053655
+   12 | n_{RT2}^{6} | limited |      2.779099364 | 0.4362497492
+   13 | n_{WT1}^{6} | limited |      10.29124428 |   1.96157972
+   14 | n_{WT2}^{6} | limited |       18.9378667 |  7.258061169
+   15 |       nbkg | limited |      558.2529967 |  38.50391117
+   16 |      slope | limited |     -5.486745878 | 0.4806699435
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter Yield
+Minos: Lower error for parameter Yield  :  -33.5251
+Minos: Upper error for parameter Yield  :  34.1746
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #8 : f^{RT6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 8
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 8: f^{RT6} = 0.385824
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259032 Edm =   1.395001065e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259032 Edm =   1.395001065e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259033 Edm =   1.068975772e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.259033 Edm =   1.068975772e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.229043348 | 0.04246570916
+    1 | #alpha_{RT2}^{6} | limited |     -2.935865414 | 0.06837763835
+    2 | #alpha_{WT1}^{6} | limited |     0.9900771686 | 0.0373917514
+    3 | #alpha_{WT2}^{6} | limited |      1.336741518 | 0.06254516537
+    4 | #sigma_{RT1}^{6} | limited |     0.0247880836 | 0.0004012302142
+    5 | #sigma_{RT2}^{6} | limited |     0.0406456374 | 0.0002560079045
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969368 | 0.0008851760871
+    7 |      Yield | limited |      971.6435059 |  33.88866948
+    8 |    f^{RT6} |  fixed  |     0.3858240239 | 0.01576684895
+    9 |  f_{M}^{6} | limited |     0.1270441606 | 0.001100030377
+   10 | mean_{RT}^{6} | limited |      5.277355523 | 0.001310596526
+   11 | n_{RT1}^{6} | limited |      7.200770646 | 0.6798449349
+   12 | n_{RT2}^{6} | limited |      2.782102084 | 0.4364270162
+   13 | n_{WT1}^{6} | limited |       10.2912755 |  1.961355893
+   14 | n_{WT2}^{6} | limited |      18.93813426 |  7.248818344
+   15 |       nbkg | limited |       562.028122 |  39.15277443
+   16 |      slope | limited |     -5.416330401 |  0.487239452
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter f^{RT6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #8 : f^{RT6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 8
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 8: f^{RT6} = 0.417358
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259035 Edm =   1.353931074e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259035 Edm =   1.353931074e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259036 Edm =    1.21720579e-08 NCalls =     67
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.259036 Edm =    1.21720579e-08 NCalls =     67 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.227555398 | 0.04241080077
+    1 | #alpha_{RT2}^{6} | limited |     -2.936289074 | 0.06838031551
+    2 | #alpha_{WT1}^{6} | limited |     0.9900770625 | 0.03739181086
+    3 | #alpha_{WT2}^{6} | limited |      1.336741347 | 0.06254530283
+    4 | #sigma_{RT1}^{6} | limited |    0.02482135529 | 0.0003999842482
+    5 | #sigma_{RT2}^{6} | limited |    0.04065251746 | 0.000256151947
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969387 | 0.0008851762197
+    7 |      Yield | limited |      969.6730928 |  33.84947221
+    8 |    f^{RT6} |  fixed  |     0.4173577218 | 0.01576684895
+    9 |  f_{M}^{6} | limited |     0.1270441584 | 0.001100030793
+   10 | mean_{RT}^{6} | limited |      5.277443681 | 0.001310850767
+   11 | n_{RT1}^{6} | limited |      7.199798129 |  0.679718595
+   12 | n_{RT2}^{6} | limited |      2.783200244 | 0.4365443795
+   13 | n_{WT1}^{6} | limited |      10.29128031 |  1.961436833
+   14 | n_{WT2}^{6} | limited |      18.93804703 |  7.253435228
+   15 |       nbkg | limited |      563.0440423 |   39.1589182
+   16 |      slope | limited |     -5.365496601 | 0.4895648837
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter f^{RT6}
+Minos: Lower error for parameter f^{RT6}  :  -0.0157695
+Minos: Upper error for parameter f^{RT6}  :  0.0157696
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #9 : f_{M}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 9
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 9: f_{M}^{6} = 0.125944
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258836 Edm =   1.076878396e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258836 Edm =   1.076878396e-07 NCalls =     33
+Minuit2:0: RuntimeWarning: VariableMetricBuilder No improvement in line search
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258836 Edm =   1.076878396e-07 NCalls =     42
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258836 Edm =   1.076878396e-07 NCalls =     42 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318702 | 0.04245332662
+    1 | #alpha_{RT2}^{6} | limited |     -2.936081071 | 0.06838107716
+    2 | #alpha_{WT1}^{6} | limited |     0.9900784305 | 0.03739182371
+    3 | #alpha_{WT2}^{6} | limited |      1.336744021 | 0.06254532674
+    4 | #sigma_{RT1}^{6} | limited |    0.02480426947 | 0.0004010255838
+    5 | #sigma_{RT2}^{6} | limited |    0.04064921359 | 0.000255983775
+    6 | #sigma_{WT1}^{6} | limited |    0.05330967382 | 0.0008851755595
+    7 |      Yield | limited |      970.6689277 |  33.84907576
+    8 |    f^{RT6} | limited |     0.4015910634 | 0.01576685018
+    9 |  f_{M}^{6} |  fixed  |     0.1259441373 | 0.001100030801
+   10 | mean_{RT}^{6} | limited |      5.277399309 | 0.001311945088
+   11 | n_{RT1}^{6} | limited |      7.200352002 | 0.6797924254
+   12 | n_{RT2}^{6} | limited |      2.782735624 | 0.4365504773
+   13 | n_{WT1}^{6} | limited |      10.29155019 |  1.961620861
+   14 | n_{WT2}^{6} | limited |      18.94039659 |  7.259148375
+   15 |       nbkg | limited |       562.522781 |   39.2442203
+   16 |      slope | limited |     -5.391029918 | 0.4883120591
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter f_{M}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #9 : f_{M}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 9
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 9: f_{M}^{6} = 0.128144
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258836 Edm =   1.659865109e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258836 Edm =   1.659865109e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258836 Edm =   1.146490091e-07 NCalls =     69
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258836 Edm =   1.146490091e-07 NCalls =     69 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318618 | 0.04244989682
+    1 | #alpha_{RT2}^{6} | limited |     -2.936081115 | 0.0683746872
+    2 | #alpha_{WT1}^{6} | limited |     0.9900782532 | 0.03741159874
+    3 | #alpha_{WT2}^{6} | limited |      1.336743672 | 0.06259103978
+    4 | #sigma_{RT1}^{6} | limited |    0.02480425565 | 0.0004010204254
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920406 | 0.0002558486138
+    6 | #sigma_{WT1}^{6} | limited |    0.05330973635 | 0.0008862032577
+    7 |      Yield | limited |      970.6680291 |  33.59009603
+    8 |    f^{RT6} | limited |     0.4015906532 | 0.01575935952
+    9 |  f_{M}^{6} |  fixed  |     0.1281441989 | 0.001100030801
+   10 | mean_{RT}^{6} | limited |       5.27739929 | 0.001309547956
+   11 | n_{RT1}^{6} | limited |      7.200393475 | 0.6839353141
+   12 | n_{RT2}^{6} | limited |      2.782714703 | 0.4390742932
+   13 | n_{WT1}^{6} | limited |      10.29164569 |  1.991930088
+   14 | n_{WT2}^{6} | limited |      18.94008556 |  7.317312031
+   15 |       nbkg | limited |      562.5214405 |  38.29349494
+   16 |      slope | limited |      -5.39096649 | 0.3923064138
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter f_{M}^{6}
+Minos: Lower error for parameter f_{M}^{6}  :  -0.0011
+Minos: Upper error for parameter f_{M}^{6}  :  0.0011
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #10 : mean_{RT}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 10
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 10: mean_{RT}^{6} = 5.27609
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259198 Edm =   4.350678318e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259198 Edm =   4.350678318e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259242 Edm =   9.592100442e-10 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.259242 Edm =   9.592100442e-10 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.232302623 | 0.04233669272
+    1 | #alpha_{RT2}^{6} | limited |      -2.93616957 | 0.06837830822
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769853 | 0.03739179676
+    3 | #alpha_{WT2}^{6} | limited |      1.336741177 | 0.0625452651
+    4 | #sigma_{RT1}^{6} | limited |    0.02480747745 | 0.0004011905437
+    5 | #sigma_{RT2}^{6} | limited |    0.04064954537 | 0.0002559693205
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969241 | 0.0008851757494
+    7 |      Yield | limited |       970.439784 |  33.85082331
+    8 |    f^{RT6} | limited |     0.4010196139 | 0.01575246972
+    9 |  f_{M}^{6} | limited |     0.1270441591 | 0.001100030837
+   10 | mean_{RT}^{6} |  fixed  |      5.276087351 | 0.00131194505
+   11 | n_{RT1}^{6} | limited |      7.214155974 | 0.6803182741
+   12 | n_{RT2}^{6} | limited |      2.782598518 | 0.4365398232
+   13 | n_{WT1}^{6} | limited |      10.29124412 |  1.961589011
+   14 | n_{WT2}^{6} | limited |      18.93786435 |  7.258559175
+   15 |       nbkg | limited |      560.5300679 |  39.12957406
+   16 |      slope | limited |      -5.34147355 | 0.4870311991
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter mean_{RT}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #10 : mean_{RT}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 10
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 10: mean_{RT}^{6} = 5.27871
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258042 Edm =   4.392194462e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258042 Edm =   4.392194462e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258087 Edm =   6.124910833e-09 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.258087 Edm =   6.124910833e-09 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.224214899 | 0.04218474577
+    1 | #alpha_{RT2}^{6} | limited |     -2.935953542 | 0.06836839653
+    2 | #alpha_{WT1}^{6} | limited |      0.990076985 | 0.03739179246
+    3 | #alpha_{WT2}^{6} | limited |      1.336741177 | 0.06254525637
+    4 | #sigma_{RT1}^{6} | limited |    0.02480416423 | 0.0004006353813
+    5 | #sigma_{RT2}^{6} | limited |    0.04064976549 | 0.0002559709991
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969238 | 0.0008851757071
+    7 |      Yield | limited |      970.6477598 |  33.85931252
+    8 |    f^{RT6} | limited |     0.4020786448 | 0.01576038834
+    9 |  f_{M}^{6} | limited |     0.1270441591 | 0.001100030763
+   10 | mean_{RT}^{6} |  fixed  |      5.278711241 | 0.00131194505
+   11 | n_{RT1}^{6} | limited |      7.185264607 | 0.6788642519
+   12 | n_{RT2}^{6} | limited |      2.782873689 | 0.4365615059
+   13 | n_{WT1}^{6} | limited |        10.291244 |  1.961587089
+   14 | n_{WT2}^{6} | limited |      18.93786445 |  7.258466378
+   15 |       nbkg | limited |      564.7432369 |  39.21949975
+   16 |      slope | limited |     -5.435807716 | 0.4867831758
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter mean_{RT}^{6}
+Minos: Lower error for parameter mean_{RT}^{6}  :  -0.00131244
+Minos: Upper error for parameter mean_{RT}^{6}  :  0.00131093
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #11 : n_{RT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 11
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 11: n_{RT1}^{6} = 6.52058
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258068 Edm =   1.221120804e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258068 Edm =   1.221120804e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =       -9600.25808 Edm =   7.837965975e-10 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =       -9600.25808 Edm =   7.837965975e-10 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228717498 | 0.04243254894
+    1 | #alpha_{RT2}^{6} | limited |     -2.936042336 | 0.06838088657
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769949 | 0.03739180278
+    3 | #alpha_{WT2}^{6} | limited |      1.336741193 | 0.06254527624
+    4 | #sigma_{RT1}^{6} | limited |    0.02480127514 | 0.0004010046946
+    5 | #sigma_{RT2}^{6} | limited |    0.04064843014 | 0.0002559860376
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969239 | 0.0008851757585
+    7 |      Yield | limited |      971.4372529 |  33.84006668
+    8 |    f^{RT6} | limited |     0.4016006307 | 0.01576588727
+    9 |  f_{M}^{6} | limited |     0.1270441588 | 0.001100030819
+   10 | mean_{RT}^{6} | limited |      5.277429794 | 0.00131202132
+   11 | n_{RT1}^{6} |  fixed  |      6.520584913 | 0.6797936323
+   12 | n_{RT2}^{6} | limited |      2.782533831 | 0.4365294054
+   13 | n_{WT1}^{6} | limited |      10.29124435 |  1.961574174
+   14 | n_{WT2}^{6} | limited |      18.93787455 |  7.257603529
+   15 |       nbkg | limited |      561.3638946 |  39.29076461
+   16 |      slope | limited |     -5.393702201 | 0.4878185496
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter n_{RT1}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #11 : n_{RT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 11
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 11: n_{RT1}^{6} = 7.88017
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259528 Edm =   8.037532998e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259528 Edm =   8.037532998e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259535 Edm =   9.601224769e-10 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.259535 Edm =   9.601224769e-10 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.227990146 | 0.04246954879
+    1 | #alpha_{RT2}^{6} | limited |     -2.936109397 | 0.06838095627
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769944 | 0.03739179951
+    3 | #alpha_{WT2}^{6} | limited |      1.336741192 | 0.06254527124
+    4 | #sigma_{RT1}^{6} | limited |    0.02480678276 | 0.0004010491972
+    5 | #sigma_{RT2}^{6} | limited |    0.04064986238 | 0.0002559919451
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969232 | 0.0008851757234
+    7 |      Yield | limited |      970.0572194 |  33.79489734
+    8 |    f^{RT6} | limited |     0.4015787857 | 0.01576677782
+    9 |  f_{M}^{6} | limited |     0.1270441588 | 0.001100030764
+   10 | mean_{RT}^{6} | limited |      5.277373645 | 0.001310807217
+   11 | n_{RT1}^{6} |  fixed  |      7.880172177 | 0.6797936323
+   12 | n_{RT2}^{6} | limited |       2.78275205 | 0.4365427479
+   13 | n_{WT1}^{6} | limited |      10.29124418 |  1.961565089
+   14 | n_{WT2}^{6} | limited |      18.93787239 |  7.258254014
+   15 |       nbkg | limited |      563.4483253 |  39.34397142
+   16 |      slope | limited |     -5.388772826 | 0.4878414993
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter n_{RT1}^{6}
+Minos: Lower error for parameter n_{RT1}^{6}  :  -0.679261
+Minos: Upper error for parameter n_{RT1}^{6}  :  0.68025
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #12 : n_{RT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 12
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 12: n_{RT2}^{6} = 2.34618
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258363 Edm =   7.693171265e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258363 Edm =   7.693171265e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =       -9600.25837 Edm =   2.442450808e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =       -9600.25837 Edm =   2.442450808e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |        1.2282869 | 0.04245293241
+    1 | #alpha_{RT2}^{6} | limited |     -2.935917315 | 0.06837291675
+    2 | #alpha_{WT1}^{6} | limited |     0.9900770569 | 0.03739181971
+    3 | #alpha_{WT2}^{6} | limited |      1.336741321 | 0.06254531445
+    4 | #sigma_{RT1}^{6} | limited |    0.02480456543 | 0.0004010273373
+    5 | #sigma_{RT2}^{6} | limited |     0.0406492008 | 0.0002559828316
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969325 | 0.0008851757615
+    7 |      Yield | limited |      970.9868265 |    33.861878
+    8 |    f^{RT6} | limited |     0.4015678339 | 0.01576720662
+    9 |  f_{M}^{6} | limited |     0.1270441599 | 0.001100030267
+   10 | mean_{RT}^{6} | limited |      5.277398974 | 0.001311929981
+   11 | n_{RT1}^{6} | limited |      7.200115565 | 0.6797852513
+   12 | n_{RT2}^{6} |  fixed  |      2.346179459 | 0.4365500005
+   13 | n_{WT1}^{6} | limited |      10.29126953 |   1.96155867
+   14 | n_{WT2}^{6} | limited |       18.9379985 |   7.25796857
+   15 |       nbkg | limited |         562.4676 |  39.24494922
+   16 |      slope | limited |      -5.40069515 | 0.4872747064
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter n_{RT2}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #12 : n_{RT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 12
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 12: n_{RT2}^{6} = 3.21928
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259282 Edm =   4.206583543e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259282 Edm =   4.206583543e-06 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259285 Edm =   2.981568028e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.259285 Edm =   2.981568028e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228339331 | 0.04245320808
+    1 | #alpha_{RT2}^{6} | limited |     -2.936246597 | 0.06837673823
+    2 | #alpha_{WT1}^{6} | limited |     0.9900772021 | 0.0373919747
+    3 | #alpha_{WT2}^{6} | limited |      1.336741583 | 0.06254563133
+    4 | #sigma_{RT1}^{6} | limited |    0.02480403155 | 0.000401021962
+    5 | #sigma_{RT2}^{6} | limited |    0.04064923666 | 0.0002559812482
+    6 | #sigma_{WT1}^{6} | limited |      0.053309694 | 0.0008851761754
+    7 |      Yield | limited |       970.440016 |  33.83526967
+    8 |    f^{RT6} | limited |     0.4016081719 | 0.01576616384
+    9 |  f_{M}^{6} | limited |     0.1270441579 | 0.001100030963
+   10 | mean_{RT}^{6} | limited |       5.27739973 | 0.001311918972
+   11 | n_{RT1}^{6} | limited |      7.200463298 | 0.6798037619
+   12 | n_{RT2}^{6} |  fixed  |       3.21927946 | 0.4365500005
+   13 | n_{WT1}^{6} | limited |      10.29127712 |  1.961603323
+   14 | n_{WT2}^{6} | limited |      18.93819027 |  7.257757653
+   15 |       nbkg | limited |      562.5706292 |   39.2496436
+   16 |      slope | limited |     -5.384093861 | 0.4830547612
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter n_{RT2}^{6}
+Minos: Lower error for parameter n_{RT2}^{6}  :  -0.436334
+Minos: Upper error for parameter n_{RT2}^{6}  :  0.436734
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #13 : n_{WT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 13
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 13: n_{WT1}^{6} = 8.33
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =       -9600.25952 Edm =    2.05680858e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =       -9600.25952 Edm =    2.05680858e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =       -9600.25952 Edm =   9.821606888e-08 NCalls =     68
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =       -9600.25952 Edm =   9.821606888e-08 NCalls =     68 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318799 | 0.04245087424
+    1 | #alpha_{RT2}^{6} | limited |     -2.936079892 | 0.06837482777
+    2 | #alpha_{WT1}^{6} | limited |     0.9900790727 | 0.03742259116
+    3 | #alpha_{WT2}^{6} | limited |      1.336744976 | 0.06260613958
+    4 | #sigma_{RT1}^{6} | limited |    0.02480426967 | 0.0004012239435
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920872 | 0.0002559579941
+    6 | #sigma_{WT1}^{6} | limited |    0.05330970375 | 0.0008852177043
+    7 |      Yield | limited |      970.6691123 |  33.75474302
+    8 |    f^{RT6} | limited |     0.4015907692 | 0.01576168964
+    9 |  f_{M}^{6} | limited |     0.1270441348 | 0.001100171892
+   10 | mean_{RT}^{6} | limited |      5.277399322 | 0.001311241844
+   11 | n_{RT1}^{6} | limited |      7.200359582 | 0.6805067275
+   12 | n_{RT2}^{6} | limited |      2.782717978 | 0.4380132146
+   13 | n_{WT1}^{6} |  fixed  |      8.329998813 |  1.961627273
+   14 | n_{WT2}^{6} | limited |      18.94069939 |  7.335996427
+   15 |       nbkg | limited |      562.5233134 |  38.88811277
+   16 |      slope | limited |     -5.391024471 | 0.4528373638
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter n_{WT1}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #13 : n_{WT1}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 13
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 13: n_{WT1}^{6} = 12.2533
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259521 Edm =   6.149465048e-08 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259521 Edm =   6.149465048e-08 NCalls =     33
+Minuit2:0: RuntimeWarning: VariableMetricBuilder No improvement in line search
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259521 Edm =   6.149465048e-08 NCalls =     40
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.259521 Edm =   6.149465048e-08 NCalls =     40 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228318114 | 0.04245331789
+    1 | #alpha_{RT2}^{6} | limited |     -2.936082291 | 0.06838108545
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769846 | 0.03739179938
+    3 | #alpha_{WT2}^{6} | limited |      1.336741602 | 0.06254527884
+    4 | #sigma_{RT1}^{6} | limited |    0.02480425003 | 0.0004010254305
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920848 | 0.0002559837596
+    6 | #sigma_{WT1}^{6} | limited |    0.05330970821 | 0.0008851758296
+    7 |      Yield | limited |      970.6679574 |  33.84905886
+    8 |    f^{RT6} | limited |     0.4015908515 | 0.01576684882
+    9 |  f_{M}^{6} | limited |     0.1270442106 | 0.001100030958
+   10 | mean_{RT}^{6} | limited |      5.277399277 | 0.001311944988
+   11 | n_{RT1}^{6} | limited |      7.200378623 | 0.6797936358
+   12 | n_{RT2}^{6} | limited |      2.782716009 | 0.4365489597
+   13 | n_{WT1}^{6} |  fixed  |      12.25325336 |  1.961627273
+   14 | n_{WT2}^{6} | limited |       18.9390016 |  7.258943235
+   15 |       nbkg | limited |      562.5211961 |  39.24416508
+   16 |      slope | limited |     -5.390983876 | 0.4883137695
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter n_{WT1}^{6}
+Minos: Lower error for parameter n_{WT1}^{6}  :  -1.96292
+Minos: Upper error for parameter n_{WT1}^{6}  :  1.96292
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #14 : n_{WT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 14
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 14: n_{WT2}^{6} = 11.6812
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =       -9600.26483 Edm =   3.768936288e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =       -9600.26483 Edm =   3.768936288e-07 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =       -9600.26483 Edm =   6.075188035e-08 NCalls =     67
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =       -9600.26483 Edm =   6.075188035e-08 NCalls =     67 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228317972 | 0.04245174613
+    1 | #alpha_{RT2}^{6} | limited |     -2.936080427 | 0.06837898423
+    2 | #alpha_{WT1}^{6} | limited |       0.99007762 | 0.03739399993
+    3 | #alpha_{WT2}^{6} | limited |      1.336742424 | 0.06255030851
+    4 | #sigma_{RT1}^{6} | limited |    0.02480424492 | 0.0004010522886
+    5 | #sigma_{RT2}^{6} | limited |    0.04064919822 | 0.000255975721
+    6 | #sigma_{WT1}^{6} | limited |    0.05330977311 | 0.0008866338955
+    7 |      Yield | limited |      970.6680212 |  33.79225694
+    8 |    f^{RT6} | limited |     0.4015912788 | 0.01576747828
+    9 |  f_{M}^{6} | limited |     0.1270441628 | 0.001100032755
+   10 | mean_{RT}^{6} | limited |      5.277399296 | 0.00131144192
+   11 | n_{RT1}^{6} | limited |       7.20039728 |  0.681774762
+   12 | n_{RT2}^{6} | limited |      2.782673326 | 0.4365601095
+   13 | n_{WT1}^{6} | limited |      10.29157375 |  1.970265549
+   14 | n_{WT2}^{6} |  fixed  |      11.68124783 |   7.25914831
+   15 |       nbkg | limited |      562.5219032 |  39.05200848
+   16 |      slope | limited |     -5.390963954 | 0.4689383973
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 14: n_{WT2}^{6} = 11.6375
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258864 Edm =   6.325904466e-08 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258864 Edm =   6.325904466e-08 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258864 Edm =   4.489742819e-08 NCalls =     69
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.258864 Edm =   4.489742819e-08 NCalls =     69 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.228317892 | 0.04244230755
+    1 | #alpha_{RT2}^{6} | limited |     -2.936080289 | 0.06837325345
+    2 | #alpha_{WT1}^{6} | limited |     0.9900775454 | 0.0374023279
+    3 | #alpha_{WT2}^{6} | limited |      1.336742277 | 0.06256940202
+    4 | #sigma_{RT1}^{6} | limited |    0.02480424616 | 0.0004012232269
+    5 | #sigma_{RT2}^{6} | limited |    0.04064919949 | 0.0002560276556
+    6 | #sigma_{WT1}^{6} | limited |    0.05330976349 | 0.0008925257322
+    7 |      Yield | limited |      970.6682437 |  33.58618367
+    8 |    f^{RT6} | limited |     0.4015911839 | 0.0157731776
+    9 |  f_{M}^{6} | limited |     0.1270441624 | 0.001100044834
+   10 | mean_{RT}^{6} | limited |        5.2773993 | 0.001309709157
+   11 | n_{RT1}^{6} | limited |      7.200386952 | 0.6877326806
+   12 | n_{RT2}^{6} | limited |      2.782671036 | 0.4362764909
+   13 | n_{WT1}^{6} | limited |      10.29153436 |  1.977415962
+   14 | n_{WT2}^{6} |  fixed  |      11.63754762 |   7.25914831
+   15 |       nbkg | limited |      562.5222661 |  38.21171143
+   16 |      slope | limited |     -5.390978311 | 0.3962557635
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter n_{WT2}^{6}
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #14 : n_{WT2}^{6} using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 14
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 14: n_{WT2}^{6} = 26.1995
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.264831 Edm =   8.009338921e-08 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.264831 Edm =   8.009338921e-08 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.264831 Edm =   7.228218161e-10 NCalls =     67
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.264831 Edm =   7.228218161e-10 NCalls =     67 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |       1.22831725 | 0.04243845953
+    1 | #alpha_{RT2}^{6} | limited |     -2.936079181 | 0.06836956923
+    2 | #alpha_{WT1}^{6} | limited |      0.990076992 | 0.0373851958
+    3 | #alpha_{WT2}^{6} | limited |      1.336741188 | 0.06253005861
+    4 | #sigma_{RT1}^{6} | limited |    0.02480425561 | 0.0004007381031
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920954 | 0.0002560384093
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969233 | 0.0008821758302
+    7 |      Yield | limited |      970.6701899 |  33.90699735
+    8 |    f^{RT6} | limited |     0.4015904443 | 0.01577295701
+    9 |  f_{M}^{6} | limited |     0.1270441588 | 0.001100023807
+   10 | mean_{RT}^{6} | limited |      5.277399337 | 0.001312251085
+   11 | n_{RT1}^{6} | limited |      7.200310588 | 0.6793517519
+   12 | n_{RT2}^{6} | limited |      2.782653432 | 0.4324212637
+   13 | n_{WT1}^{6} | limited |      10.29124416 |  1.961528244
+   14 | n_{WT2}^{6} |  fixed  |      26.19954445 |   7.25914831
+   15 |       nbkg | limited |      562.5255534 |  39.32578596
+   16 |      slope | limited |     -5.391106155 | 0.5084711742
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 14: n_{WT2}^{6} = 26.2433
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.258864 Edm =   2.086071912e-10 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.258864 Edm =   2.086071912e-10 NCalls =     33
+Minuit2:0: RuntimeWarning: VariableMetricBuilder No improvement in line search
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.258864 Edm =   2.086071912e-10 NCalls =     35
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.258864 Edm =   2.086071912e-10 NCalls =     35 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |       1.22831725 | 0.04243845953
+    1 | #alpha_{RT2}^{6} | limited |     -2.936079181 | 0.06836956923
+    2 | #alpha_{WT1}^{6} | limited |      0.990076992 | 0.0373851958
+    3 | #alpha_{WT2}^{6} | limited |      1.336741188 | 0.06253005861
+    4 | #sigma_{RT1}^{6} | limited |    0.02480425561 | 0.0004007381031
+    5 | #sigma_{RT2}^{6} | limited |    0.04064920954 | 0.0002560384093
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969233 | 0.0008821758302
+    7 |      Yield | limited |      970.6701899 |  33.90699735
+    8 |    f^{RT6} | limited |     0.4015904443 | 0.01577295701
+    9 |  f_{M}^{6} | limited |     0.1270441588 | 0.001100023807
+   10 | mean_{RT}^{6} | limited |      5.277399337 | 0.001312251085
+   11 | n_{RT1}^{6} | limited |      7.200310588 | 0.6793517519
+   12 | n_{RT2}^{6} | limited |      2.782653432 | 0.4324212637
+   13 | n_{WT1}^{6} | limited |      10.29124416 |  1.961528244
+   14 | n_{WT2}^{6} |  fixed  |       26.2432519 |   7.25914831
+   15 |       nbkg | limited |      562.5255534 |  39.32578596
+   16 |      slope | limited |     -5.391106155 | 0.5084711742
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter n_{WT2}^{6}
+Minos: Lower error for parameter n_{WT2}^{6}  :  -7.30285
+Minos: Upper error for parameter n_{WT2}^{6}  :  7.30286
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #15 : nbkg using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 15
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 15: nbkg = 523.278
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.231038 Edm =   0.0001463910476 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.231038 Edm =   0.0001463910476 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.231173 Edm =   1.475411883e-07 NCalls =     67
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.231173 Edm =   1.475411883e-07 NCalls =     67 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.226470241 | 0.04243149466
+    1 | #alpha_{RT2}^{6} | limited |     -2.935811507 | 0.06838051223
+    2 | #alpha_{WT1}^{6} | limited |     0.9900770861 | 0.03739180379
+    3 | #alpha_{WT2}^{6} | limited |       1.33674138 | 0.06254528223
+    4 | #sigma_{RT1}^{6} | limited |    0.02481377374 | 0.0004010260094
+    5 | #sigma_{RT2}^{6} | limited |    0.04065586716 | 0.0002559261797
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969475 | 0.0008851758192
+    7 |      Yield | limited |      974.8010233 |   33.5603163
+    8 |    f^{RT6} | limited |     0.4013644098 | 0.01576011655
+    9 |  f_{M}^{6} | limited |     0.1270441603 | 0.001100030723
+   10 | mean_{RT}^{6} | limited |      5.277329966 | 0.00130975862
+   11 | n_{RT1}^{6} | limited |      7.180989392 | 0.6791548069
+   12 | n_{RT2}^{6} | limited |      2.781879433 | 0.4364920337
+   13 | n_{WT1}^{6} | limited |      10.29127744 |  1.961604018
+   14 | n_{WT2}^{6} | limited |      18.93805337 |  7.258832651
+   15 |       nbkg |  fixed  |      523.2776353 |  39.24418691
+   16 |      slope | limited |     -5.247194031 | 0.4547359994
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 15: nbkg = 524.321
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259544 Edm =   5.022126185e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259544 Edm =   5.022126185e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259593 Edm =   1.044063523e-09 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.259593 Edm =   1.044063523e-09 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.226512688 | 0.04242907022
+    1 | #alpha_{RT2}^{6} | limited |     -2.935816892 | 0.06838022081
+    2 | #alpha_{WT1}^{6} | limited |     0.9900770045 | 0.03739180264
+    3 | #alpha_{WT2}^{6} | limited |      1.336741213 | 0.06254527946
+    4 | #sigma_{RT1}^{6} | limited |    0.02481353908 | 0.0004010058507
+    5 | #sigma_{RT2}^{6} | limited |    0.04065570242 | 0.0002559001101
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969261 | 0.000885175809
+    7 |      Yield | limited |      974.6939622 |  33.52000449
+    8 |    f^{RT6} | limited |     0.4013706927 | 0.01575938009
+    9 |  f_{M}^{6} | limited |     0.1270441589 | 0.001100030719
+   10 | mean_{RT}^{6} | limited |      5.277331828 | 0.001309637784
+   11 | n_{RT1}^{6} | limited |      7.181404303 | 0.6791751146
+   12 | n_{RT2}^{6} | limited |      2.781888841 | 0.4364923447
+   13 | n_{WT1}^{6} | limited |      10.29124883 |  1.961601872
+   14 | n_{WT2}^{6} | limited |      18.93791017 |  7.258807998
+   15 |       nbkg |  fixed  |      524.3212124 |  39.24418691
+   16 |      slope | limited |     -5.250959874 | 0.4552303873
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter nbkg
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #15 : nbkg using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 15
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 15: nbkg = 601.766
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =       -9600.28399 Edm =   0.0001210378099 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =       -9600.28399 Edm =   0.0001210378099 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.284115 Edm =   4.315440365e-07 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.284115 Edm =   4.315440365e-07 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.229892019 | 0.04240212159
+    1 | #alpha_{RT2}^{6} | limited |     -2.936227059 | 0.06838041697
+    2 | #alpha_{WT1}^{6} | limited |     0.9900770416 | 0.03739179546
+    3 | #alpha_{WT2}^{6} | limited |      1.336741271 | 0.06254525969
+    4 | #sigma_{RT1}^{6} | limited |    0.02479603424 | 0.0004008333854
+    5 | #sigma_{RT2}^{6} | limited |     0.0406438014 | 0.0002559014509
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969232 | 0.0008851757049
+    7 |      Yield | limited |      967.1373513 |  33.71004769
+    8 |    f^{RT6} | limited |      0.401772042 | 0.01577081485
+    9 |  f_{M}^{6} | limited |     0.1270441574 | 0.001100030816
+   10 | mean_{RT}^{6} | limited |        5.2774708 | 0.001310333128
+   11 | n_{RT1}^{6} | limited |      7.216697782 | 0.6798215225
+   12 | n_{RT2}^{6} | limited |       2.78300341 | 0.4365620642
+   13 | n_{WT1}^{6} | limited |      10.29124408 |  1.961585215
+   14 | n_{WT2}^{6} | limited |      18.93791933 |  7.258578607
+   15 |       nbkg |  fixed  |      601.7660091 |  39.24418691
+   16 |      slope | limited |     -5.546153824 | 0.4739403481
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 15: nbkg = 602.796
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259472 Edm =   6.253839481e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259472 Edm =   6.253839481e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259533 Edm =    2.76740011e-09 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.259533 Edm =    2.76740011e-09 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.229928292 | 0.04240508584
+    1 | #alpha_{RT2}^{6} | limited |     -2.936227503 | 0.06838043479
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769745 | 0.03739179406
+    3 | #alpha_{WT2}^{6} | limited |      1.336741154 | 0.0625452568
+    4 | #sigma_{RT1}^{6} | limited |    0.02479585323 | 0.0004008417597
+    5 | #sigma_{RT2}^{6} | limited |    0.04064369971 | 0.0002559117594
+    6 | #sigma_{WT1}^{6} | limited |     0.0533096923 | 0.0008851757047
+    7 |      Yield | limited |      967.0670586 |  33.72064836
+    8 |    f^{RT6} | limited |     0.4017745994 | 0.01577101009
+    9 |  f_{M}^{6} | limited |     0.1270441587 | 0.001100030821
+   10 | mean_{RT}^{6} | limited |      5.277472744 | 0.001310403747
+   11 | n_{RT1}^{6} | limited |      7.217095669 |  0.679840953
+   12 | n_{RT2}^{6} | limited |       2.78299908 | 0.4365615612
+   13 | n_{WT1}^{6} | limited |       10.2912413 |  1.961584917
+   14 | n_{WT2}^{6} | limited |      18.93786351 |  7.258566506
+   15 |       nbkg |  fixed  |      602.7961339 |  39.24418691
+   16 |      slope | limited |     -5.550827985 |  0.474590827
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter nbkg
+Minos: Lower error for parameter nbkg  :  -38.2274
+Minos: Upper error for parameter nbkg  :  40.3023
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS LOWER error for parameter #16 : slope using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of lower Minos error for parameter 16
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 16: slope = -5.8793
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.286729 Edm =   4.617407488e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.286729 Edm =   4.617407488e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.286774 Edm =   2.610645911e-08 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.286774 Edm =   2.610645911e-08 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |          1.22729 | 0.04241068077
+    1 | #alpha_{RT2}^{6} | limited |     -2.933995441 | 0.06831269404
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769957 | 0.03739175942
+    3 | #alpha_{WT2}^{6} | limited |      1.336741195 | 0.06254519595
+    4 | #sigma_{RT1}^{6} | limited |    0.02481152672 | 0.0004010076024
+    5 | #sigma_{RT2}^{6} | limited |    0.04066370832 | 0.000255548688
+    6 | #sigma_{WT1}^{6} | limited |     0.0533096924 | 0.0008851757093
+    7 |      Yield | limited |      977.3643516 |  33.31483018
+    8 |    f^{RT6} | limited |     0.4007621107 | 0.01574003293
+    9 |  f_{M}^{6} | limited |     0.1270441588 | 0.001100030334
+   10 | mean_{RT}^{6} | limited |      5.277520529 | 0.001300499612
+   11 | n_{RT1}^{6} | limited |      7.196078133 | 0.6794437819
+   12 | n_{RT2}^{6} | limited |      2.774589415 | 0.4359547201
+   13 | n_{WT1}^{6} | limited |      10.29124442 |  1.961585025
+   14 | n_{WT2}^{6} | limited |      18.93787617 |  7.258024223
+   15 |       nbkg | limited |      574.8412713 |  38.19247325
+   16 |      slope |  fixed  |     -5.879302013 | 0.4883136012
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 16: slope = -5.89353
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259609 Edm =   8.683999325e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259609 Edm =   8.683999325e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259696 Edm =   1.211419637e-08 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.259696 Edm =   1.211419637e-08 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |       1.22725649 | 0.04240194829
+    1 | #alpha_{RT2}^{6} | limited |     -2.933923847 | 0.06828602063
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769101 | 0.03739175688
+    3 | #alpha_{WT2}^{6} | limited |      1.336741044 | 0.06254519092
+    4 | #sigma_{RT1}^{6} | limited |    0.02481174385 | 0.0004010017976
+    5 | #sigma_{RT2}^{6} | limited |    0.04066415176 | 0.0002554392737
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969186 | 0.0008851757035
+    7 |      Yield | limited |      977.5632923 |  33.25117818
+    8 |    f^{RT6} | limited |     0.4007374444 | 0.0157369759
+    9 |  f_{M}^{6} | limited |     0.1270441603 | 0.001100030327
+   10 | mean_{RT}^{6} | limited |      5.277523983 | 0.00130050857
+   11 | n_{RT1}^{6} | limited |      7.195915395 | 0.6794087181
+   12 | n_{RT2}^{6} | limited |      2.774289064 | 0.4358259975
+   13 | n_{WT1}^{6} | limited |      10.29123938 |  1.961584487
+   14 | n_{WT2}^{6} | limited |      18.93781969 |  7.258011212
+   15 |       nbkg | limited |      575.2137648 |  38.40879027
+   16 |      slope |  fixed  |     -5.893529297 | 0.4883136012
+Info in <Minuit2>: MnMinos end of Minos scan for low interval for parameter slope
+******************************************************************************************************
+Minuit2Minimizer::GetMinosError - Run MINOS UPPER error for parameter #16 : slope using max-calls 8500, tolerance 1
+Info in <Minuit2>: MnMinos Determination of upper Minos error for parameter 16
+Info in <Minuit2>: MnFunctionCross Run Migrad with fixed parameters:
+  Pos 16: slope = -4.90267
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.230602 Edm =   5.683387166e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.230602 Edm =   5.683387166e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.230657 Edm =   3.960086453e-08 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after Migrad FCN =      -9600.230657 Edm =   3.960086453e-08 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |       1.22918526 | 0.0424740773
+    1 | #alpha_{RT2}^{6} | limited |     -2.937798171 | 0.06838695566
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769964 | 0.03739180514
+    3 | #alpha_{WT2}^{6} | limited |      1.336741195 | 0.06254527753
+    4 | #sigma_{RT1}^{6} | limited |    0.02479744136 | 0.000400944731
+    5 | #sigma_{RT2}^{6} | limited |    0.04063563715 | 0.0002556749154
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969221 | 0.0008851757302
+    7 |      Yield | limited |      964.1218094 |  33.07746409
+    8 |    f^{RT6} | limited |      0.402399983 | 0.01575130299
+    9 |  f_{M}^{6} | limited |     0.1270441587 | 0.001100031451
+   10 | mean_{RT}^{6} | limited |      5.277267305 | 0.001310018499
+   11 | n_{RT1}^{6} | limited |      7.202875333 | 0.6800328099
+   12 | n_{RT2}^{6} | limited |      2.789113153 | 0.4369808375
+   13 | n_{WT1}^{6} | limited |      10.29124397 |  1.961596147
+   14 | n_{WT2}^{6} | limited |      18.93787306 |  7.258816435
+   15 |       nbkg | limited |      550.8388025 |  36.50552472
+   16 |      slope |  fixed  |     -4.902674811 | 0.4883136012
+Info in <Minuit2>: MnFunctionCross Run Migrad again (2nd) with fixed parameters:
+  Pos 16: slope = -4.91589
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -9600.259544 Edm =   6.459569132e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.0005 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -9600.259544 Edm =   6.459569132e-05 NCalls =     33
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -9600.259609 Edm =   4.233519936e-09 NCalls =     66
+Info in <Minuit2>: MnFunctionCross Result after 2nd Migrad FCN =      -9600.259609 Edm =   4.233519936e-09 NCalls =     66 
+  Pos |    Name    |  type   |      Value       |    Error +/-
+    0 | #alpha_{RT1}^{6} | limited |      1.229164873 | 0.04247792583
+    1 | #alpha_{RT2}^{6} | limited |     -2.937759487 | 0.06839965741
+    2 | #alpha_{WT1}^{6} | limited |     0.9900769729 | 0.03739180464
+    3 | #alpha_{WT2}^{6} | limited |      1.336741161 | 0.06254527673
+    4 | #sigma_{RT1}^{6} | limited |    0.02479761843 | 0.000400954392
+    5 | #sigma_{RT2}^{6} | limited |    0.04063598706 | 0.0002557454776
+    6 | #sigma_{WT1}^{6} | limited |    0.05330969246 | 0.0008851757318
+    7 |      Yield | limited |      964.2936485 |  33.14411287
+    8 |    f^{RT6} | limited |     0.4023785954 | 0.01575310608
+    9 |  f_{M}^{6} | limited |       0.12704416 | 0.001100031445
+   10 | mean_{RT}^{6} | limited |      5.277270916 | 0.001310477298
+   11 | n_{RT1}^{6} | limited |      7.202835802 | 0.6800356289
+   12 | n_{RT2}^{6} | limited |      2.788979372 |  0.437007306
+   13 | n_{WT1}^{6} | limited |      10.29125043 |  1.961596603
+   14 | n_{WT2}^{6} | limited |      18.93790799 |    7.2588223
+   15 |       nbkg | limited |      551.1392137 |  36.40704385
+   16 |      slope |  fixed  |     -4.915892194 | 0.4883136012
+Info in <Minuit2>: MnMinos end of Minos scan for up interval for parameter slope
+Minos: Lower error for parameter slope  :  -0.502978
+Minos: Upper error for parameter slope  :  0.475436
+
+  RooFitResult: minimized FCN value: -9600.76, estimated distance to minimum: 8.0403e-11
+                covariance matrix quality: Full, accurate covariance matrix
+                Status : MINIMIZE=0 HESSE=0 MINOS=0 
+
+    Floating Parameter    FinalValue +/-  Error   
+  --------------------  --------------------------
+      #alpha_{RT1}^{6}    1.2283e+00 +/-  4.25e-02
+      #alpha_{RT2}^{6}   -2.9361e+00 +/-  6.84e-02
+      #alpha_{WT1}^{6}    9.9008e-01 +/-  3.74e-02
+      #alpha_{WT2}^{6}    1.3367e+00 +/-  6.25e-02
+      #sigma_{RT1}^{6}    2.4804e-02 +/-  4.01e-04
+      #sigma_{RT2}^{6}    4.0649e-02 +/-  2.56e-04
+      #sigma_{WT1}^{6}    5.3310e-02 +/-  8.85e-04
+                 Yield    9.7067e+02 +/-  3.38e+01
+               f^{RT6}    4.0159e-01 +/-  1.58e-02
+             f_{M}^{6}    1.2704e-01 +/-  1.10e-03
+         mean_{RT}^{6}    5.2774e+00 +/-  1.31e-03
+           n_{RT1}^{6}    7.2004e+00 +/-  6.80e-01
+           n_{RT2}^{6}    2.7827e+00 +/-  4.37e-01
+           n_{WT1}^{6}    1.0292e+01 +/-  1.96e+00
+           n_{WT2}^{6}    1.8940e+01 +/-  7.26e+00
+                  nbkg    5.6252e+02 +/-  3.92e+01
+                 slope   -5.3910e+00 +/-  4.88e-01
+
+
+17x17 matrix is as follows
+
+     |       0    |       1    |       2    |       3    |       4    |
+----------------------------------------------------------------------
+   0 |          1   -0.001123  -7.217e-07  -7.217e-07      0.0263 
+   1 |  -0.001123           1   2.395e-06   2.395e-06    0.001013 
+   2 | -7.217e-07   2.395e-06           1   1.291e-08   1.593e-05 
+   3 | -7.217e-07   2.395e-06   1.291e-08           1   1.593e-05 
+   4 |     0.0263    0.001013   1.593e-05   1.593e-05           1 
+   5 |    0.00972   0.0005232   1.969e-05   1.969e-05    -0.01357 
+   6 | -1.432e-05  -1.564e-05   -3.88e-05  -3.879e-05  -2.825e-07 
+   7 |   -0.03599     0.01321   1.865e-05   1.865e-05     0.02179 
+   8 |   -0.01753   -0.003115  -1.908e-05  -1.908e-05     0.04149 
+   9 |  1.268e-06  -2.298e-06  -1.232e-08  -1.232e-08  -1.722e-05 
+  10 |   -0.09591    0.000423   8.425e-06   8.424e-06   -0.004497 
+  11 |  -0.008477  -0.0004908  -3.901e-05  -3.901e-05      0.0068 
+  12 |  0.0005911   -0.002466   1.408e-05   1.408e-05  -0.0006627 
+  13 |  -1.51e-05  -1.554e-05  -3.866e-05  -3.865e-05  -3.126e-05 
+  14 | -3.566e-06   1.183e-05   6.379e-08   6.379e-08    7.87e-05 
+  15 |    0.04027   -0.003045   2.402e-05   2.402e-05    -0.02207 
+  16 |    0.02237    -0.02764  -8.656e-05  -8.655e-05    -0.01777 
+
+
+     |       5    |       6    |       7    |       8    |       9    |
+----------------------------------------------------------------------
+   0 |    0.00972  -1.432e-05    -0.03599    -0.01753   1.268e-06 
+   1 |  0.0005232  -1.564e-05     0.01321   -0.003115  -2.298e-06 
+   2 |  1.969e-05   -3.88e-05   1.865e-05  -1.908e-05  -1.232e-08 
+   3 |  1.969e-05  -3.879e-05   1.865e-05  -1.908e-05  -1.232e-08 
+   4 |   -0.01357  -2.825e-07     0.02179     0.04149  -1.722e-05 
+   5 |          1  -2.748e-07     0.03738     0.01344  -2.011e-05 
+   6 | -2.748e-07           1  -1.052e-05  -3.133e-08    3.88e-05 
+   7 |    0.03738  -1.052e-05           1     -0.0291  -1.775e-05 
+   8 |    0.01344  -3.133e-08     -0.0291           1  -1.208e-05 
+   9 | -2.011e-05    3.88e-05  -1.775e-05  -1.208e-05           1 
+  10 |  0.0007346  -1.513e-05    0.003084     0.03358  -9.472e-06 
+  11 |    0.00279   3.341e-07    -0.02013  -0.0007616   3.904e-05 
+  12 |  7.952e-05   8.747e-08   -0.007839    0.001244  -1.412e-05 
+  13 |  1.443e-07   4.223e-08  -1.092e-05  -1.356e-06   3.866e-05 
+  14 |  9.728e-05  -0.0001917   9.217e-05  -9.426e-05  -6.086e-08 
+  15 |   -0.02356  -1.666e-05     -0.1132     0.01294  -2.443e-05 
+  16 |   -0.05492   9.275e-06     -0.1963     0.05198   8.495e-05 
+
+
+     |      10    |      11    |      12    |      13    |      14    |
+----------------------------------------------------------------------
+   0 |   -0.09591   -0.008477   0.0005911   -1.51e-05  -3.566e-06 
+   1 |   0.000423  -0.0004908   -0.002466  -1.554e-05   1.183e-05 
+   2 |  8.425e-06  -3.901e-05   1.408e-05  -3.866e-05   6.379e-08 
+   3 |  8.424e-06  -3.901e-05   1.408e-05  -3.865e-05   6.379e-08 
+   4 |  -0.004497      0.0068  -0.0006627  -3.126e-05    7.87e-05 
+   5 |  0.0007346     0.00279   7.952e-05   1.443e-07   9.728e-05 
+   6 | -1.513e-05   3.341e-07   8.747e-08   4.223e-08  -0.0001917 
+   7 |   0.003084    -0.02013   -0.007839  -1.092e-05   9.217e-05 
+   8 |    0.03358  -0.0007616    0.001244  -1.356e-06  -9.426e-05 
+   9 | -9.472e-06   3.904e-05  -1.412e-05   3.866e-05  -6.086e-08 
+  10 |          1    -0.02128   0.0002945  -1.495e-05   4.163e-05 
+  11 |   -0.02128           1   0.0002335   1.149e-07  -0.0001928 
+  12 |  0.0002945   0.0002335           1  -3.081e-05   6.957e-05 
+  13 | -1.495e-05   1.149e-07  -3.081e-05           1   -0.000191 
+  14 |  4.163e-05  -0.0001928   6.957e-05   -0.000191           1 
+  15 |    0.05369     0.02624    0.001292  -1.595e-05   0.0001187 
+  16 |   -0.09655    0.004955     0.01648   9.283e-06  -0.0004277 
+
+
+     |      15    |      16    |
+----------------------------------------------------------------------
+   0 |    0.04027     0.02237 
+   1 |  -0.003045    -0.02764 
+   2 |  2.402e-05  -8.656e-05 
+   3 |  2.402e-05  -8.655e-05 
+   4 |   -0.02207    -0.01777 
+   5 |   -0.02356    -0.05492 
+   6 | -1.666e-05   9.275e-06 
+   7 |    -0.1132     -0.1963 
+   8 |    0.01294     0.05198 
+   9 | -2.443e-05   8.495e-05 
+  10 |    0.05369    -0.09655 
+  11 |    0.02624    0.004955 
+  12 |   0.001292     0.01648 
+  13 | -1.595e-05   9.283e-06 
+  14 |  0.0001187  -0.0004277 
+  15 |          1     -0.3062 
+  16 |    -0.3062           1 
+
+ibin and Yield
+6
+Info in <TCanvas::Print>: pdf file fit_results_mass_checkOnMC/newbdt_puw/save_fit_data_6_2018_LMNR_newSigmaFRT__asInANv8.pdf has been created
+Info in <TCanvas::Print>: pdf file tgraph_yields1.pdf has been created
+RooRealVar::Yield = 970.668 +/- (-33.5251,34.1746)  L(0 - 1e+06) 
+
+c_theWTgauss6  -----> plotting  
+c_theRTgauss6  -----> plotting  
+bkg_exp  -----> plotting  
+ --------------------------------------------------------------------------------------------------- 
+dimuon selection:  keepPsiP
+tgraph_y
+[0, 0, 0, 0, 0, 0, 970.6683268992933, 0]
+MC_num_entries
+[0, 0, 0, 0, 0, 0, 219955.0, 0]
+MC_num_entries_error
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 468.99360336789243, 0.0]
+tgraph_yield created
+Info in <TCanvas::Print>: pdf file tgraph_efficiencies.pdf has been created
+Name: Yields Title: Graph
+tgraph_efficiency created
+Name: Efficiencies_num Title: Graph
+tgraph_x
+1
+2
+[1, 3.15, 5.15, 7.34, 9.385, 11.475, 13.52, 15.09]
+
+RooWorkspace(w) w contents
+
+variables
+---------
+(#alpha_{RT1}^{6},#alpha_{RT2}^{6},#alpha_{WT1}^{6},#alpha_{WT2}^{6},#sigma_{RT1}^{6},#sigma_{RT2}^{6},#sigma_{WT1}^{6},Yield,f^{RT6},f_{M}^{6},mean_{RT}^{6},mean_{WT}^{6},nRT_6,nWT_6,n_{RT1}^{6},n_{RT2}^{6},n_{WT1}^{6},n_{WT2}^{6},nbkg,slope,tagged_mass)
+
+p.d.f.s
+-------
+RooExponential::bkg_exp[ x=slope c=tagged_mass ] = 3.90153e-13
+RooGaussian::c_#alpha_{RT1}^{6}[ x=#alpha_{RT1}^{6} mean=1.23146 sigma=0.0426419 ] = 0.997297
+RooGaussian::c_#alpha_{RT2}^{6}[ x=#alpha_{RT2}^{6} mean=-2.93976 sigma=0.0680141 ] = 0.998541
+RooGaussian::c_#alpha_{WT1}^{6}[ x=#alpha_{WT1}^{6} mean=0.990078 sigma=0.0373924 ] = 1
+RooGaussian::c_#alpha_{WT2}^{6}[ x=#alpha_{WT2}^{6} mean=1.33674 sigma=0.0625496 ] = 1
+RooGaussian::c_#sigma_{RT1}^{6}[ x=#sigma_{RT1}^{6} mean=0.0247306 sigma=0.000405623 ] = 0.983633
+RooGaussian::c_#sigma_{RT2}^{6}[ x=#sigma_{RT2}^{6} mean=0.0405597 sigma=0.000258341 ] = 0.941764
+RooGaussian::c_#sigma_{WT1}^{6}[ x=#sigma_{WT1}^{6} mean=0.0533097 sigma=0.000885165 ] = 1
+RooGaussian::c_f^{RT6}[ x=f^{RT6} mean=0.41124 sigma=0.0161275 ] = 0.836124
+RooGaussian::c_fm6[ x=f_{M}^{6} mean=0.127044 sigma=0.0011 ] = 1
+RooGaussian::c_n_{RT1}^{6}[ x=n_{RT1}^{6} mean=7.16552 sigma=0.684174 ] = 0.998703
+RooGaussian::c_n_{RT2}^{6}[ x=n_{RT2}^{6} mean=2.78381 sigma=0.437189 ] = 0.999997
+RooGaussian::c_n_{WT1}^{6}[ x=n_{WT1}^{6} mean=10.2916 sigma=1.96292 ] = 1
+RooGaussian::c_n_{WT2}^{6}[ x=n_{WT2}^{6} mean=18.9404 sigma=7.30285 ] = 1
+RooProdPdf::c_theRTgauss6[ c_#sigma_{RT1}^{6} * c_#sigma_{RT2}^{6} * c_#alpha_{RT1}^{6} * c_#alpha_{RT2}^{6} * c_n_{RT1}^{6} * c_n_{RT2}^{6} * c_f^{RT6} * doublecb_RT6 ] = 0.599207
+RooProdPdf::c_theWTgauss6[ c_#sigma_{WT1}^{6} * c_#alpha_{WT1}^{6} * c_#alpha_{WT2}^{6} * c_n_{WT1}^{6} * c_n_{WT2}^{6} * doublecb_RT6 ] = 0.777868
+RooCBShape::cbshape_RT1_6[ m=tagged_mass m0=mean_{RT}^{6} sigma=#sigma_{RT1}^{6} alpha=#alpha_{RT1}^{6} n=n_{RT1}^{6} ] = 0.660269
+RooCBShape::cbshape_RT2_6[ m=tagged_mass m0=mean_{RT}^{6} sigma=#sigma_{RT2}^{6} alpha=#alpha_{RT2}^{6} n=n_{RT2}^{6} ] = 0.856788
+RooDoubleCBFast::doublecb_6[ x=tagged_mass mean=mean_{WT}^{6} width=#sigma_{WT1}^{6} alpha1=#alpha_{WT1}^{6} n1=n_{WT1}^{6} alpha2=#alpha_{WT2}^{6} n2=n_{WT2}^{6} ] = 0.89825
+RooAddPdf::doublecb_RT6[ f^{RT6} * cbshape_RT1_6 + [%] * cbshape_RT2_6 ] = 0.777868
+RooAddPdf::sumgaus6[ f_{M}^{6} * c_theWTgauss6 + [%] * c_theRTgauss6 ] = 0.621905
+RooProdPdf::totalFunction6[ c_fm6 * totpdf6 ] = 0.39373
+RooAddPdf::totpdf6[ Yield * sumgaus6 + nbkg * bkg_exp ] = 0.39373
+
+parameter snapshots
+-------------------
+reference_fit_RT_6 = (mean_{RT}^{6}=5.27948 +/- 0.000122324,#sigma_{RT1}^{6}=0.0247306 +/- 0.000405623,#alpha_{RT1}^{6}=1.23146 +/- 0.0426419,n_{RT1}^{6}=7.16552 +/- 0.684174,#sigma_{RT2}^{6}=0.0405597 +/- 0.000258341,#alpha_{RT2}^{6}=-2.93976 +/- 0.0680141,n_{RT2}^{6}=2.78381 +/- 0.437189,f^{RT6}=0.41124 +/- 0.0161275)
+reference_fit_WT_6 = (mean_{WT}^{6}=5.2753 +/- 0.000573653,#sigma_{WT1}^{6}=0.0533097 +/- 0.000885165,#alpha_{WT1}^{6}=0.990078 +/- 0.0373924,n_{WT1}^{6}=10.2916 +/- 1.96292,#alpha_{WT2}^{6}=1.33674 +/- 0.0625496,n_{WT2}^{6}=18.9404 +/- 7.30285)
+reference_fit_data_6 = (mean_{RT}^{6}=5.2774 +/- (-0.00131244,0.00131093),#sigma_{RT1}^{6}=0.0248043 +/- (-0.000400976,0.000401099),#alpha_{RT1}^{6}=1.22832 +/- (-0.0424066,0.0425022),n_{RT1}^{6}=7.20038 +/- (-0.679261,0.68025),#sigma_{RT2}^{6}=0.0406492 +/- (-0.000255962,0.000255971),#alpha_{RT2}^{6}=-2.93608 +/- (-0.0682686,0.0683312),n_{RT2}^{6}=2.78273 +/- (-0.436334,0.436734),f^{RT6}=0.401591 +/- (-0.0157695,0.0157696),#sigma_{WT1}^{6}=0.0533097 +/- (-0.000885165,0.000885165),#alpha_{WT1}^{6}=0.990078 +/- (-0.0373924,0.0373924),n_{WT1}^{6}=10.2916 +/- (-1.96292,1.96292),#alpha_{WT2}^{6}=1.33674 +/- (-0.0625496,0.0625496),n_{WT2}^{6}=18.9404 +/- (-7.30285,7.30286))
+
+named sets
+----------
+
+--------------------------------------------------------------------------------------------------- 
+bin		 fit status 	 cov. matrix 		 chi2
+It took 182.277231932 seconds
+3.03795459668 minutes
+0.0506325777372 hours

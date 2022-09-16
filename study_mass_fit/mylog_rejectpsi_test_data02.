@@ -1,0 +1,25 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+yields
+[266.24961202947884, 457.4291188016444, 360.8221403914036, 792.7427824641064, 266.24961202947884, 1200.496289495756, 266.24961202947884, 1.3179568547627696e-05]
+266.249612029
+457.429118802
+360.822140391
+792.742782464
+266.249612029
+1200.4962895
+266.249612029
+1.31795685476e-05
+efficiency
+[0.6622191898516665, 0.7312060886362113, 0.6724318378774748, 0.8810242803602231, 0.1251126412416735, 0.8713353027331628, 0.01441183611774634, 0.8600495173817464]
+branch_f
+[275.8368513207223, 81.1322277100787, 127.38319348774068, 85.94881551618387, 734.3694985161709, 61964.48053362134, 3658884.0392843294, 0.0015964738166416967]
+[275.8368513207223, 81.1322277100787, 127.38319348774068, 85.94881551618387, 0.7343694985161708, 61.96448053362134, 3.6588840392843296, 0.0015964738166416967]
+Traceback (most recent call last):
+  File "branch_frac.py", line 164, in <module>
+    arr_tgraph_ex = array.array('d',tgraph_ex)
+TypeError: 'float' object is not iterable

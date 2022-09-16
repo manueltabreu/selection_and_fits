@@ -1,0 +1,439 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+start function declaration
+mc file name: /lstore/cms/boletti/Run2-BdToKstarMuMu/2018MC_PSI_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root
+data file name: /lstore/cms/boletti/Run2-BdToKstarMuMu/2018data_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root
+reading data...
+[#0] ERROR:InputArguments -- Didn't find a branch in Tree 'ntuple' to read variable 'weight' from.
+	Note: Name the RooFit variable the same as the branch.
+reading monte carlo...
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+dimuon selection:  keepPsiP
+now fitting:  6  for  correctTag  
+fitting the mc...
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 #alpha_{RT1}^{6}   1.50000e+00  7.50000e-01    0.00000e+00  1.00000e+01
+     2 #alpha_{RT2}^{6}  -2.00000e+00  1.00000e+00   -1.00000e+01  0.00000e+00
+     3 #sigma_{RT1}^{6}   2.80000e-02  1.40000e-02    0.00000e+00  1.00000e+00
+     4 #sigma_{RT2}^{6}   4.80000e-02  2.40000e-02    0.00000e+00  1.00000e+00
+     5 f^{RT6}      8.00000e-01  1.00000e-01    0.00000e+00  1.00000e+00
+     6 mean_{RT}^{6}   5.27958e+00  3.97900e-02    5.20000e+00  5.80000e+00
+     7 n_{RT1}^{6}   1.00000e+00  4.99500e-01    1.00000e-03  2.00000e+02
+     8 n_{RT2}^{6}   1.00000e+00  4.99500e-01    1.00000e-03  2.00000e+02
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        4000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-347762 FROM MIGRAD    STATUS=INITIATE       36 CALLS          37 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{RT1}^{6}   1.50000e+00   7.50000e-01   2.16811e-01  -8.16858e+04
+   2  #alpha_{RT2}^{6}  -2.00000e+00   1.00000e+00   2.57889e-01   1.18991e+04
+   3  #sigma_{RT1}^{6}   2.80000e-02   1.40000e-02   8.78020e-02  -2.78353e+04
+   4  #sigma_{RT2}^{6}   4.80000e-02   2.40000e-02   1.16111e-01   1.40787e+04
+   5  f^{RT6}      8.00000e-01   1.00000e-01   2.57889e-01   5.18928e+03
+   6  mean_{RT}^{6}   5.27958e+00   3.97900e-02   2.01879e-01  -5.57319e+04
+   7  n_{RT1}^{6}   1.00000e+00   4.99500e-01   3.66720e-02  -2.06343e+05
+   8  n_{RT2}^{6}   1.00000e+00   4.99500e-01   3.66720e-02  -1.74314e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-359815 FROM MIGRAD    STATUS=CONVERGED     631 CALLS         632 TOTAL
+                     EDM=0.000139761    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{RT1}^{6}   1.23152e+00   4.26483e-02   1.27029e-03   3.79725e-01
+   2  #alpha_{RT2}^{6}  -2.93967e+00   6.80138e-02   3.15775e-03  -2.06713e-01
+   3  #sigma_{RT1}^{6}   2.47308e-02   4.05568e-04   3.45923e-04   1.83686e+00
+   4  #sigma_{RT2}^{6}   4.05594e-02   2.58331e-04   2.15653e-04   7.49261e-01
+   5  f^{RT6}      4.11215e-01   1.61257e-02   3.91790e-03  -1.56953e-01
+   6  mean_{RT}^{6}   5.27948e+00   1.22332e-04   1.67129e-04   2.62407e+00
+   7  n_{RT1}^{6}   7.16389e+00   6.84005e-01   2.50591e-03   3.32003e-01
+   8  n_{RT2}^{6}   2.78412e+00   4.37220e-01   4.00192e-03   7.04581e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  1.819e-03 -1.082e-04  9.187e-06  6.945e-06  2.698e-04 -3.566e-06 -1.998e-02 -2.689e-04 
+ -1.082e-04  4.626e-03  2.172e-06 -8.906e-07  6.705e-05  2.021e-07  3.672e-03  2.532e-02 
+  9.187e-06  2.172e-06  1.645e-07  6.611e-08  5.687e-06 -1.142e-08  4.234e-05  4.658e-06 
+  6.945e-06 -8.906e-07  6.611e-08  6.673e-08  3.274e-06 -9.814e-09 -1.226e-05 -2.817e-06 
+  2.698e-04  6.705e-05  5.687e-06  3.274e-06  2.601e-04 -1.127e-07  3.242e-03  1.226e-04 
+ -3.566e-06  2.021e-07 -1.142e-08 -9.814e-09 -1.127e-07  1.497e-08  4.525e-05  2.548e-07 
+ -1.998e-02  3.672e-03  4.234e-05 -1.226e-05  3.242e-03  4.525e-05  4.679e-01  7.969e-03 
+ -2.689e-04  2.532e-02  4.658e-06 -2.817e-06  1.226e-04  2.548e-07  7.969e-03  1.912e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.97175   1.000 -0.037  0.531  0.630  0.392 -0.683 -0.685 -0.014
+        2  0.85973  -0.037  1.000  0.079 -0.051  0.061  0.024  0.079  0.851
+        3  0.94751   0.531  0.079  1.000  0.631  0.869 -0.230  0.153  0.026
+        4  0.91758   0.630 -0.051  0.631  1.000  0.786 -0.311 -0.069 -0.025
+        5  0.95745   0.392  0.061  0.869  0.786  1.000 -0.057  0.294  0.017
+        6  0.74160  -0.683  0.024 -0.230 -0.311 -0.057  1.000  0.541  0.005
+        7  0.94396  -0.685  0.079  0.153 -0.069  0.294  0.541  1.000  0.027
+        8  0.85556  -0.014  0.851  0.026 -0.025  0.017  0.005  0.027  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        4000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-359815 FROM HESSE     STATUS=OK             61 CALLS         693 TOTAL
+                     EDM=0.000146338    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  #alpha_{RT1}^{6}   1.23152e+00   4.98494e-02   5.08116e-05  -8.53667e-01
+   2  #alpha_{RT2}^{6}  -2.93967e+00   6.99816e-02   1.26310e-04   4.24721e-01
+   3  #sigma_{RT1}^{6}   2.47308e-02   4.24311e-04   1.38369e-05  -1.25496e+00
+   4  #sigma_{RT2}^{6}   4.05594e-02   2.73167e-04   8.62611e-06  -1.16524e+00
+   5  f^{RT6}      4.11215e-01   1.67291e-02   1.56716e-04  -1.78516e-01
+   6  mean_{RT}^{6}   5.27948e+00   1.32836e-04   3.34258e-05  -8.25751e-01
+   7  n_{RT1}^{6}   7.16389e+00   7.87332e-01   1.00237e-04  -1.19000e+00
+   8  n_{RT2}^{6}   2.78412e+00   4.50239e-01   1.60077e-04  -1.33432e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  8    ERR DEF=0.5
+  2.485e-03 -2.006e-04  1.141e-05  8.994e-06  3.222e-04 -4.898e-06 -2.942e-02 -6.331e-04 
+ -2.006e-04  4.898e-03  1.577e-06 -1.365e-06  4.390e-05  3.543e-07  4.529e-03  2.710e-02 
+  1.141e-05  1.577e-06  1.800e-07  7.648e-08  6.219e-06 -1.546e-08  2.320e-05  9.129e-07 
+  8.994e-06 -1.365e-06  7.648e-08  7.462e-08  3.591e-06 -1.375e-08 -3.587e-05 -5.490e-06 
+  3.222e-04  4.390e-05  6.219e-06  3.591e-06  2.800e-04 -2.005e-07  3.047e-03 -3.888e-05 
+ -4.898e-06  3.543e-07 -1.546e-08 -1.375e-08 -2.005e-07  1.765e-08  6.477e-05  7.333e-07 
+ -2.942e-02  4.529e-03  2.320e-05 -3.587e-05  3.047e-03  6.477e-05  6.200e-01  9.169e-03 
+ -6.331e-04  2.710e-02  9.129e-07 -5.490e-06 -3.888e-05  7.333e-07  9.169e-03  2.027e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8
+        1  0.97941   1.000 -0.057  0.539  0.660  0.386 -0.740 -0.749 -0.028
+        2  0.86803  -0.057  1.000  0.053 -0.071  0.037  0.038  0.082  0.860
+        3  0.95216   0.539  0.053  1.000  0.660  0.876 -0.274  0.069  0.005
+        4  0.92663   0.660 -0.071  0.660  1.000  0.786 -0.379 -0.167 -0.045
+        5  0.96053   0.386  0.037  0.876  0.786  1.000 -0.090  0.231 -0.005
+        6  0.78634  -0.740  0.038 -0.274 -0.379 -0.090  1.000  0.619  0.012
+        7  0.95800  -0.749  0.082  0.069 -0.167  0.231  0.619  1.000  0.026
+        8  0.86433  -0.028  0.860  0.005 -0.045 -0.005  0.012  0.026  1.000
+fit status:  0 3
+doublecb_RT6  -----> plotting  
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+cbshape_RT1_6  -----> plotting  
+cbshape_RT2_6  -----> plotting  
+setting nRT to  192011.0
+Info in <TCanvas::Print>: pdf file fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_6_2018_RT_newSigmaFRT_asInANv8.pdf has been created
+now fitting:  6  for   wrongTag
+fitting the mc...
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 #alpha_{WT1}^{6}   5.00000e-01  2.50000e-01    0.00000e+00  1.00000e+01
+     2 #alpha_{WT2}^{6}   2.50000e+00  1.00000e+00    0.00000e+00  1.00000e+01
+     3 #sigma_{WT1}^{6}   3.00000e-02  1.50000e-02    0.00000e+00  1.00000e+00
+     4 mean_{WT}^{6}   5.27958e+00  1.00000e-01    5.00000e+00  6.00000e+00
+     5 n_{WT1}^{6}   1.00000e+00  4.95000e-01    1.00000e-02  1.00000e+02
+     6 n_{WT2}^{6}   1.00000e+00  4.95000e-01    1.00000e-02  1.00000e+02
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        3000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-23164.4 FROM MIGRAD    STATUS=INITIATE       24 CALLS          25 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{6}   5.00000e-01   2.50000e-01   1.18625e-01  -2.73772e+04
+   2  #alpha_{WT2}^{6}   2.50000e+00   1.00000e+00   2.35352e-01   1.82688e+04
+   3  #sigma_{WT1}^{6}   3.00000e-02   1.50000e-02   9.09734e-02  -5.93186e+04
+   4  mean_{WT}^{6}   5.27958e+00   1.00000e-01   2.26180e-01  -1.09005e+05
+   5  n_{WT1}^{6}   1.00000e+00   4.95000e-01   5.17524e-02  -5.05491e+04
+   6  n_{WT2}^{6}   1.00000e+00   4.95000e-01   5.17524e-02   1.32072e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-32762.5 FROM HESSE     STATUS=OK             44 CALLS         365 TOTAL
+                     EDM=0.0174587    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{6}   9.88794e-01   3.71454e-02   4.01775e-04   5.01046e-01
+   2  #alpha_{WT2}^{6}   1.32894e+00   6.58957e-02   6.07321e-04   5.08438e-01
+   3  #sigma_{WT1}^{6}   5.32547e-02   9.04291e-04   1.73483e-04  -2.45456e+00
+   4  mean_{WT}^{6}   5.27529e+00   5.73369e-04   1.13385e-04  -1.31180e-02
+   5  n_{WT1}^{6}   1.03095e+01   1.93262e+00   3.11146e-03  -4.21730e-02
+   6  n_{WT2}^{6}   2.01242e+01   8.73353e+00   9.91065e-03  -8.78290e-01
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=-32762.5 FROM MIGRAD    STATUS=CONVERGED     378 CALLS         379 TOTAL
+                     EDM=9.2767e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   9.1 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{6}   9.90078e-01   3.68354e-02   4.30049e-04   2.85633e-01
+   2  #alpha_{WT2}^{6}   1.33674e+00   5.93788e-02   2.29602e-03  -2.18645e+00
+   3  #sigma_{WT1}^{6}   5.33097e-02   8.81824e-04   2.44753e-04   3.94404e+00
+   4  mean_{WT}^{6}   5.27530e+00   5.71517e-04   2.74643e-05   3.38646e+00
+   5  n_{WT1}^{6}   1.02916e+01   1.92934e+00  -5.89092e-04   6.72391e-03
+   6  n_{WT2}^{6}   1.89404e+01   7.17159e+00   2.98720e-02   1.65461e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  1.357e-03  1.098e-03  2.427e-05 -1.140e-05 -5.871e-02  6.538e-02 
+  1.098e-03  3.526e-03  3.905e-05  8.359e-07 -2.410e-02  3.605e-01 
+  2.427e-05  3.905e-05  7.776e-07 -1.699e-07 -6.079e-04  2.544e-03 
+ -1.140e-05  8.359e-07 -1.699e-07  3.266e-07  4.437e-04  5.159e-04 
+ -5.871e-02 -2.410e-02 -6.079e-04  4.437e-04  3.727e+00 -1.249e+00 
+  6.538e-02  3.605e-01  2.544e-03  5.159e-04 -1.249e+00  5.202e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.96544   1.000  0.502  0.747 -0.542 -0.826  0.246
+        2  0.96081   0.502  1.000  0.746  0.025 -0.210  0.842
+        3  0.93564   0.747  0.746  1.000 -0.337 -0.357  0.400
+        4  0.70545  -0.542  0.025 -0.337  1.000  0.402  0.125
+        5  0.91953  -0.826 -0.210 -0.357  0.402  1.000 -0.090
+        6  0.91355   0.246  0.842  0.400  0.125 -0.090  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        3000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-32762.5 FROM HESSE     STATUS=OK             44 CALLS         423 TOTAL
+                     EDM=0.000119217    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  #alpha_{WT1}^{6}   9.90078e-01   3.73924e-02   4.01764e-04  -9.30610e-01
+   2  #alpha_{WT2}^{6}   1.33674e+00   6.25496e-02   6.07350e-04  -8.22209e-01
+   3  #sigma_{WT1}^{6}   5.33097e-02   8.85165e-04   1.73469e-04  -1.10481e+00
+   4  mean_{WT}^{6}   5.27530e+00   5.73653e-04   4.53540e-05  -4.66086e-01
+   5  n_{WT1}^{6}   1.02916e+01   1.96292e+00   1.24458e-03  -9.17932e-01
+   6  n_{WT2}^{6}   1.89404e+01   7.30285e+00   9.91441e-03  -2.47112e+00
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  1.398e-03  1.159e-03  2.469e-05 -1.157e-05 -6.107e-02  7.004e-02 
+  1.159e-03  3.913e-03  4.114e-05  1.378e-06 -2.572e-02  3.949e-01 
+  2.469e-05  4.114e-05  7.835e-07 -1.679e-07 -6.307e-04  2.735e-03 
+ -1.157e-05  1.378e-06 -1.679e-07  3.291e-07  4.584e-04  5.694e-04 
+ -6.107e-02 -2.572e-02 -6.307e-04  4.584e-04  3.858e+00 -1.337e+00 
+  7.004e-02  3.949e-01  2.735e-03  5.694e-04 -1.337e+00  5.396e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.96640   1.000  0.495  0.746 -0.539 -0.831  0.255
+        2  0.96408   0.495  1.000  0.743  0.038 -0.209  0.859
+        3  0.93583   0.746  0.743  1.000 -0.331 -0.363  0.421
+        4  0.70807  -0.539  0.038 -0.331  1.000  0.407  0.135
+        5  0.92260  -0.831 -0.209 -0.363  0.407  1.000 -0.093
+        6  0.92352   0.255  0.859  0.421  0.135 -0.093  1.000
+Info in <TCanvas::Print>: pdf file fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_6_2018_WT_newSigmaFRT_asInANv8.pdf has been created
+fit status:  0 3
+doublecb_6  -----> plotting  
+setting nWT to  27944.0
+mistag fraction on MC for bin  6  :  0.127044168125 +/- 0.276142986869
+constraining var #sigma_{RT1}^{6} :  0.0247308212678  with uncertainty  0.000424311375909
+constraining var #alpha_{RT1}^{6} :  1.23152084971  with uncertainty  0.0498494481882
+constraining var #alpha_{RT2}^{6} :  -2.93966626712  with uncertainty  0.0699816048141
+constraining var n_{RT1}^{6} :  7.16389392052  with uncertainty  0.787331738226
+constraining var n_{RT2}^{6} :  2.78412192348  with uncertainty  0.450239196734
+constraining var #sigma_{WT1}^{6} :  0.0533097081932  with uncertainty  0.000885164819812
+constraining var #alpha_{WT1}^{6} :  0.990078432382  with uncertainty  0.037392425922
+constraining var #alpha_{WT2}^{6} :  1.33674402432  with uncertainty  0.0625496318276
+constraining var n_{WT1}^{6} :  10.29162669  with uncertainty  1.96291613787
+constraining var n_{WT2}^{6} :  18.9403999394  with uncertainty  7.30285246499
+constraining var #sigma_{RT2}^{6} :  0.0405594037403  with uncertainty  0.000273167415848
+constraining var f^{RT6} :  0.411215379323  with uncertainty  0.0167291256731
+219955.0
+total pdf created
+Minuit2Minimizer: Minimize with max-calls 8500 convergence for edm < 1 strategy 2
+Info in <Minuit2>: MnSeedGenerator Initial state: FCN =      -923877.6294 Edm =       1005847.727 NCalls =     59
+Info in <Minuit2>: MnSeedGenerator Negative G2 found - new state: 
+  Minimum value : -983974.7644
+  Edm           : 48836.87983
+  Internal parameters:
+     -1.570876804
+     0.7411743593
+    -0.9306097373
+     -0.822209182
+     -1.254964568
+     -1.165235288
+     -1.104813882
+     -0.594494435
+    -0.1785158868
+    -0.8419025663
+    -0.8257514169
+     -1.190004669
+     -1.334316211
+    -0.9179316992
+    -0.6704697728
+     -1.485490177
+      1.572060253
+  Internal gradient  :
+     -31.59572098
+     -839.3400559
+     0.3149583423
+     0.2525298046
+       5557.39349
+      26830.44904
+     0.4664668946
+      206458.0744
+      -9029.53506
+                0
+       5598.84986
+     0.5865957418
+      3109.927101
+     0.3065637568
+     0.1858154469
+      5122.606715
+     0.2533286627
+  Internal covariance matrix:
+  5.0938078e-06              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0  1.9805039e-05              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0  0.00031347501              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0  0.00067569875              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0  1.1687953e-05              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0  1.2511377e-06              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0  3.1050027e-05              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0  4.4331693e-06              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0   4.818062e-05              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              2              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0  1.6311802e-06              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0  0.00089736608              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0  4.2552446e-05              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0     0.00835331              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0    0.069711002              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0  2.7338401e-05              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0   0.0099817814
+Minuit2:0: RuntimeWarning: MnHesse 2nd derivative zero for parameter f_{M}^{6} ; MnHesse fails and will return diagonal matrix
+Info in <Minuit2>: MnSeedGenerator run Hesse - new state: 
+  Minimum value : -983974.7644
+  Edm           : 48836.87983
+  Internal parameters:
+     -1.570876804
+     0.7411743593
+    -0.9306097373
+     -0.822209182
+     -1.254964568
+     -1.165235288
+     -1.104813882
+     -0.594494435
+    -0.1785158868
+    -0.8419025663
+    -0.8257514169
+     -1.190004669
+     -1.334316211
+    -0.9179316992
+    -0.6704697728
+     -1.485490177
+      1.572060253
+  Internal gradient  :
+     -31.59572098
+     -839.3400559
+     0.3149583423
+     0.2525298046
+       5557.39349
+      26830.44904
+     0.4664668946
+      206458.0744
+      -9029.53506
+                0
+       5598.84986
+     0.5865957418
+      3109.927101
+     0.3065637568
+     0.1858154469
+      5122.606715
+     0.2533286627
+  Internal covariance matrix:
+  5.0938078e-06              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0  1.9805039e-05              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0  0.00031347501              0              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0  0.00067569875              0              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0  1.1687953e-05              0              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0  1.2511377e-06              0              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0  3.1050027e-05              0              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0  4.4331693e-06              0              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0   4.818062e-05              0              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              2              0              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0  1.6311802e-06              0              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0  0.00089736608              0              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0  4.2552446e-05              0              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0     0.00835331              0              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0    0.069711002              0              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0  2.7338401e-05              0
+              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0   0.0099817814
+Info in <Minuit2>: VariableMetricBuilder Start iterating until Edm is < 0.001 with call limit = 8500
+Info in <Minuit2>: VariableMetricBuilder    0 - FCN =      -983974.7644 Edm =       48836.87983 NCalls =    231
+Info in <Minuit2>: VariableMetricBuilder    1 - FCN =      -1003902.265 Edm =       25288.90714 NCalls =    271
+Info in <Minuit2>: VariableMetricBuilder    2 - FCN =      -1022778.989 Edm =       671.2031784 NCalls =    317
+Info in <Minuit2>: VariableMetricBuilder    3 - FCN =      -1022962.254 Edm =       168.3406254 NCalls =    357
+Info in <Minuit2>: VariableMetricBuilder    4 - FCN =      -1023091.095 Edm =       9.965663745 NCalls =    393
+Info in <Minuit2>: VariableMetricBuilder    5 - FCN =      -1023101.282 Edm =       4.105544359 NCalls =    429
+Info in <Minuit2>: VariableMetricBuilder    6 - FCN =      -1023105.672 Edm =      0.9313276243 NCalls =    467
+Info in <Minuit2>: VariableMetricBuilder    7 - FCN =      -1023109.095 Edm =      0.1269391444 NCalls =    506
+Info in <Minuit2>: VariableMetricBuilder    8 - FCN =       -1023109.23 Edm =     0.01142778426 NCalls =    541
+Info in <Minuit2>: VariableMetricBuilder    9 - FCN =      -1023109.263 Edm =     0.01511307879 NCalls =    579
+Info in <Minuit2>: VariableMetricBuilder   10 - FCN =      -1023109.308 Edm =    0.002536204003 NCalls =    621
+Info in <Minuit2>: VariableMetricBuilder   11 - FCN =      -1023109.323 Edm =   0.0008359903989 NCalls =    660
+Minuit2:0: RuntimeWarning: MnHesse 2nd derivative zero for parameter f_{M}^{6} ; MnHesse fails and will return diagonal matrix
+Info in <Minuit2>: VariableMetricBuilder After Hessian
+Info in <Minuit2>: VariableMetricBuilder   12 - FCN =      -1023109.323 Edm =   0.0008359903989 NCalls =    683
+Minuit2:0: RuntimeWarning: VariableMetricBuilder Invalid Hessian - exit the minimization
+Minuit2:0: RuntimeWarning: Minuit2Minimizer::Minimize Minimization did NOT converge, Hesse is not valid
+Minuit2Minimizer : Invalid Minimum - status = 2
+FVAL  = -1.02311e+06
+Edm   = 0.00083599
+Nfcn  = 683
+Info in <Minuit2>: Minuit2Minimizer::Hesse Using max-calls 8500
+Minuit2:0: RuntimeWarning: MnHesse 2nd derivative zero for parameter f_{M}^{6} ; MnHesse fails and will return diagonal matrix
+Minuit2:0: RuntimeWarning: Minuit2Minimizer::Hesse Hesse failed - matrix is not valid
+Minuit2:0: RuntimeWarning: Minuit2Minimizer::Hesse 3
+ROOT::Math::Fitter::CalculateHessErrors:0: RuntimeWarning: Error when calculating Hessian
+fit with Hesse strategy 2 done, now Minos
+Traceback (most recent call last):
+  File "perBin_massFit_allOnMC.py", line 697, in <module>
+    fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
+  File "perBin_massFit_allOnMC.py", line 507, in fitData
+    r.Print()
+ReferenceError: attempt to access a null-pointer

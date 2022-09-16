@@ -1,0 +1,162 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_2018_Jpsi.root
+eff
+1859815.0
+1859815.0
+1475661.53438
+yields
+[265.91898351641106, 457.4291154918475, 360.9468141221872, 792.7430234195288, 1475661.53438366, 1200.4962895384997, 66772.05165540423, 1.2551071293387395e-07]
+265.918983516
+457.429115492
+360.946814122
+792.74302342
+1475661.53438
+1200.49628954
+66772.0516554
+1.25510712934e-07
+efficiency
+[0.0017297498240572287, 0.0021091434521446207, 0.002333823405052547, 0.002285300456693789, 0.0023960426599393663, 0.0034145599386706557, 0.0025768379017656745, 0.0035404964175921975]
+delta_qi2 =  1
+yield[ 0 ] =  265.918983516
+efficiency[ 0 ] =  0.00172974982406
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 0 ] =  1.48022770859e-05
+----------------
+eff_error
+5.34260333729e-06
+yields_error[ibin]
+19.3315773914
+yields_error[4]
+1911.35462321
+delta_qi2 =  2.3
+yield[ 1 ] =  457.429115492
+efficiency[ 1 ] =  0.00210914345214
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 1 ] =  9.07929927587e-06
+----------------
+eff_error
+4.30531589068e-06
+yields_error[ibin]
+25.9195486614
+yields_error[4]
+1911.35462321
+delta_qi2 =  1.7
+yield[ 2 ] =  360.946814122
+efficiency[ 2 ] =  0.00233382340505
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 2 ] =  8.75969093275e-06
+----------------
+eff_error
+5.19599534793e-06
+yields_error[ibin]
+23.101007805
+yields_error[4]
+1911.35462321
+delta_qi2 =  2.68
+yield[ 3 ] =  792.74302342
+efficiency[ 3 ] =  0.00228530045669
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 3 ] =  1.24628340135e-05
+----------------
+eff_error
+3.80563764414e-06
+yields_error[ibin]
+33.4721777787
+yields_error[4]
+1911.35462321
+delta_qi2 =  1.41
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 4 ] =  0.0420567375887
+----------------
+eff_error
+1.75695109517e-06
+yields_error[ibin]
+1911.35462321
+yields_error[4]
+1911.35462321
+delta_qi2 =  2.77
+yield[ 5 ] =  1200.49628954
+efficiency[ 5 ] =  0.00341455993867
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 5 ] =  1.22210577132e-05
+----------------
+eff_error
+4.29580866696e-06
+yields_error[ibin]
+42.1569196869
+yields_error[4]
+1911.35462321
+delta_qi2 =  1.32
+yield[ 6 ] =  66772.0516554
+efficiency[ 6 ] =  0.00257683790177
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 6 ] =  0.00189014957255
+----------------
+eff_error
+5.49439882178e-06
+yields_error[ibin]
+424.200372835
+yields_error[4]
+1911.35462321
+delta_qi2 =  1.82
+yield[ 7 ] =  1.25510712934e-07
+efficiency[ 7 ] =  0.00354049641759
+yield[ 4 ] =  1475661.53438
+efficiency[ 4 ] =  0.00239604265994
+d_branch_f[ 4 ] =  0.0593
+d_branch_f[ 7 ] =  1.87545968034e-15
+----------------
+eff_error
+5.66608537614e-06
+yields_error[ibin]
+1.14927739098
+yields_error[4]
+1911.35462321
+[1.5, 3.15, 5.15, 7.34, 9.385, 11.475, 13.52, 15.09]
+x error
+[0.5, 1.15, 0.8500000000000005, 1.3399999999999999, 0, 1.3849999999999998, 0, 0.9100000000000001]
+d_branch_f
+[1.4802277085945027e-05, 9.079299275865179e-06, 8.759690932748046e-06, 1.2462834013485517e-05, 0, 1.2221057713162202e-05, 0, 1.875459680338204e-15]
+stat_errors
+[1.0762555452487373e-06, 5.145995431711061e-07, 5.607450094759516e-07, 5.264687516000598e-07, 0, 4.294494665322539e-07, 0, 1.7173222571347485e-08]
+syst_errors
+[1.8377900862094321e-06, 1.0484598397716427e-06, 1.0446225080717674e-06, 1.3598679119567352e-06, 0, 1.3022735547864813e-06, 0, 1.7173222571347485e-08]
+num_events
+[104824.0, 239995.0, 201743.0, 360605.0, 1859815.0, 631800.0, 219955.0, 390447.0]
+Info in <TCanvas::Print>: pdf file branching_fraction.pdf has been created
+Info in <TCanvas::Print>: pdf file yields.pdf has been created
+Info in <TCanvas::Print>: pdf file efficiencies.pdf has been created
+yields
+[265.91898351641106, 457.4291154918475, 360.9468141221872, 792.7430234195288, 0, 1200.4962895384997, 0, 1.2551071293387395e-07]
+x_err
+[0.5, 1.15, 0.8500000000000005, 1.3399999999999999, 0, 1.3849999999999998, 0, 0]
+efficiency
+[0.0017297498240572287, 0.0021091434521446207, 0.002333823405052547, 0.002285300456693789, 0.0023960426599393663, 0.0034145599386706557, 0.0025768379017656745, 0.0035404964175921975]
+eff_error
+[5.342603337289581e-06, 4.3053158906795685e-06, 5.1959953479324436e-06, 3.805637644136353e-06, 1.7569510951698102e-06, 4.295808666963292e-06, 5.494398821777377e-06, 5.666085376139398e-06]
+x_err
+[0.5, 1.15, 0.8500000000000005, 1.3399999999999999, 0, 1.3849999999999998, 0, 0]
+It took 0.43356180191 seconds
+0.00722641547521 minutes
+0.000120442178514 hours

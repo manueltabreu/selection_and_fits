@@ -1,0 +1,253 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+start function declaration
+mc file name: /lstore/cms/boletti/Run2-BdToKstarMuMu/2018MC_LMNR_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root
+data file name: /lstore/cms/boletti/Run2-BdToKstarMuMu/2018data_newphi_punzi_removeTkMu_fixBkg_B0Psicut_addxcutvariable.root
+reading data...
+[#0] ERROR:InputArguments -- Didn't find a branch in Tree 'ntuple' to read variable 'weight' from.
+	Note: Name the RooFit variable the same as the branch.
+it worked :)
+reading monte carlo...
+dimuon selection:  rejectPsi
+now fitting:  0  for  correctTag  
+fitting the mc...
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 #alpha_{RT1}^{0}   5.00000e-01  2.50000e-01    0.00000e+00  1.00000e+01
+     2 #alpha_{RT2}^{0}   2.50000e+00  1.00000e+00    0.00000e+00  1.00000e+01
+     3 #sigma_{RT1}^{0}   3.00000e-02  1.50000e-02    0.00000e+00  1.00000e+00
+     4 mean_{RT}^{0}   5.27958e+00  3.97900e-02    5.20000e+00  5.80000e+00
+     5 n_{RT1}^{0}   1.00000e+00  4.95000e-01    1.00000e-02  2.00000e+01
+     6 n_{RT2}^{0}   1.00000e+00  4.95000e-01    1.00000e-02  1.00000e+02
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        3000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-124212 FROM MIGRAD    STATUS=INITIATE       24 CALLS          25 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{RT1}^{0}   5.00000e-01   2.50000e-01   1.18625e-01  -1.08727e+05
+   2  #alpha_{RT2}^{0}   2.50000e+00   1.00000e+00   2.35352e-01   1.75364e+04
+   3  #sigma_{RT1}^{0}   3.00000e-02   1.50000e-02   9.09734e-02  -5.19606e+04
+   4  mean_{RT}^{0}   5.27958e+00   3.97900e-02   2.01879e-01  -1.33366e+05
+   5  n_{RT1}^{0}   1.00000e+00   4.95000e-01   1.18032e-01  -6.62305e+04
+   6  n_{RT2}^{0}   1.00000e+00   4.95000e-01   5.17524e-02   9.35757e+03
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-154112 FROM MIGRAD    STATUS=CONVERGED     365 CALLS         366 TOTAL
+                     EDM=2.0788e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{RT1}^{0}   1.21719e+00   2.31419e-02   5.24559e-04   6.12732e-01
+   2  #alpha_{RT2}^{0}   1.28520e+00   2.38346e-02   6.25603e-04   2.54133e-01
+   3  #sigma_{RT1}^{0}   3.07733e-02   2.55040e-04   1.64293e-04  -2.46723e+00
+   4  mean_{RT}^{0}   5.27969e+00   1.66388e-04   1.71375e-04   8.07611e-01
+   5  n_{RT1}^{0}   3.94134e+00   1.77760e-01   2.29172e-03   2.03562e-01
+   6  n_{RT2}^{0}   9.23784e+00   7.13357e-01   3.09967e-03   1.79271e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  5.356e-04  2.601e-04  4.333e-06 -1.708e-06 -3.620e-03 -2.982e-03 
+  2.601e-04  5.681e-04  4.316e-06  5.209e-07 -1.145e-03 -1.362e-02 
+  4.333e-06  4.316e-06  6.505e-08 -8.894e-09 -2.075e-05 -5.646e-05 
+ -1.708e-06  5.209e-07 -8.894e-09  2.768e-08  1.111e-05 -2.157e-05 
+ -3.620e-03 -1.145e-03 -2.075e-05  1.111e-05  3.160e-02  1.156e-02 
+ -2.982e-03 -1.362e-02 -5.646e-05 -2.157e-05  1.156e-02  5.090e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.96191   1.000  0.472  0.734 -0.443 -0.880 -0.181
+        2  0.94604   0.472  1.000  0.710  0.131 -0.270 -0.801
+        3  0.91190   0.734  0.710  1.000 -0.210 -0.458 -0.310
+        4  0.63355  -0.443  0.131 -0.210  1.000  0.376 -0.182
+        5  0.92577  -0.880 -0.270 -0.458  0.376  1.000  0.091
+        6  0.88602  -0.181 -0.801 -0.310 -0.182  0.091  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        3000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-154112 FROM HESSE     STATUS=OK             40 CALLS         406 TOTAL
+                     EDM=2.22163e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  #alpha_{RT1}^{0}   1.21719e+00   2.37967e-02   2.09823e-05  -8.58040e-01
+   2  #alpha_{RT2}^{0}   1.28520e+00   2.47210e-02   2.50241e-05  -8.37483e-01
+   3  #sigma_{RT1}^{0}   3.07733e-02   2.59976e-04   6.57170e-06  -1.21812e+00
+   4  mean_{RT}^{0}   5.27969e+00   1.67354e-04   6.85500e-06  -8.24713e-01
+   5  n_{RT1}^{0}   3.94134e+00   1.82289e-01   9.16688e-05  -6.51864e-01
+   6  n_{RT2}^{0}   9.23784e+00   7.38945e-01   1.23987e-04  -9.53463e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  5.663e-04  2.830e-04  4.589e-06 -1.776e-06 -3.841e-03 -3.464e-03 
+  2.830e-04  6.111e-04  4.602e-06  5.364e-07 -1.277e-03 -1.486e-02 
+  4.589e-06  4.602e-06  6.759e-08 -9.237e-09 -2.245e-05 -6.364e-05 
+ -1.776e-06  5.364e-07 -9.237e-09  2.801e-08  1.168e-05 -2.279e-05 
+ -3.841e-03 -1.277e-03 -2.245e-05  1.168e-05  3.324e-02  1.399e-02 
+ -3.464e-03 -1.486e-02 -6.364e-05 -2.279e-05  1.399e-02  5.462e-01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.96402   1.000  0.481  0.742 -0.446 -0.885 -0.197
+        2  0.94994   0.481  1.000  0.716  0.130 -0.283 -0.813
+        3  0.91537   0.742  0.716  1.000 -0.212 -0.474 -0.331
+        4  0.63898  -0.446  0.130 -0.212  1.000  0.383 -0.184
+        5  0.92955  -0.885 -0.283 -0.474  0.383  1.000  0.104
+        6  0.89423  -0.197 -0.813 -0.331 -0.184  0.104  1.000
+fit status:  0 3
+doublecb_RT0  -----> plotting  
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+setting nRT to  92305.0
+Info in <TCanvas::Print>: pdf file fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_0_2018_RT_newSigmaFRT_asInANv8.pdf has been created
+now fitting:  0  for   wrongTag
+fitting the mc...
+ **********
+ **   10 **SET PRINT           1
+ **********
+ **********
+ **   11 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 #alpha_{WT1}^{0}   5.00000e-01  2.50000e-01    0.00000e+00  1.00000e+01
+     2 #alpha_{WT2}^{0}   2.50000e+00  1.00000e+00    0.00000e+00  1.00000e+01
+     3 #sigma_{WT1}^{0}   3.00000e-02  1.50000e-02    0.00000e+00  1.00000e+00
+     4 mean_{WT}^{0}   5.27958e+00  1.00000e-01    5.00000e+00  6.00000e+00
+     5 n_{WT1}^{0}   1.00000e+00  4.95000e-01    1.00000e-02  1.00000e+02
+     6 n_{WT2}^{0}   1.00000e+00  4.95000e-01    1.00000e-02  1.00000e+02
+ **********
+ **   12 **SET ERR         0.5
+ **********
+ **********
+ **   13 **SET PRINT           1
+ **********
+ **********
+ **   14 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **   15 **MIGRAD        3000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-11057.2 FROM MIGRAD    STATUS=INITIATE       24 CALLS          25 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{0}   5.00000e-01   2.50000e-01   1.18625e-01  -9.36579e+03
+   2  #alpha_{WT2}^{0}   2.50000e+00   1.00000e+00   2.35352e-01   6.52576e+03
+   3  #sigma_{WT1}^{0}   3.00000e-02   1.50000e-02   9.09734e-02  -1.70775e+04
+   4  mean_{WT}^{0}   5.27958e+00   1.00000e-01   2.26180e-01  -2.90662e+04
+   5  n_{WT1}^{0}   1.00000e+00   4.95000e-01   5.17524e-02  -1.87040e+04
+   6  n_{WT2}^{0}   1.00000e+00   4.95000e-01   5.17524e-02   4.96395e+03
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-13820.2 FROM MIGRAD    STATUS=CONVERGED     415 CALLS         416 TOTAL
+                     EDM=1.65394e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  #alpha_{WT1}^{0}   7.06155e-01   4.53584e-02   2.94481e-04  -1.23000e-01
+   2  #alpha_{WT2}^{0}   1.17298e+00   7.71351e-02   4.82197e-04  -4.07470e-01
+   3  #sigma_{WT1}^{0}   4.61227e-02   1.73096e-03   1.72571e-04   9.70511e-01
+   4  mean_{WT}^{0}   5.27008e+00   1.03733e-03   1.11747e-04   8.83280e-01
+   5  n_{WT1}^{0}   1.07172e+01   3.07038e+00   2.92323e-03   1.13092e-02
+   6  n_{WT2}^{0}   1.00085e+01   2.43729e+00   2.89485e-03  -7.17164e-02
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  2.058e-03  2.216e-03  6.443e-05 -3.298e-05 -1.077e-01 -2.852e-02 
+  2.216e-03  5.951e-03  1.093e-04 -1.952e-05 -5.497e-02 -1.452e-01 
+  6.443e-05  1.093e-04  2.996e-06 -1.011e-06 -1.825e-03 -1.569e-03 
+ -3.298e-05 -1.952e-05 -1.011e-06  1.076e-06  1.527e-03 -7.537e-05 
+ -1.077e-01 -5.497e-02 -1.825e-03  1.527e-03  9.458e+00  5.126e-01 
+ -2.852e-02 -1.452e-01 -1.569e-03 -7.537e-05  5.126e-01  5.954e+00 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.97885   1.000  0.633  0.821 -0.701 -0.772 -0.258
+        2  0.96876   0.633  1.000  0.819 -0.244 -0.232 -0.772
+        3  0.96630   0.821  0.819  1.000 -0.563 -0.343 -0.372
+        4  0.80826  -0.701 -0.244 -0.563  1.000  0.479 -0.030
+        5  0.93073  -0.772 -0.232 -0.343  0.479  1.000  0.068
+        6  0.90119  -0.258 -0.772 -0.372 -0.030  0.068  1.000
+ **********
+ **   16 **SET ERR         0.5
+ **********
+ **********
+ **   17 **SET PRINT           1
+ **********
+ **********
+ **   18 **HESSE        3000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-13820.2 FROM HESSE     STATUS=OK             40 CALLS         456 TOTAL
+                     EDM=1.70098e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  #alpha_{WT1}^{0}   7.06155e-01   4.65894e-02   5.88962e-05  -1.03286e+00
+   2  #alpha_{WT2}^{0}   1.17298e+00   7.99454e-02   9.64395e-05  -8.71670e-01
+   3  #sigma_{WT1}^{0}   4.61227e-02   1.76520e-03   3.45142e-05  -1.13790e+00
+   4  mean_{WT}^{0}   5.27008e+00   1.04578e-03   2.23493e-05  -4.77805e-01
+   5  n_{WT1}^{0}   1.07172e+01   3.15825e+00   1.16929e-04  -9.04044e-01
+   6  n_{WT2}^{0}   1.00085e+01   2.52430e+00   1.15794e-04  -9.27313e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  6    ERR DEF=0.5
+  2.171e-03  2.371e-03  6.757e-05 -3.428e-05 -1.148e-01 -3.236e-02 
+  2.371e-03  6.393e-03  1.162e-04 -2.058e-05 -6.034e-02 -1.587e-01 
+  6.757e-05  1.162e-04  3.116e-06 -1.041e-06 -1.964e-03 -1.759e-03 
+ -3.428e-05 -2.058e-05 -1.041e-06  1.094e-06  1.620e-03 -5.932e-05 
+ -1.148e-01 -6.034e-02 -1.964e-03  1.620e-03  1.001e+01  6.100e-01 
+ -3.236e-02 -1.587e-01 -1.759e-03 -5.932e-05  6.100e-01  6.387e+00 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6
+        1  0.97997   1.000  0.636  0.822 -0.704 -0.779 -0.275
+        2  0.97096   0.636  1.000  0.823 -0.246 -0.239 -0.786
+        3  0.96762   0.822  0.823  1.000 -0.564 -0.352 -0.394
+        4  0.81171  -0.704 -0.246 -0.564  1.000  0.490 -0.022
+        5  0.93467  -0.779 -0.239 -0.352  0.490  1.000  0.076
+        6  0.90823  -0.275 -0.786 -0.394 -0.022  0.076  1.000
+Info in <TCanvas::Print>: pdf file fit_results_mass_checkOnMC/newbdt_puw/save_fit_mc_0_2018_WT_newSigmaFRT_asInANv8.pdf has been created
+fit status:  0 3
+doublecb_0  -----> plotting  
+setting nWT to  12519.0
+mistag fraction on MC for bin  0  :  0.119428756773 +/- 0.269152750946
+constraining var #sigma_{RT1}^{0} :  0.030773349227  with uncertainty  0.000259976487711
+constraining var #alpha_{RT1}^{0} :  1.2171880137  with uncertainty  0.0237966892595
+constraining var n_{RT1}^{0} :  3.94134467547  with uncertainty  0.182289418197
+constraining var #sigma_{WT1}^{0} :  0.0461226616583  with uncertainty  0.00176519765775
+constraining var #alpha_{WT1}^{0} :  0.706155420291  with uncertainty  0.0465894428934
+constraining var #alpha_{WT2}^{0} :  1.17297608777  with uncertainty  0.079945364585
+constraining var n_{WT1}^{0} :  10.717229319  with uncertainty  3.15825085853
+constraining var n_{WT2}^{0} :  10.0084523707  with uncertainty  2.52429661864
+Traceback (most recent call last):
+  File "perBin_massFit_allOnMC.py", line 746, in <module>
+    fitData(fulldata, ibin, nRT_fromMC, nWT_fromMC)
+  File "perBin_massFit_allOnMC.py", line 431, in fitData
+    c_pdfs_rt = RooArgSet(c_sigma_rt1, c_alpha_rt1, c_n_rt1, c_n_rt2)
+NameError: global name 'c_n_rt2' is not defined

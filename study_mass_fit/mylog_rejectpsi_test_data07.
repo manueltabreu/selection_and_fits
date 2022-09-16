@@ -1,0 +1,39 @@
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+Error in <TUnixSystem::FindDynamicLibrary>: ../utils/func_roofit/libRooGaussDoubleSidedExp[.so | .dll | .dylib | .sl | .dl | .a] does not exist in /cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/cvmfs/sw.el7/gcc63/pythia/8.2.40/b02/lib:/cvmfs/sw.el7/gcc/6.3/lib64:/cvmfs/sw.el7/gcc/6.3/lib:/cvmfs/sw.el7/gcc/6.3/libexec/gcc/x86_64-unknown-linux-gnu/6.3.1:.:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/lib:/lib64/tls/x86_64:/lib64/tls:/lib64/x86_64:/lib64:/usr/lib64/tls/x86_64:/usr/lib64/tls:/usr/lib64/x86_64:/usr/lib64:/cvmfs/sw.el7/gcc63/root/6.24.06/b01/python/lib:/cvmfs/sw.el7/gcc63/root/6.24.06
+104824.0
+239995.0
+201743.0
+360605.0
+0.0
+631800.0
+0.0
+390447.0
+fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_2018_Jpsi.root
+266.249612029
+no value calculated for normalized efficiency
+assuming value of 0.00247
+no value calculated for efficiency of the Psi Prime
+assuming value of 0.00265
+yields
+[266.24961202947884, 457.4291188016444, 360.8221403914036, 792.7427824641064, 266.24961202947884, 1200.496289495756, 266.24961202947884, 1.3179568547627696e-05]
+266.249612029
+457.429118802
+360.822140391
+792.742782464
+266.249612029
+1200.4962895
+266.249612029
+1.31795685476e-05
+efficiency
+[0.0017297498240572287, 0.0021091434521446207, 0.002333823405052547, 0.002285300456693789, 0.00247, 0.0034145599386706557, 0.00265, 0.0035404964175921975]
+branch_f
+[0.08467756317294703, 0.022554057287682554, 0.029429982765026588, 0.026569419460393602, 0.02982747346712941, 0.01267917455930759, 0.01595584045077915, 3.1097014465991393e-10]
+Info in <TCanvas::Print>: pdf file branching_fraction.pdf has been created
+Error in <TFile::WriteTObject>: Directory fit_results_mass_checkOnMC/newbdt_puw/yields_efficiencies_2018_Psi.root is not writable
+It took 0.247699975967 seconds
+0.0041291475296 minutes
+6.88202513589e-05 hours

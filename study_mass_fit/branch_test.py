@@ -1,6 +1,7 @@
 import argparse
 from ast import Yield
 from calendar import c
+from tkinter import N
 parser = argparse.ArgumentParser(description="")
 #parser.add_argument("inputfile" , help = "Path to the input ROOT file")
 parser.add_argument("dimusel"   , help = "Define if keep or remove dimuon resonances. You can choose: keepPsiP, keepJpsi, rejectPsi, keepPsi")
@@ -54,15 +55,27 @@ q2binning = [
 #                 19,
 ]
 
+num_real_events = [
+                        60600671,
+                        113787898,
+                        86443130,
+                        157793256,
+                        776202791,
+                        185031164,
+                        85358493,
+                        110280298,
+]
+
 MC_num_entries = [104824.0, 239995.0, 201743.0, 360605.0, 0, 631800.0, 0, 390447.0]
 MC_RT_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
 MC_WT_num_entries = [0, 0, 0, 0, 0, 0, 0, 0]
 MC_num_entries_error = [0, 0, 0, 0, 0, 0, 0, 0]
-
+eff = [0, 0, 0, 0, 0, 0, 0, 0]
+eff_error = [0, 0, 0, 0, 0, 0, 0, 0]
 tgraph_y = [266.24961202947884, 457.4291188016444, 360.8221403914036, 792.7427824641064, 0, 1200.496289495756, 0, 1.3179568547627696e-05]
 tgraph_x = [0, 0, 0, 0, 0, 0, 0, 0]
 tgraph_ex = [0, 0, 0, 0, 0, 0, 0, 0]
-tgraph_ey = [0, 0, 0, 0, 0, 0, 0, 0]
+tgraph_ey = [19, 26, 23, 33.5, 0, 42, 0, 0.5]
 
 
 #create Tgraph
@@ -73,7 +86,9 @@ for ibin in range(len(q2binning)-1):
 
 #   efficiencies
 #    MC_num_entries[ibin] = MC_RT_num_entries[ibin] + MC_WT_num_entries[ibin]
+    eff[ibin] = MC_num_entries[ibin] / num_real_events[ibin]
     MC_num_entries_error[ibin] = math.sqrt(MC_num_entries[ibin])
+    eff_error[ibin] = MC_num_entries_error[ibin] / num_real_events[ibin]
 
 #   q2bins
     tgraph_x[ibin] = middle_value
@@ -85,22 +100,22 @@ arr_tgraph_x = array.array('d',tgraph_x)
 arr_tgraph_ex = array.array('d',tgraph_ex)
 arr_tgraph_y = array.array('d',tgraph_y)
 arr_tgraph_ey = array.array('d',tgraph_ey)
-arr_MC_num_entries = array.array('d',MC_num_entries)
-arr_MC_num_entries_error = array.array('d',MC_num_entries_error)
+arr_eff = array.array('d',eff)
+arr_eff_error = array.array('d',eff_error)
 
 tgraph_yield = TGraphErrors(8, np.array(arr_tgraph_x), np.array(arr_tgraph_y), np.array(arr_tgraph_ex), np.array(arr_tgraph_ey))
 #tgraph_yield = TGraphErrors(8, tgraph_x, tgraph_y, tgraph_ex, tgraph_ey)
 
-tgraph_efficiency = TGraphErrors(8, np.array(arr_tgraph_x), np.array(arr_MC_num_entries), np.array(arr_tgraph_ex), np.array(arr_MC_num_entries_error))
+tgraph_efficiency = TGraphErrors(8, np.array(arr_tgraph_x), np.array(arr_eff), np.array(arr_tgraph_ex), np.array(arr_eff_error))
 
 print 'tgraph_y'
 print(tgraph_y)
 
-print 'MC_num_entries'
-print(MC_num_entries)
+print 'eff'
+print(eff)
 
-print 'MC_num_entries_error'
-print(MC_num_entries_error)
+print 'eff_error'
+print(eff_error)
 
 c2 = ROOT.TCanvas() 
 tgraph_yield.SetName("Yields")
